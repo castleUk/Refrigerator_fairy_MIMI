@@ -4,6 +4,7 @@ import Character from './Character';
 import CharacterCreate from './CharacterCreate';
 
 const CharacterComponent = () => {
+
   return(
     <div className='character-component'>
       <div className='character-content'>

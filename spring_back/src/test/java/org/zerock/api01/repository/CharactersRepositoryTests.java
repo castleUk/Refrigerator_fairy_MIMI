@@ -1,5 +1,7 @@
 package org.zerock.api01.repository;
 
+import java.util.Optional;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -26,4 +28,16 @@ public class CharactersRepositoryTests {
     charactersRepository.save(characters);
   }
   
+
+  @Test
+  public void testSelect(){
+    Long charKey = 1L;
+
+    Optional<Characters>  result = charactersRepository.findById(charKey);
+
+    Characters characters = result.orElseThrow();
+
+    log.info(characters);
+  }
+
 }

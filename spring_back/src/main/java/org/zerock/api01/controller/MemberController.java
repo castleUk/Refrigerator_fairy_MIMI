@@ -10,6 +10,7 @@ import org.zerock.api01.dto.MemberJoinDTO;
 import org.zerock.api01.service.MemberService;
 import org.zerock.api01.service.MemberService.MidExistException;
 
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
@@ -21,23 +22,8 @@ public class MemberController {
 
   private final MemberService memberService;
 
-  //로그인
-  // @GetMapping("/login")
-  // public void loginGet(String error, String logout) {
-  //   log.info("login get................");
-  //   log.info("logout : " + logout);
 
-  //   if (logout != null) {
-  //     log.info("user logout.....");
-  //   }
-  // }
-
-  //회원가입
-  // @GetMapping("/join")
-  // public void joinGET() {
-  //   log.info("join get.......");
-  // }
-
+  @ApiOperation(value = "회원 가입" ,notes = "POST 방식으로 회원가입")
   @PostMapping("/join")
   public Map<String, String> register(@RequestBody MemberJoinDTO memberJoinDTO) throws MidExistException
    {

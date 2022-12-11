@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import {Link} from 'react-router-dom'; 
 // icon
 import { BsFillBellFill } from "react-icons/bs";
@@ -15,6 +15,24 @@ import FredgeNoticeComponent from '../notice/FredgeNoticeComponent';
 const Header = () => {
   const [noticeShow, setNoticeShow] = useState(false);
   const [changeShow, setChangeShow] = useState(false);
+
+    //로그인 상태 관리
+    const [isLogin, setIsLogin] = useState(false)
+
+useEffect(() => {
+  if(localStorage.getItem('accessToken')===null){
+    console.log('isLogin ?? :: ', isLogin)
+  }else{
+    setIsLogin(true)
+    console.log('isLogin ?? :: ' , isLogin)
+  }
+},[])
+
+  const logoutHandler = e => {
+    e.preventDefault();
+    setIsLogin(false)
+    localStorage.removeItem('accessToken')
+  }
 
   const noticeHandleClick = e =>{
     e.preventDefault();
@@ -39,7 +57,8 @@ const Header = () => {
             <li className='sub-item'><Link to="/" className='sub-link'><FaHome className='icon'/></Link></li>
             <li className='sub-item'><Link className='sub-link' onClick={noticeHandleClick}><BsFillBellFill className='icon'/></Link></li>
             <li className='sub-item'><Link className='sub-link' onClick={changeHandleClick}><CgSmartHomeRefrigerator className='icon'/></Link></li>
-            <li className='sub-item'><Link to="/login" className='sub-link'>로그인</Link></li>
+            {!isLogin && <li className='sub-item'><Link to="/login" className='sub-link'>로그인</Link></li>}
+            {isLogin && <li className='sub-item' onClick={logoutHandler}><Link to="/login" className='sub-link'>로그아웃</Link></li>}
             <li className='sub-item'>
               <Dropdown className='user-dropdown'>
                 <Dropdown.Toggle id="userDropdown">홍길동님</Dropdown.Toggle>

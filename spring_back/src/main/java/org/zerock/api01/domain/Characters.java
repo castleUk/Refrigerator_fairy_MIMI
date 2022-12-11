@@ -30,5 +30,9 @@ public class Characters extends BaseEntity{
   
   private String charName;
 
+  public void changeName(String name){
+    this.charName = name;
+  }
+
   
 }

@@ -5,12 +5,14 @@ import '../src/assets/scss/app.scss';
 // react
 import { Route, Routes } from 'react-router-dom';
 
+
 // page
 import MainLayout from './components/MainLayout';
 import LoginPage from './page/LoginPage';
 import ContentLayout from './components/ContentLayout';
 
 function App() {
+
   return (
     <div className="app">
       <Routes>
