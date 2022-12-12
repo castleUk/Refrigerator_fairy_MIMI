@@ -59,6 +59,7 @@ public class JWTUtil {
         .parseClaimsJws(token) // 파싱 및 검증, 실패시 에러
         .getBody();
 
+      log.info(claim);
     return claim;
   }
 }

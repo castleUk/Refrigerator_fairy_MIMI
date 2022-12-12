@@ -9,7 +9,7 @@ const RegisterContainer = () => {
   //등록처리
   const onRegister = async (userId, userEmail, userPw, userPhone, userName) => {
     try {
-      await api.adminSetup(userId, userEmail, userPw, userName, userPhone);
+      await api.adminSetup(userId, userEmail, userPw, userPhone, userName);
 
       alert(" 등록이 완료되었습니다");
 

@@ -52,8 +52,10 @@ export  const login = async (account) => {
     const accessToken = data.accessToken;
     const refreshToken = data.refreshToken;
 
+    //기본 헤더에 accessToken 넣기
     axios.defaults.headers.common["Authorization"] = "Bearer " + accessToken;
 
+    //localStorage에 토큰들 저장
     localStorage.setItem("accessToken", accessToken);
     localStorage.setItem("refreshToken", refreshToken);
 
@@ -63,12 +65,18 @@ export  const login = async (account) => {
   }
 };
 
-//냉장고 생성 호출
-
-// export const characterCreate = async(charName) => {
-//   const response = await fetch("http://localhost:8080/api/characterCreate",{
-//     method : "POST"
-//     body: JSON.stringify()
-//   })
-
+// export const characterList = async() => {
+  
+  
+//   try {
+//     const response = await axios.post(
+//       "http://localhost:8080/member/login",
+//       JSON.stringify(loginInfo),
+//       { headers: { "Content-Type": "application/json" } }
+//     );
+    
+//   } catch (error) {
+    
+//   }
+  
 // }

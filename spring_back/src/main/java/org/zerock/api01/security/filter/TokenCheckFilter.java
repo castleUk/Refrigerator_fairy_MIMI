@@ -12,7 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.hibernate.cache.spi.support.AccessedDataClassification;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.filter.OncePerRequestFilter;
+import org.zerock.api01.security.APIUserDetailsService;
 import org.zerock.api01.security.exception.AccessTokenException;
 import org.zerock.api01.util.JWTUtil;
 
@@ -22,6 +26,7 @@ import org.zerock.api01.util.JWTUtil;
 @RequiredArgsConstructor
 public class TokenCheckFilter extends OncePerRequestFilter { //OncePerRequestFilter는 하나의 요청에 대해서 한번씩 동작하는 필터
 
+  private final APIUserDetailsService apiUserDetailsService;
   private final JWTUtil jwtUtil;
 
   @Override
@@ -47,7 +52,34 @@ public class TokenCheckFilter extends OncePerRequestFilter { //OncePerRequestFil
     } catch (AccessTokenException accessTokenException) {
       accessTokenException.sendResponseError(response);
     }
+
+    try {
+      Map<String, Object> payload = validateAccessToken(request);
+
+      //userId
+      String userId = (String)payload.get("userId");
+
+      log.info(userId);
+
+      UserDetails userDetails = apiUserDetailsService.loadUserByUsername(userId);
+
+      UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+
+      SecurityContextHolder.getContext().setAuthentication(authentication);
+      filterChain.doFilter(request, response);
+
+    } catch (AccessTokenException accessTokenException) {
+      accessTokenException.sendResponseError(response);
+      
+    }
+
+
+
   }
+
+
+
+
 
   private Map<String, Object> validateAccessToken(HttpServletRequest request)
     throws AccessTokenException {
@@ -79,5 +111,15 @@ public class TokenCheckFilter extends OncePerRequestFilter { //OncePerRequestFil
       log.error("expiredJwtException==============================");
       throw new AccessTokenException(AccessTokenException.TOKEN_ERROR.EXPIRED);
     }
+    
   }
+
+
+
+
+
+
+
+
+
 }
