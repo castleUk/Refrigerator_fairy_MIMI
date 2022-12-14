@@ -33,7 +33,7 @@ export const adminSetup = async (
 };
 
 //로그인 API 호출 함수
-export  const login = async (account) => {
+export const login = async (account) => {
   const loginInfo = {
     userId: account.userId,
     userPw: account.userPw,
@@ -65,18 +65,33 @@ export  const login = async (account) => {
   }
 };
 
-// export const characterList = async() => {
-  
-  
-//   try {
-//     const response = await axios.post(
-//       "http://localhost:8080/member/login",
-//       JSON.stringify(loginInfo),
-//       { headers: { "Content-Type": "application/json" } }
-//     );
-    
-//   } catch (error) {
-    
-//   }
-  
-// }
+//캐릭터 등록
+export const addChar = async (charInfo) => {
+  const accessToken = localStorage.getItem("accessToken");
+  const headers = {
+    'Content-Type': 'application/json',
+    'Authorization':  "Bearer " +accessToken,
+  }
+
+  let param = [{'fruit1':'apple', 'fruit2':'banana'}]; 
+
+  const response = await axios.post(
+    "http://localhost:8080/api/characters",
+    param,
+    {headers}
+  );
+  console.log(response);
+  }
+
+
+  export const callRefresh = async () => {  //Expired Token 메시지가 전송되면 기존의 토큰들을 전송해서 새로운 Access Token을 받아서 Local Storage에 저장
+
+    const accessToken = localStorage.getItem("accessToken")
+    const refreshToken = localStorage.getItem("refreshToken")
+
+    const tokens = {accessToken, refreshToken}
+    const res = await axios.post("http://localhost:8080/refreshToken", tokens)
+    localStorage.setItem("accessToken", res.data.accessToken)
+    localStorage.setItem("refreshToken", res.data.refreshToken)
+}
+

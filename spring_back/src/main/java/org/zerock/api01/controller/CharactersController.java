@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.http.MediaType;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.BindException;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.zerock.api01.domain.Characters;
 import org.zerock.api01.dto.CharactersDTO;
@@ -24,29 +27,21 @@ import org.zerock.api01.service.CharactersService;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
-@RequestMapping("/api/characters")
+@RequestMapping("/api")
 @Log4j2
 @RequiredArgsConstructor
 public class CharactersController {
 
   private final CharactersService charactersService;
 
-  @ApiOperation(value = "Replies POST", notes = "POST 방식으로 댓글 등록")
-  @PostMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE)
-  public Map<String, Long> register(@RequestBody  CharactersDTO charactersDTO, BindingResult bindingResult)throws BindException {
-    log.info(charactersDTO);
+  
+  @ApiOperation(value = "Replies POST", notes = "POST 방식으로 캐릭터 등록")
+  @PostMapping(value = "/characters")
+  public void register (HashMap<String, Object> param)throws BindException {
+    log.info(param);
 
-    if (bindingResult.hasErrors()) {
-      throw new BindException(bindingResult);
-    }
+    // charactersService.register(charName);
 
-    Map<String, Long> resultMap = new HashMap<>();
-
-    Long charKey = charactersService.register(charactersDTO);
-
-    resultMap.put("charKey", charKey);
-
-    return resultMap;
   }
 
   // @ApiOperation(

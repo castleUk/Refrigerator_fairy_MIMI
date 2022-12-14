@@ -12,7 +12,7 @@ const LoginContainer = () => {
 
       alert(" 로그인 해또");
 
-      navigate("/");
+      navigate("/char");
     } catch (e) {
       alert("로그인실패 :" + e.response.data)
 
