@@ -7,6 +7,7 @@ import * as api from "../../lib/api";
 const CharacterComponent = () => {
   //등록처리
   const onAddChar = async (charInfo) => {
+    
     console.log("아아")
     try {
       await api.addChar(charInfo);

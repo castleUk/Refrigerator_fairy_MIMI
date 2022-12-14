@@ -67,19 +67,27 @@ export const login = async (account) => {
 
 //캐릭터 등록
 export const addChar = async (charInfo) => {
+  
+  
   const accessToken = localStorage.getItem("accessToken");
   const headers = {
     'Content-Type': 'application/json',
     'Authorization':  "Bearer " +accessToken,
   }
 
-  let param = [{'fruit1':'apple', 'fruit2':'banana'}]; 
+  const data = {
+    charName : charInfo.charName
+}
+
+    console.log(data)
+
 
   const response = await axios.post(
-    "http://localhost:8080/api/characters",
-    param,
-    {headers}
+    "http://localhost:8080/characters",
+    JSON.stringify(data),
+    { headers: { "Content-Type": "application/json" } }
   );
+  
   console.log(response);
   }
 

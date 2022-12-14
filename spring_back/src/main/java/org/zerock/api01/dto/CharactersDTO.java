@@ -17,5 +17,5 @@ public class CharactersDTO {
 
   private Long userKey;
 
-  
+
 }

@@ -3,6 +3,7 @@ package org.zerock.api01.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +11,10 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.zerock.api01.domain.Characters;
+import org.zerock.api01.dto.APIUserDTO;
 import org.zerock.api01.dto.CharactersDTO;
 import org.zerock.api01.repository.CharactersRepository;
 import org.zerock.api01.service.CharactersService;
@@ -27,7 +33,7 @@ import org.zerock.api01.service.CharactersService;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping
 @Log4j2
 @RequiredArgsConstructor
 public class CharactersController {
@@ -36,12 +42,14 @@ public class CharactersController {
 
   
   @ApiOperation(value = "Replies POST", notes = "POST 방식으로 캐릭터 등록")
-  @PostMapping(value = "/characters")
-  public void register (HashMap<String, Object> param)throws BindException {
-    log.info(param);
+  @PostMapping(value = "/characters", consumes = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<Map<String, Long>> register (@RequestBody CharactersDTO charactersDTO )throws BindException {
+    log.info(charactersDTO);
+    log.info(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
 
-    // charactersService.register(charName);
-
+    Map<String, Long>  resultMap = Map.of("charKey", 1L);
+    
+    return ResponseEntity.ok(resultMap);
   }
 
   // @ApiOperation(
