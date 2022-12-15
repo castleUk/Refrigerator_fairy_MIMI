@@ -12,7 +12,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.dto.CharacterDto;
 import com.example.demo.repository.CharacterRepository;
+import com.example.demo.repository.MemberRepository;
 import com.example.demo.entity.Character;
+import com.example.demo.entity.Member;
 
 import lombok.RequiredArgsConstructor;
 
@@ -21,10 +23,22 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class CharacterService {
   private final CharacterRepository characterRepository;
+  private final MemberRepository memberRepository;
 
   public CharacterDto oneCharacter(Long id){
     Character character = characterRepository.findById(id).orElseThrow(() -> new RuntimeException("캐릭터가 없습니다"));
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    if(authen)
+    if(authentication == null || authentication.getPrincipal() == "anonymousUser"){
+      return CharacterDto.of(character, false);
+    }else{
+      Member member = memberRepository.findById(Long.parseLong(authentication.getName())).orElseThrow();
+      boolean result = character.getMember().equals(member);
+      return CharacterDto.of(character, result);
+    }
+
+    @Transactional
+    public CharacterDto addCharacter(String )
+
+
   }
 }
