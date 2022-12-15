@@ -1,7 +1,18 @@
 package com.example.demo.dto;
 
+import org.modelmapper.ModelMapper;
+
 import com.example.demo.entity.Item;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class ItemRequestDto {
 
   private String name;
@@ -24,19 +35,14 @@ public class ItemRequestDto {
 
   private int protein;
 
-  public Item toEntity() {
-    return Item
-      .builder()
-      .name(name)
-      .img(img)
-      .per(per)
-      .kcal(kcal)
-      .fat(fat)
-      .chol(chol)
-      .sodium(sodium)
-      .potassium(potassium)
-      .carb(carb)
-      .protein(protein)
-      .build();
+
+  private static ModelMapper modelMapper = new ModelMapper();
+
+  public Item createItem(){
+    return modelMapper.map(this, Item.class);
+  }
+
+  public static ItemRequestDto of(Item item){
+    return modelMapper.map(item, ItemRequestDto.class);
   }
 }
