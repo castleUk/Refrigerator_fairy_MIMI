@@ -5,6 +5,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
+import com.example.demo.dto.ItemRequestDto;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -17,6 +21,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Item  extends BaseEntity{
 
   @Id
@@ -52,5 +57,19 @@ public class Item  extends BaseEntity{
 
   @Column(nullable = false)
   private int protein;
+
+
+  public void updateItem(ItemRequestDto itemRequestDto){
+    this.name = itemRequestDto.getName();
+    this.img = itemRequestDto.getImg();
+    this.per = itemRequestDto.getPer();
+    this.kcal = itemRequestDto.getKcal();
+    this.fat = itemRequestDto.getFat();
+    this.chol = itemRequestDto.getChol();
+    this.sodium = itemRequestDto.getSodium();
+    this.potassium = itemRequestDto.getPotassium();
+    this.carb = itemRequestDto.getCarb();
+    this.protein = itemRequestDto.getProtein();
+  }
 
 }
