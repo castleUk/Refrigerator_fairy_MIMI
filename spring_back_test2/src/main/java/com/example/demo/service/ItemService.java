@@ -1,14 +1,17 @@
 package com.example.demo.service;
 
-import com.example.demo.dto.ItemRequestDto;
-import com.example.demo.dto.ItemResponseDto;
+import com.example.demo.dto.ItemDto;
 import com.example.demo.entity.Item;
 import com.example.demo.repository.ItemRepository;
+
 import java.util.List;
-import javax.persistence.EntityNotFoundException;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Direction;
+
+import org.modelmapper.ModelMapper;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,27 +22,53 @@ public class ItemService {
 
   private final ItemRepository itemRepository;
 
-  @Transactional //상품등록
-  public ItemRequestDto saveItem(ItemRequestDto requestDto) throws Exception {
-    Item item = requestDto.item();
-    return ItemRequestDto.of(itemRepository.save(item));
+  private final ModelMapper modelMapper;
+
+  //상품등록
+  public Long register(ItemDto itemDto) {
+    Item item = modelMapper.map(itemDto, Item.class);
+
+    Long id = itemRepository.save(item).getId();
+
+    return id;
   }
 
-  @Transactional //상품리스트
-  public List<Item> list() throws Exception {
-    return itemRepository.findAll();
+  //상품 조회
+  public ItemDto readOne(Long id) {
+    Optional<Item> result = itemRepository.findById(id);
+
+    Item item = result.orElseThrow();
+
+    ItemDto itemDto = modelMapper.map(item, ItemDto.class);
+
+    return itemDto;
   }
 
-  @Transactional //상품상세조회
-  public Item read(Long id) throws Exception {
-    return itemRepository.getReferenceById(id);
+  //상품 수정
+  public void modify(ItemDto itemDto) {
+    Optional<Item> result = itemRepository.findById(itemDto.getId());
+
+    Item item = result.orElseThrow();
+
+    item.change(itemDto);
+
+    itemRepository.save(item);
   }
 
-  @Transactional  //상품 수정
- public ItemResponseDto updateItem(ItemRequestDto requestDto)throws Exception{
-  Item item = itemRepository.findById(requestDto.getId()).orElseThrow(EntityNotFoundException::new);
-  item.updateItem(requestDto);
+  //삭제 처리
+  public void remove(Long id) {
+    itemRepository.deleteById(id);
+  }
 
-  return ItemResponseDto.of(itemRepository.save(item));
+
+ // 전체 목록
+ public List<ItemDto> readAll(){
+  List<Item> result = itemRepository.findAll();
+
+  List<ItemDto> resultList = result.stream().map(item -> modelMapper.map(result, ItemDto.class)).collect(Collectors.toList());
+
+  return resultList;
+
+
  }
 }

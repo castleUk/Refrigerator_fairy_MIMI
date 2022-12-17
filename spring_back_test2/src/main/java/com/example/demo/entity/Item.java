@@ -6,7 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import com.example.demo.dto.ItemRequestDto;
+import com.example.demo.dto.ItemDto;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
@@ -59,17 +59,17 @@ public class Item  extends BaseEntity{
   private int protein;
 
 
-  public void updateItem(ItemRequestDto itemRequestDto){
-    this.name = itemRequestDto.getName();
-    this.img = itemRequestDto.getImg();
-    this.per = itemRequestDto.getPer();
-    this.kcal = itemRequestDto.getKcal();
-    this.fat = itemRequestDto.getFat();
-    this.chol = itemRequestDto.getChol();
-    this.sodium = itemRequestDto.getSodium();
-    this.potassium = itemRequestDto.getPotassium();
-    this.carb = itemRequestDto.getCarb();
-    this.protein = itemRequestDto.getProtein();
+  public void change(ItemDto itemDto){
+    this.name = itemDto.getName();
+    this.img = itemDto.getImg();
+    this.per = itemDto.getPer();
+    this.kcal = itemDto.getKcal();
+    this.fat = itemDto.getFat();
+    this.chol = itemDto.getChol();
+    this.sodium = itemDto.getSodium();
+    this.potassium = itemDto.getPotassium();
+    this.carb = itemDto.getCarb();
+    this.protein = itemDto.getProtein();
   }
 
 }

@@ -8,7 +8,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -16,6 +19,9 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Inventory  extends BaseEntity{
   @Id
   @Column(name = "inventory_id")
@@ -25,6 +31,13 @@ public class Inventory  extends BaseEntity{
   @OneToOne(fetch = FetchType.LAZY)
   @JoinColumn(name="freezer_id")
   private Freezer freezer;
+
+  public static Inventory createInventory(Freezer freezer){
+    Inventory inventory = new Inventory();
+    inventory.setFreezer(freezer);
+    return inventory;
+  }
+
   
   
 }

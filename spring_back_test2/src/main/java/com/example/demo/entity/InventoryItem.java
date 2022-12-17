@@ -30,4 +30,17 @@ public class InventoryItem  extends BaseEntity{
 
   @Column
   private int count;
+
+
+  public static InventoryItem createInventoryItem(Inventory inventory, Item item , int count){
+    InventoryItem inventoryItem = new InventoryItem();
+    inventoryItem.setInventory(inventory);
+    inventoryItem.setItem(item);
+    inventoryItem.setCount(count);
+    return inventoryItem;
+  }
+
+  public void addCount(int count){
+    this.count += count;
+  }
 }
