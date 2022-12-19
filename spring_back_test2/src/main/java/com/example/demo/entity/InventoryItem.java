@@ -7,13 +7,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
 @Getter
 @Setter
-public class InventoryItem  extends BaseEntity{
+@Builder
+public class InventoryItem extends BaseEntity {
 
   @Id
   @GeneratedValue
@@ -31,16 +33,20 @@ public class InventoryItem  extends BaseEntity{
   @Column
   private int count;
 
-
-  public static InventoryItem createInventoryItem(Inventory inventory, Item item , int count){
-    InventoryItem inventoryItem = new InventoryItem();
-    inventoryItem.setInventory(inventory);
-    inventoryItem.setItem(item);
-    inventoryItem.setCount(count);
-    return inventoryItem;
+  public static InventoryItem createInventoryItem(
+    Inventory inventory,
+    Item item,
+    int count
+  ) {
+    return InventoryItem
+      .builder()
+      .inventory(inventory)
+      .item(item)
+      .count(count)
+      .build();
   }
 
-  public void addCount(int count){
+  public void addCount(int count) {
     this.count += count;
   }
 }

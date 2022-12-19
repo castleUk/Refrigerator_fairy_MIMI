@@ -4,15 +4,20 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.example.demo.dto.FreezerRequestDto;
 import com.example.demo.entity.Freezer;
 import com.example.demo.entity.Inventory;
 import com.example.demo.entity.Member;
+import com.example.demo.service.FreezerService;
 
 @SpringBootTest
 public class testst {
 
   @Autowired
   FreezerRepository freezerRepository;
+
+  @Autowired
+  FreezerService freezerService;
 
   @Autowired
   InventoryRepository inventoryRepository;
@@ -31,12 +36,13 @@ public class testst {
   @Test
   public void testInventory(){
     Long id = 1L;
+    FreezerRequestDto freezer = FreezerRequestDto.builder().id(id).name("메롱").build();
 
-    Freezer freezer = Freezer.builder().id(id).build();
+    freezerService.modifyFreezer(freezer);
 
-    Inventory inventory = Inventory.builder().freezer(freezer).build();
+   
 
-    inventoryRepository.save(inventory);
+   
 
   }
   

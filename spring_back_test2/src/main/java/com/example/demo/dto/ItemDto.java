@@ -1,12 +1,9 @@
 package com.example.demo.dto;
 
-import com.example.demo.entity.Item;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.modelmapper.ModelMapper;
 
 @Data
 @AllArgsConstructor

@@ -1,22 +1,13 @@
 package com.example.demo.repository;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityNotFoundException;
-import javax.persistence.PersistenceContext;
-
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.demo.dto.FreezerRequestDto;
 import com.example.demo.dto.InventoryItemDto;
 import com.example.demo.entity.Freezer;
-import com.example.demo.entity.Inventory;
-import com.example.demo.entity.InventoryItem;
 import com.example.demo.entity.Item;
 import com.example.demo.entity.Member;
 import com.example.demo.service.InventoryService;

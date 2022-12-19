@@ -1,19 +1,17 @@
 package com.example.demo.repository;
 
-import static org.assertj.core.api.Assertions.*;
+import java.util.List;
+
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import com.example.demo.dto.ItemDto;
 import com.example.demo.entity.Item;
 import com.example.demo.service.ItemService;
-import java.util.List;
-import java.util.Optional;
 
 import lombok.extern.log4j.Log4j2;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 @Log4j2

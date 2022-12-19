@@ -1,6 +1,9 @@
 package com.example.demo.entity;
 
 import com.example.demo.dto.FreezerRequestDto;
+
+import java.util.Optional;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -9,7 +12,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -24,7 +26,7 @@ import lombok.ToString;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Freezer  extends BaseEntity{
+public class Freezer extends BaseEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
@@ -38,4 +40,13 @@ public class Freezer  extends BaseEntity{
   @Column
   private String name;
 
+  public static Freezer createFreezer(Member member, String name) {
+    return Freezer.builder().name(name).member(member).build();
   }
+
+  public void changeName(String name){
+    this.name = name;
+  }
+
+
+}

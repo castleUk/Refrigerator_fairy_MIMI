@@ -45,8 +45,8 @@ public class WebSecurityConfig {
 
                 .and()
                 .authorizeRequests()
-                .antMatchers("/auth/**").permitAll()   //  모든 request에 있어서 /auth/* * 를 제외한 모든 uri의 request는 토큰이 필요 /auth/* *는 로그인 페이지
-                .anyRequest().authenticated()
+                .antMatchers("/api/**").authenticated()   //  모든 request에 있어서 /auth/* * 를 제외한 모든 uri의 request는 토큰이 필요 /auth/* *는 로그인 페이지
+        
 
                 .and()
                 .apply(new JwtSecurityConfig(tokenProvider));  //전에 설정한 JwtSecurityConfig 클래스를 통해 tokenProvider를 적용시킴

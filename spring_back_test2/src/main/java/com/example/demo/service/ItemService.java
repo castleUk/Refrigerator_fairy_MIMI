@@ -3,15 +3,11 @@ package com.example.demo.service;
 import com.example.demo.dto.ItemDto;
 import com.example.demo.entity.Item;
 import com.example.demo.repository.ItemRepository;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
 import lombok.RequiredArgsConstructor;
-
 import org.modelmapper.ModelMapper;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,9 +23,7 @@ public class ItemService {
   //상품등록
   public Long register(ItemDto itemDto) {
     Item item = modelMapper.map(itemDto, Item.class);
-
     Long id = itemRepository.save(item).getId();
-
     return id;
   }
 
@@ -60,15 +54,15 @@ public class ItemService {
     itemRepository.deleteById(id);
   }
 
+  // 전체 목록
+  public List<ItemDto> readAll() {
+    List<Item> result = itemRepository.findAll();
 
- // 전체 목록
- public List<ItemDto> readAll(){
-  List<Item> result = itemRepository.findAll();
+    List<ItemDto> resultList = result
+      .stream()
+      .map(item -> modelMapper.map(result, ItemDto.class))
+      .collect(Collectors.toList());
 
-  List<ItemDto> resultList = result.stream().map(item -> modelMapper.map(result, ItemDto.class)).collect(Collectors.toList());
-
-  return resultList;
-
-
- }
+    return resultList;
+  }
 }

@@ -33,9 +33,7 @@ public class Inventory  extends BaseEntity{
   private Freezer freezer;
 
   public static Inventory createInventory(Freezer freezer){
-    Inventory inventory = new Inventory();
-    inventory.setFreezer(freezer);
-    return inventory;
+    return Inventory.builder().freezer(freezer).build();
   }
 
   
