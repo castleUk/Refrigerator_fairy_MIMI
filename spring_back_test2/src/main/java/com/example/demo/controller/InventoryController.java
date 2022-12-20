@@ -23,11 +23,11 @@ public class InventoryController {
   private final MemberService memberService;
 
   @PostMapping("/add")
-  public @ResponseBody ResponseEntity order(@RequestBody InventoryItemDto inventoryItemDto){
+  public @ResponseBody ResponseEntity order(@RequestBody InventoryItemDto inventoryItemDto, int index){
     String email = memberService.getMyInfoBySecurity().getEmail();
     Long inventoryItemId;
 
-    inventoryItemId = inventoryService.addInventory(inventoryItemDto, email);
+    inventoryItemId = inventoryService.addInventory(inventoryItemDto, email, index);
 
     return new ResponseEntity<Long>(inventoryItemId, HttpStatus.OK);
     

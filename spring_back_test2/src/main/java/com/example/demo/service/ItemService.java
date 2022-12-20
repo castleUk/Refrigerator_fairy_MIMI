@@ -5,8 +5,11 @@ import com.example.demo.entity.Item;
 import com.example.demo.repository.ItemRepository;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 @RequiredArgsConstructor
+@Log4j2
 public class ItemService {
 
   private final ItemRepository itemRepository;
@@ -30,22 +34,16 @@ public class ItemService {
   //상품 조회
   public ItemDto readOne(Long id) {
     Optional<Item> result = itemRepository.findById(id);
-
     Item item = result.orElseThrow();
-
     ItemDto itemDto = modelMapper.map(item, ItemDto.class);
-
     return itemDto;
   }
 
   //상품 수정
   public void modify(ItemDto itemDto) {
     Optional<Item> result = itemRepository.findById(itemDto.getId());
-
     Item item = result.orElseThrow();
-
     item.change(itemDto);
-
     itemRepository.save(item);
   }
 
@@ -57,12 +55,7 @@ public class ItemService {
   // 전체 목록
   public List<ItemDto> readAll() {
     List<Item> result = itemRepository.findAll();
-
-    List<ItemDto> resultList = result
-      .stream()
-      .map(item -> modelMapper.map(result, ItemDto.class))
-      .collect(Collectors.toList());
-
+    List<ItemDto> resultList = result.stream().map(Item -> modelMapper.map(Item, ItemDto.class)).collect(Collectors.toList());
     return resultList;
   }
 }

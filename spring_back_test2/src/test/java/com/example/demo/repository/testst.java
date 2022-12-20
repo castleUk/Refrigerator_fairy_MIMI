@@ -33,17 +33,8 @@ public class testst {
     freezerRepository.save(freezer);
   }
 
-  @Test
-  public void testInventory(){
-    Long id = 1L;
-    FreezerRequestDto freezer = FreezerRequestDto.builder().id(id).name("메롱").build();
-
-    freezerService.modifyFreezer(freezer);
-
-   
-
+ 
    
 
   }
   
-}

@@ -21,15 +21,19 @@ public class FreezerRequestDto {
 
   private String name;
 
-  private Member member;
+  // private Member member;
 
   public static FreezerRequestDto of(Freezer freezer) {
     return FreezerRequestDto
       .builder()
       .id(freezer.getId())
       .name(freezer.getName())
-      .member(freezer.getMember())
+      // .member(freezer.getMember())
       .build();
+  }
+
+  public Freezer toEntity(){
+    return Freezer.builder().id(this.id).name(this.name).build();
   }
   
   

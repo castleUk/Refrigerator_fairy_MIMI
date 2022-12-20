@@ -32,7 +32,7 @@ public class InventoryService {
   private final InventoryItemRepository inventoryItemRepository;
   private final MemberRepository memberRepository;
 
-  public Long addInventory(InventoryItemDto inventoryItemDto, String email) {
+  public Long addInventory(InventoryItemDto inventoryItemDto, String email, int index) {
     Item item = itemRepository
       .findById(inventoryItemDto.getItemId())
       .orElseThrow(EntityNotFoundException::new);
@@ -42,11 +42,11 @@ public class InventoryService {
     log.info("222222222222222222222222" + member);
     List<Freezer> freezer = freezerRepository.findByMemberId(member.getId());
     log.info("33333333333333333333333333" + freezer);
-    Inventory inventory = inventoryRepository.findByFreezerId(freezer.get(0).getId());
+    Inventory inventory = inventoryRepository.findByFreezerId(freezer.get(index).getId());
     log.info("4444444444444444444444444444" + inventory);
 
     if (inventory == null) {
-      inventory = Inventory.createInventory(freezer.get(0));
+      inventory = Inventory.createInventory(freezer.get(index));
       inventoryRepository.save(inventory);
     }
 
