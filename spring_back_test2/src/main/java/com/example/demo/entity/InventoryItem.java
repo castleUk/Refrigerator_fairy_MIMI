@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.example.demo.dto.InventoryItemDto;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -54,4 +56,9 @@ public class InventoryItem extends BaseEntity {
   public void addCount(int count) {
     this.count += count;
   }
+
+  public void change(InventoryItemDto inventoryItemDto){
+    InventoryItemDto.builder().count(inventoryItemDto.getCount());
+  }
+  
 }

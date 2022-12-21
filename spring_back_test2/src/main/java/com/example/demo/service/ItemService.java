@@ -9,7 +9,6 @@ import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -55,7 +54,10 @@ public class ItemService {
   // 전체 목록
   public List<ItemDto> readAll() {
     List<Item> result = itemRepository.findAll();
-    List<ItemDto> resultList = result.stream().map(Item -> modelMapper.map(Item, ItemDto.class)).collect(Collectors.toList());
+    List<ItemDto> resultList = result
+      .stream()
+      .map(Item -> modelMapper.map(Item, ItemDto.class))
+      .collect(Collectors.toList());
     return resultList;
   }
 }

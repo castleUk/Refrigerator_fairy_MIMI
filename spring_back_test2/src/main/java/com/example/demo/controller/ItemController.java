@@ -26,7 +26,7 @@ public class ItemController {
   private final ItemService itemService;
 
   @PostMapping("/add")  //상품추가
-  public ResponseEntity<Long> add(
+  public ResponseEntity<Long> addItem(
     @RequestBody ItemDto requestDto
   ) throws Exception {
    
@@ -34,23 +34,23 @@ public class ItemController {
   }
 
   @PutMapping("/{id}")  //상품수정 ... -> 수정요망
-  public void modify(@PathVariable("id") Long id, ItemDto requestDto)throws Exception {
+  public void modifyItem(@PathVariable("id") Long id, @RequestBody ItemDto requestDto)throws Exception {
     itemService.modify(requestDto);
   }
 
   @GetMapping  // 상품목록 받기
-  public ResponseEntity<List<ItemDto>> list() throws Exception {
+  public ResponseEntity<List<ItemDto>> readAllItem() throws Exception {
     return ResponseEntity.ok(itemService.readAll());
   }
 
   @GetMapping("/{id}")
-  public ResponseEntity<ItemDto> read(@PathVariable("id") Long id) throws Exception{
+  public ResponseEntity<ItemDto> readOneItem(@PathVariable("id") Long id) throws Exception{
     return ResponseEntity.ok(itemService.readOne(id));
   }
 
 
   @DeleteMapping("/{id}")
-  public void delete(@PathVariable("id") Long id) throws Exception{
+  public void deleteItem(@PathVariable("id") Long id) throws Exception{
     itemService.remove(id);
   }
 }

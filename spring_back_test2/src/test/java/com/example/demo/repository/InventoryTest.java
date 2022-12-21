@@ -52,29 +52,10 @@ public class InventoryTest {
 
   
 
-  @Test
-  @DisplayName("인벤토리 프리저 엔티티 매핑 조회 테스트")
-  public void addCart(){
-    Item item = saveItem();
-    Member member =  saveMember();
-    Freezer freezer = createFreezer();
-
-    InventoryItemDto inventoryItemDto = new InventoryItemDto();
-    inventoryItemDto.setCount(5);
-    inventoryItemDto.setItemId(item.getId());
-
-    Long inventoryItemId = inventoryService.addInventory(inventoryItemDto, "test4");
-
-    // InventoryItem inventoryitem = InventoryItemRepository.findById(inventoryItemId).orElseThrow();
-
-    // assertEquals(item.getId(), inventoryitem.getItem().getId());
-    // assertEquals(inventoryItemDto.getCount(), inventoryitem.getCount());
-
 
   }
 
     
 
-  }
 
 

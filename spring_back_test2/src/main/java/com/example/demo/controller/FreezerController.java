@@ -28,7 +28,7 @@ public class FreezerController {
 
   //냉장고 추가
   @PostMapping("/add")
-  public ResponseEntity<FreezerRequestDto> register(
+  public ResponseEntity<FreezerRequestDto> registerFreezer(
     @RequestBody FreezerRequestDto freezerRequestDto
   ) {
     String email = memberService.getMyInfoBySecurity().getEmail();
@@ -39,21 +39,21 @@ public class FreezerController {
 
   //냉장고 전체 목록
   @GetMapping
-  public List<FreezerRequestDto> getAllFreezers() {
+  public List<FreezerRequestDto> readAllFreezer() {
     String email = memberService.getMyInfoBySecurity().getEmail();
     return freezerService.freezerList(email);
   }
 
   //냉장고 읽기
   @GetMapping("/{index}")
-  public FreezerRequestDto get(@PathVariable("index") int index) {
+  public FreezerRequestDto readOneFreezer(@PathVariable("index") int index) {
     String email = memberService.getMyInfoBySecurity().getEmail();
     return freezerService.getFreezer(email, index);
   }
 
   //냉장고수정
   @PutMapping("/{index}")
-  public void update(
+  public void updateFreezer(
     @PathVariable("index") int index,
     @RequestBody FreezerRequestDto requestDto
   ) {
@@ -64,7 +64,7 @@ public class FreezerController {
 
   //냉장고 삭제
   @DeleteMapping("/{index}")
-  public void delete(@PathVariable("index") int index){
+  public void deleteFreezer(@PathVariable("index") int index){
     String email = memberService.getMyInfoBySecurity().getEmail();
     freezerService.delete(email, index);
   }

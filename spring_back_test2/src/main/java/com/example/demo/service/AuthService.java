@@ -45,8 +45,7 @@ public class AuthService {
   }
 }
 
-// login 메소드의 상세한 구현과정은 약간 복잡하다.
-
+// LOGIN 메소드
 // 1. login 메소드는MemberRequestDto에 있는 메소드 toAuthentication를 통해 생긴 UsernamePasswordAuthenticationToken 타입의 데이터를 가지게된다.
 // 2. 주입받은 Builder를 통해 AuthenticationManager를 구현한 ProviderManager를 생성한다.
 // 3. 이후 ProviderManager는 데이터를 AbstractUserDetailsAuthenticationProvider 의 자식 클래스인 DaoAuthenticationProvider 를 주입받아서 호출한다.
