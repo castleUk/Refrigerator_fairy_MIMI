@@ -48,9 +48,7 @@ public class InventoryService {
     log.info("1111111111111111111111111" + item);
 
     Member member = memberRepository.findByEmail(email).orElseThrow();
-    log.info("222222222222222222222222" + member);
     List<Freezer> freezer = freezerRepository.findByMemberId(member.getId());
-    log.info("33333333333333333333333333" + freezer);
     Inventory inventory = inventoryRepository.findByFreezerId(
       freezer.get(index).getId()
     );
@@ -128,10 +126,22 @@ public class InventoryService {
     Inventory inventory = inventoryRepository.findByFreezerId(
       freezer.get(index).getId()
     );
-    InventoryItem inventoryItem = inventoryItemRepository
-      .findByInventoryIdAndItemId(inventory.getId(), id);
+    InventoryItem inventoryItem = inventoryItemRepository.findByInventoryIdAndItemId(
+      inventory.getId(),
+      id
+    );
 
-      inventoryItem.change(inventoryItemDto);
-    
+    inventoryItem.change(inventoryItemDto);
+  }
+
+  // 삭제
+  public void deleteInventoryItem(String email, int index, Long id) {
+    Member member = memberRepository.findByEmail(email).orElseThrow();
+    List<Freezer> freezer = freezerRepository.findByMemberId(member.getId());
+    Inventory inventory = inventoryRepository.findByFreezerId(
+      freezer.get(index).getId()
+    );
+    InventoryItem inventoryItem = inventoryItemRepository.findByInventoryIdAndItemId(inventory.getId(), id);
+    inventoryItemRepository.delete(inventoryItem);
   }
 }

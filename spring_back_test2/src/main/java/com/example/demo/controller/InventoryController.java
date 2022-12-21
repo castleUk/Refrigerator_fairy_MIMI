@@ -6,6 +6,7 @@ import com.example.demo.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -64,5 +65,13 @@ public class InventoryController {
     String email = memberService.getMyInfoBySecurity().getEmail();
     inventoryService.modifyInventoryItem(email, index, id, inventoryItemDto);
   }
+
+   //삭제
+   @DeleteMapping("/{index}/{id}")
+   public void deleteInventoryItem(@PathVariable("id") Long id,
+   @PathVariable("index") int index){
+     String email = memberService.getMyInfoBySecurity().getEmail();
+     inventoryService.deleteInventoryItem(email, index, id);
+   }
 
 }
