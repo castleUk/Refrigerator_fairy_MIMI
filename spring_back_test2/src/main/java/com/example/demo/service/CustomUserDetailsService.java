@@ -19,7 +19,7 @@ public class CustomUserDetailsService implements UserDetailsService {
   private final MemberRepository memberRepository;
 
   @Override
-  public UserDetails loadUserByUsername(String username)   //실행한 loadUserByUsername은 받은 email을 통해 user가 실제로 존재하는지 알아보는
+  public UserDetails loadUserByUsername(String username)  //실행한 loadUserByUsername은 받은 email을 통해 user가 실제로 존재하는지 알아보는
     throws UsernameNotFoundException {
     return memberRepository
       .findByEmail(username)

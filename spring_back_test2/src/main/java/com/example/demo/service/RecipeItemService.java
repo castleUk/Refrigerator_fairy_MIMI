@@ -10,18 +10,14 @@ import com.example.demo.repository.ItemRepository;
 import com.example.demo.repository.RecipeItemRepository;
 import com.example.demo.repository.RecipeRepository;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
-
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
 @Transactional
-@Log4j2
 public class RecipeItemService {
 
   private final RecipeItemRepository recipeItemRepository;
@@ -52,12 +48,13 @@ public class RecipeItemService {
 
   //레시피 아이템 리스트
   public List<RecipeItemResponseDto> recipeSearch(String name) {
-    List<RecipeItem> recipeItemList = recipeItemRepository.findByRecipeName(name);
+    List<RecipeItem> recipeItemList = recipeItemRepository.findByRecipeName(
+      name
+    );
     List<RecipeItemResponseDto> recipeItemListDto = recipeItemList
       .stream()
       .map(RecipeItemResponseDto::of)
       .collect(Collectors.toList());
-
 
     return recipeItemListDto;
   }
@@ -70,17 +67,15 @@ public class RecipeItemService {
       .map(RecipeItemResponseDto::of)
       .collect(Collectors.toList());
 
-
     return recipeItemListDto;
   }
 
   //삭제
-  public void deleteRecipeItem(RecipeItemRequestDto dto){
+  public void deleteRecipeItem(RecipeItemRequestDto dto) {
     RecipeItem savedRecipeItem = recipeItemRepository.findByRecipeNameAndItemName(
       dto.getRecipeName(),
       dto.getItemName()
     );
     recipeItemRepository.delete(savedRecipeItem);
-   
   }
 }

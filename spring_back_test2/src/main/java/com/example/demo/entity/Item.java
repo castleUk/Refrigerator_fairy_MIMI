@@ -1,14 +1,12 @@
 package com.example.demo.entity;
 
+import com.example.demo.dto.ItemDto;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
-import com.example.demo.dto.ItemDto;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -21,8 +19,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Item  extends BaseEntity{
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+public class Item extends BaseEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -58,8 +56,7 @@ public class Item  extends BaseEntity{
   @Column(nullable = false)
   private int protein;
 
-
-  public void change(ItemDto itemDto){
+  public void change(ItemDto itemDto) {
     this.name = itemDto.getName();
     this.img = itemDto.getImg();
     this.per = itemDto.getPer();
@@ -71,5 +68,4 @@ public class Item  extends BaseEntity{
     this.carb = itemDto.getCarb();
     this.protein = itemDto.getProtein();
   }
-
 }

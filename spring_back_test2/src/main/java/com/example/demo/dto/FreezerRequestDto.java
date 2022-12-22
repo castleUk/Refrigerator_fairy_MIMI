@@ -1,14 +1,11 @@
 package com.example.demo.dto;
 
 import com.example.demo.entity.Freezer;
-import com.example.demo.entity.Member;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 
 @Builder
 @Getter
@@ -32,9 +29,7 @@ public class FreezerRequestDto {
       .build();
   }
 
-  public Freezer toEntity(){
+  public Freezer toEntity() {
     return Freezer.builder().id(this.id).name(this.name).build();
   }
-  
-  
 }

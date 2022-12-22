@@ -6,6 +6,4 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebMvc
-public class CustomServletConfig  implements WebMvcConfigurer{
-  
-}
+public class CustomServletConfig implements WebMvcConfigurer {}

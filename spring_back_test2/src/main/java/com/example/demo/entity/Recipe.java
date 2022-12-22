@@ -1,13 +1,11 @@
 package com.example.demo.entity;
 
+import com.example.demo.dto.RecipeDto;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
-import com.example.demo.dto.RecipeDto;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,7 +19,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Recipe extends BaseEntity{
+public class Recipe extends BaseEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,10 +32,8 @@ public class Recipe extends BaseEntity{
   @Column(nullable = false)
   private String imgUrl;
 
-  public void change(RecipeDto recipeDto){
+  public void change(RecipeDto recipeDto) {
     this.name = recipeDto.getName();
     this.imgUrl = recipeDto.getImgUrl();
-
   }
-
 }

@@ -23,5 +23,4 @@ public class MemberResponseDto {
       .build();
   }
 }
-
 //Response를 보낼때 쓰이는 dto

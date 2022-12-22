@@ -24,12 +24,11 @@ public class AuthService {
   private final PasswordEncoder passwordEncoder;
   private final TokenProvider tokenProvider;
 
-  public MemberResponseDto signup(MemberRequestDto requestDto) {  //회원가입을 하는 메소드
+  public MemberResponseDto signup(MemberRequestDto requestDto) { //회원가입을 하는 메소드
     if (memberRepository.existsByEmail(requestDto.getEmail())) {
       throw new RuntimeException("이미 가입되어 있는 유저입니다");
     }
 
-    
     Member member = requestDto.toMember(passwordEncoder);
     return MemberResponseDto.of(memberRepository.save(member));
   }
@@ -44,7 +43,6 @@ public class AuthService {
     return tokenProvider.generateTokenDto(authentication);
   }
 }
-
 // LOGIN 메소드
 // 1. login 메소드는MemberRequestDto에 있는 메소드 toAuthentication를 통해 생긴 UsernamePasswordAuthenticationToken 타입의 데이터를 가지게된다.
 // 2. 주입받은 Builder를 통해 AuthenticationManager를 구현한 ProviderManager를 생성한다.

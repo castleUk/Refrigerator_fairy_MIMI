@@ -1,5 +1,9 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.InventoryItemDto;
+import com.example.demo.service.InventoryService;
+import com.example.demo.service.MemberService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -11,12 +15,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.dto.InventoryItemDto;
-import com.example.demo.service.InventoryService;
-import com.example.demo.service.MemberService;
-
-import lombok.RequiredArgsConstructor;
-
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/inventory")
@@ -27,7 +25,9 @@ public class InventoryController {
 
   //추가
   @PostMapping("/add")
-  public ResponseEntity<?> addInventoryItem(@RequestBody InventoryItemDto inventoryItemDto,int index
+  public ResponseEntity<?> addInventoryItem(
+    @RequestBody InventoryItemDto inventoryItemDto,
+    int index
   ) {
     String email = memberService.getMyInfoBySecurity().getEmail();
     Long inventoryItemId;
@@ -61,18 +61,27 @@ public class InventoryController {
 
   //수정
   @PutMapping("/{index}/{itemId}")
-  public void modifyInventoryItem(@PathVariable("itemId") Long itemId,
-  @PathVariable("index") int index, @RequestBody InventoryItemDto inventoryItemDto){
+  public void modifyInventoryItem(
+    @PathVariable("itemId") Long itemId,
+    @PathVariable("index") int index,
+    @RequestBody InventoryItemDto inventoryItemDto
+  ) {
     String email = memberService.getMyInfoBySecurity().getEmail();
-    inventoryService.modifyInventoryItem(email, index, itemId, inventoryItemDto);
+    inventoryService.modifyInventoryItem(
+      email,
+      index,
+      itemId,
+      inventoryItemDto
+    );
   }
 
-   //삭제
-   @DeleteMapping("/{index}/{itemId}")
-   public void deleteInventoryItem(@PathVariable("itemId") Long itemId,
-   @PathVariable("index") int index){
-     String email = memberService.getMyInfoBySecurity().getEmail();
-     inventoryService.deleteInventoryItem(email, index, itemId);
-   }
-
+  //삭제
+  @DeleteMapping("/{index}/{itemId}")
+  public void deleteInventoryItem(
+    @PathVariable("itemId") Long itemId,
+    @PathVariable("index") int index
+  ) {
+    String email = memberService.getMyInfoBySecurity().getEmail();
+    inventoryService.deleteInventoryItem(email, index, itemId);
+  }
 }

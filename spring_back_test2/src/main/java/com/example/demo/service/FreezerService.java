@@ -5,15 +5,11 @@ import com.example.demo.entity.Freezer;
 import com.example.demo.entity.Member;
 import com.example.demo.repository.FreezerRepository;
 import com.example.demo.repository.MemberRepository;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -22,7 +18,6 @@ import org.springframework.stereotype.Service;
 @Log4j2
 public class FreezerService {
 
-  private final MemberService memberService;
   private final MemberRepository memberRepository;
   private final FreezerRepository freezerRepository;
 

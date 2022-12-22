@@ -1,15 +1,13 @@
 package com.example.demo.dto;
 
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.crypto.password.PasswordEncoder;
-
 import com.example.demo.entity.Authority;
 import com.example.demo.entity.Member;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Getter
 @AllArgsConstructor
@@ -35,6 +33,5 @@ public class MemberRequestDto {
     return new UsernamePasswordAuthenticationToken(email, password);
   }
 }
-
-//Request를 받을때 쓰이는 dto. 
+//Request를 받을때 쓰이는 dto.
 //UsernamePasswordAuthenticationToken를 반환하여 아이디와 비밀번호가 일치하는지 검증하는 로직을 넣을수 있게 된다.

@@ -5,7 +5,6 @@ import com.example.demo.entity.Item;
 import com.example.demo.repository.ItemRepository;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;

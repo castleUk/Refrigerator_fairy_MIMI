@@ -1,7 +1,6 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.FreezerRequestDto;
-import com.example.demo.entity.Member;
 import com.example.demo.service.FreezerService;
 import com.example.demo.service.MemberService;
 import java.util.List;
@@ -64,7 +63,7 @@ public class FreezerController {
 
   //냉장고 삭제
   @DeleteMapping("/{index}")
-  public void deleteFreezer(@PathVariable("index") int index){
+  public void deleteFreezer(@PathVariable("index") int index) {
     String email = memberService.getMyInfoBySecurity().getEmail();
     freezerService.delete(email, index);
   }

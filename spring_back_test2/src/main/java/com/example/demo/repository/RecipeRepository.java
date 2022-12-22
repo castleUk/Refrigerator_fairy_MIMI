@@ -1,11 +1,8 @@
 package com.example.demo.repository;
 
+import com.example.demo.entity.Recipe;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.example.demo.entity.Recipe;
-
-public interface RecipeRepository extends JpaRepository<Recipe, Long>{
-  Recipe findByName(String name); 
-  
-  
+public interface RecipeRepository extends JpaRepository<Recipe, Long> {
+  Recipe findByName(String name);
 }

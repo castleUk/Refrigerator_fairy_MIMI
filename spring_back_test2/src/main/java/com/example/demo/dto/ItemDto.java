@@ -32,5 +32,4 @@ public class ItemDto {
   private int carb;
 
   private int protein;
-
 }

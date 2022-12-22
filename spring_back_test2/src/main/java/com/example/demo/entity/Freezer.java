@@ -1,9 +1,5 @@
 package com.example.demo.entity;
 
-import com.example.demo.dto.FreezerRequestDto;
-
-import java.util.Optional;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -44,9 +40,7 @@ public class Freezer extends BaseEntity {
     return Freezer.builder().name(name).member(member).build();
   }
 
-  public void changeName(String name){
+  public void changeName(String name) {
     this.name = name;
   }
-
-
 }

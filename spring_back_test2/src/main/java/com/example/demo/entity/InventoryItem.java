@@ -1,5 +1,6 @@
 package com.example.demo.entity;
 
+import com.example.demo.dto.InventoryItemDto;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -7,9 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-
-import com.example.demo.dto.InventoryItemDto;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -57,8 +55,7 @@ public class InventoryItem extends BaseEntity {
     this.count += count;
   }
 
-  public void change(InventoryItemDto inventoryItemDto){
+  public void change(InventoryItemDto inventoryItemDto) {
     InventoryItemDto.builder().count(inventoryItemDto.getCount());
   }
-  
 }

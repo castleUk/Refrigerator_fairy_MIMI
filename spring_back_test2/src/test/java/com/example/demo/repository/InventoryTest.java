@@ -1,12 +1,9 @@
 package com.example.demo.repository;
 
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.demo.dto.InventoryItemDto;
 import com.example.demo.entity.Freezer;
 import com.example.demo.entity.Item;
 import com.example.demo.entity.Member;

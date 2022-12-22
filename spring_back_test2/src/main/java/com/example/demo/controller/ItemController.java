@@ -1,7 +1,9 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.ItemDto;
+import com.example.demo.service.ItemService;
 import java.util.List;
-
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,12 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.dto.ItemDto;
-import com.example.demo.entity.Item;
-import com.example.demo.service.ItemService;
-
-import lombok.RequiredArgsConstructor;
-
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/item")
@@ -25,32 +21,34 @@ public class ItemController {
 
   private final ItemService itemService;
 
-  @PostMapping("/add")  //상품추가
-  public ResponseEntity<Long> addItem(
-    @RequestBody ItemDto requestDto
-  ) throws Exception {
-   
-  return ResponseEntity.ok(itemService.register(requestDto));
+  @PostMapping("/add") //상품추가
+  public ResponseEntity<Long> addItem(@RequestBody ItemDto requestDto)
+    throws Exception {
+    return ResponseEntity.ok(itemService.register(requestDto));
   }
 
-  @PutMapping("/{itemId}")  //상품수정 ... -> 수정요망
-  public void modifyItem(@PathVariable("itemId") Long itemId, @RequestBody ItemDto requestDto)throws Exception {
+  @PutMapping("/{itemId}") //상품수정 ... -> 수정요망
+  public void modifyItem(
+    @PathVariable("itemId") Long itemId,
+    @RequestBody ItemDto requestDto
+  ) throws Exception {
     itemService.modify(requestDto);
   }
 
-  @GetMapping  // 상품목록 받기
+  @GetMapping // 상품목록 받기
   public ResponseEntity<List<ItemDto>> readAllItem() throws Exception {
     return ResponseEntity.ok(itemService.readAll());
   }
 
   @GetMapping("/{itemId}")
-  public ResponseEntity<ItemDto> readOneItem(@PathVariable("itemId") Long itemId) throws Exception{
+  public ResponseEntity<ItemDto> readOneItem(
+    @PathVariable("itemId") Long itemId
+  ) throws Exception {
     return ResponseEntity.ok(itemService.readOne(itemId));
   }
 
-
   @DeleteMapping("/{itemId}")
-  public void deleteItem(@PathVariable("itemId") Long itemId) throws Exception{
+  public void deleteItem(@PathVariable("itemId") Long itemId) throws Exception {
     itemService.remove(itemId);
   }
 }

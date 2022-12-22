@@ -2,7 +2,6 @@ package com.example.demo.dto;
 
 import com.example.demo.entity.InventoryItem;
 import com.example.demo.entity.Item;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -22,13 +21,12 @@ public class InventoryItemDto {
 
   private Long itemId;
 
-
-
-
   public static InventoryItemDto of(InventoryItem inventoryItem) {
     return InventoryItemDto
-      .builder().inventoryItemId(inventoryItem.getId()).count(inventoryItem.getCount()).itemId(inventoryItem.getItem().getId()).build();
-
+      .builder()
+      .inventoryItemId(inventoryItem.getId())
+      .count(inventoryItem.getCount())
+      .itemId(inventoryItem.getItem().getId())
+      .build();
   }
-  
 }

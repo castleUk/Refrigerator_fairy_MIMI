@@ -1,7 +1,6 @@
 package com.example.demo.dto;
 
 import com.example.demo.entity.RecipeItem;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -27,7 +26,4 @@ public class RecipeItemResponseDto {
       .itemCount(recipeItem.getCount())
       .build();
   }
-
-
-  
 }

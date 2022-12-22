@@ -17,7 +17,7 @@ public class MemberService {
   private final MemberRepository memberRepository;
   private final PasswordEncoder passwordEncoder;
 
-  public MemberResponseDto getMyInfoBySecurity() {  //헤더에 있는 token 값을 토대로 Member의 data를건네주는 메소드
+  public MemberResponseDto getMyInfoBySecurity() { //헤더에 있는 token 값을 토대로 Member의 data를건네주는 메소드
     return memberRepository
       .findById(SecurityUtil.getCurrentMemberId())
       .map(MemberResponseDto::of)
@@ -25,7 +25,7 @@ public class MemberService {
   }
 
   @Transactional
-  public MemberResponseDto changeMemberNickname(String email, String nickname) {  //닉네임 변경
+  public MemberResponseDto changeMemberNickname(String email, String nickname) { //닉네임 변경
     Member member = memberRepository
       .findByEmail(email)
       .orElseThrow(() -> new RuntimeException("로그인 유저 정보가 없습니다"));
@@ -34,7 +34,7 @@ public class MemberService {
   }
 
   @Transactional
-  public MemberResponseDto changeMemberPassword(   //패스워드 변경
+  public MemberResponseDto changeMemberPassword( //패스워드 변경
     String email,
     String exPassword,
     String newPassword

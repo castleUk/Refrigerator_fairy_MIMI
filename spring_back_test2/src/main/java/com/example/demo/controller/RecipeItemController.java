@@ -1,7 +1,10 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.RecipeItemRequestDto;
+import com.example.demo.dto.RecipeItemResponseDto;
+import com.example.demo.service.RecipeItemService;
 import java.util.List;
-
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,12 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.example.demo.dto.RecipeItemRequestDto;
-import com.example.demo.dto.RecipeItemResponseDto;
-import com.example.demo.service.RecipeItemService;
-
-import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
@@ -31,17 +28,21 @@ public class RecipeItemController {
   }
 
   @GetMapping("/{name}") //해당 레시피의 레시피아이템 전체조회
-  public List<RecipeItemResponseDto> readAllRecipeItem(@PathVariable("name") String name){
+  public List<RecipeItemResponseDto> readAllRecipeItem(
+    @PathVariable("name") String name
+  ) {
     return recipeItemService.recipeSearch(name);
   }
 
   @GetMapping("/recipe/{name}") //해당 레시피의 레시피아이템 전체조회
-  public List<RecipeItemResponseDto> readAllItemRecipe(@PathVariable("name") String name){
+  public List<RecipeItemResponseDto> readAllItemRecipe(
+    @PathVariable("name") String name
+  ) {
     return recipeItemService.itemSearch(name);
   }
 
   @DeleteMapping
-  public void deleteRecipeItem(@RequestBody RecipeItemRequestDto dto){
+  public void deleteRecipeItem(@RequestBody RecipeItemRequestDto dto) {
     recipeItemService.deleteRecipeItem(dto);
   }
 }

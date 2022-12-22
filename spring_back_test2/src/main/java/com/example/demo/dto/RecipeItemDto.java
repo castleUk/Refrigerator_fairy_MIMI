@@ -4,7 +4,6 @@ import com.example.demo.entity.Item;
 import com.example.demo.entity.Recipe;
 import com.example.demo.entity.RecipeItem;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,7 +14,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class RecipeItemDto {
-  
+
   private Long id;
 
   private Item item;
@@ -30,7 +29,4 @@ public class RecipeItemDto {
       .recipe(recipeItem.getRecipe())
       .build();
   }
-
-
-  
 }
