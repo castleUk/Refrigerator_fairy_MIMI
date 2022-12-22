@@ -33,8 +33,8 @@ public class ItemController {
   return ResponseEntity.ok(itemService.register(requestDto));
   }
 
-  @PutMapping("/{id}")  //상품수정 ... -> 수정요망
-  public void modifyItem(@PathVariable("id") Long id, @RequestBody ItemDto requestDto)throws Exception {
+  @PutMapping("/{itemId}")  //상품수정 ... -> 수정요망
+  public void modifyItem(@PathVariable("itemId") Long itemId, @RequestBody ItemDto requestDto)throws Exception {
     itemService.modify(requestDto);
   }
 
@@ -43,14 +43,14 @@ public class ItemController {
     return ResponseEntity.ok(itemService.readAll());
   }
 
-  @GetMapping("/{id}")
-  public ResponseEntity<ItemDto> readOneItem(@PathVariable("id") Long id) throws Exception{
-    return ResponseEntity.ok(itemService.readOne(id));
+  @GetMapping("/{itemId}")
+  public ResponseEntity<ItemDto> readOneItem(@PathVariable("itemId") Long itemId) throws Exception{
+    return ResponseEntity.ok(itemService.readOne(itemId));
   }
 
 
-  @DeleteMapping("/{id}")
-  public void deleteItem(@PathVariable("id") Long id) throws Exception{
-    itemService.remove(id);
+  @DeleteMapping("/{itemId}")
+  public void deleteItem(@PathVariable("itemId") Long itemId) throws Exception{
+    itemService.remove(itemId);
   }
 }

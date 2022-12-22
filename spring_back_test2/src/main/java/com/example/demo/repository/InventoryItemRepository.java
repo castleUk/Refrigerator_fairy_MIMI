@@ -11,10 +11,4 @@ public interface InventoryItemRepository extends JpaRepository<InventoryItem, Lo
   List<InventoryItem> findByInventoryId(Long inventoryId);
 
 
-  // @Query("select new com.example.demo.dto.InventoryItemDetailDto(ii.id, i.itemName, ci.count, im.imgUrl ) " +
-  //     "from InventoryItem ci, ItemImg im " +
-  //     " join ci.item i" +
-  //     "order by ci.regTime desc"
-  //     )
-  // List<InventoryItemDetailDto> findInventoryItemDetailDtoList(Long InventoryId);
 }

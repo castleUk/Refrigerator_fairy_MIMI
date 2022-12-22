@@ -1,5 +1,14 @@
 package com.example.demo.service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transactional;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Service;
+
 import com.example.demo.dto.InventoryItemDto;
 import com.example.demo.dto.ItemDto;
 import com.example.demo.entity.Freezer;
@@ -12,15 +21,9 @@ import com.example.demo.repository.InventoryItemRepository;
 import com.example.demo.repository.InventoryRepository;
 import com.example.demo.repository.ItemRepository;
 import com.example.demo.repository.MemberRepository;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-import javax.persistence.EntityNotFoundException;
-import javax.transaction.Transactional;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.modelmapper.ModelMapper;
-import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
@@ -101,14 +104,14 @@ public class InventoryService {
   }
 
   // 개별 조회
-  public ItemDto readOneInventoryItem(String email, int index, Long id) {
+  public ItemDto readOneInventoryItem(String email, int index, Long itemId) {
     Member member = memberRepository.findByEmail(email).orElseThrow();
     List<Freezer> freezer = freezerRepository.findByMemberId(member.getId());
     Inventory inventory = inventoryRepository.findByFreezerId(
       freezer.get(index).getId()
     );
     Item inventoryItem = inventoryItemRepository
-      .findByInventoryIdAndItemId(inventory.getId(), id)
+      .findByInventoryIdAndItemId(inventory.getId(), itemId)
       .getItem();
     ItemDto dto = modelMapper.map(inventoryItem, ItemDto.class);
     return dto;
@@ -118,7 +121,7 @@ public class InventoryService {
   public void modifyInventoryItem(
     String email,
     int index,
-    Long id,
+    Long itemId,
     InventoryItemDto inventoryItemDto
   ) {
     Member member = memberRepository.findByEmail(email).orElseThrow();
@@ -128,20 +131,23 @@ public class InventoryService {
     );
     InventoryItem inventoryItem = inventoryItemRepository.findByInventoryIdAndItemId(
       inventory.getId(),
-      id
+      itemId
     );
 
     inventoryItem.change(inventoryItemDto);
   }
 
   // 삭제
-  public void deleteInventoryItem(String email, int index, Long id) {
+  public void deleteInventoryItem(String email, int index, Long itemId) {
     Member member = memberRepository.findByEmail(email).orElseThrow();
     List<Freezer> freezer = freezerRepository.findByMemberId(member.getId());
     Inventory inventory = inventoryRepository.findByFreezerId(
       freezer.get(index).getId()
     );
-    InventoryItem inventoryItem = inventoryItemRepository.findByInventoryIdAndItemId(inventory.getId(), id);
+    InventoryItem inventoryItem = inventoryItemRepository.findByInventoryIdAndItemId(
+      inventory.getId(),
+      itemId
+    );
     inventoryItemRepository.delete(inventoryItem);
   }
 }

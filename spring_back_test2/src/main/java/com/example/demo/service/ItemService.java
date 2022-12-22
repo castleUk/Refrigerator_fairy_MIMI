@@ -31,8 +31,8 @@ public class ItemService {
   }
 
   //상품 조회
-  public ItemDto readOne(Long id) {
-    Optional<Item> result = itemRepository.findById(id);
+  public ItemDto readOne(Long itemId) {
+    Optional<Item> result = itemRepository.findById(itemId);
     Item item = result.orElseThrow();
     ItemDto itemDto = modelMapper.map(item, ItemDto.class);
     return itemDto;
@@ -47,8 +47,8 @@ public class ItemService {
   }
 
   //삭제 처리
-  public void remove(Long id) {
-    itemRepository.deleteById(id);
+  public void remove(Long itemId) {
+    itemRepository.deleteById(itemId);
   }
 
   // 전체 목록
