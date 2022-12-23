@@ -1,0 +1,45 @@
+{
+  "recipe" :[
+    {
+      "recipe_id" : 1,
+      "menu_sub_title": "불 없이 만든 한 그릇",
+      "menu_title": "반숙명란덮밥",
+      "menu_img": "https://2bob.co.kr/data/recipe/20220804142632-D1Q5R.jpg",
+      "ingre_title": "재료",
+      "ingre_sub": "1인분",
+      "ingres": [
+        {"ingr_name" : "대파", "ingr_value": "9cm"},
+        {"ingr_name" : "명란젓", "ingr_value": "1개"},
+        {"ingr_name" : "밥", "ingr_value": "1공기"},
+        {"ingr_name" : "달걀", "ingr_value": "1개"}
+      ],
+      "step" : [
+        {
+          "step_num": "1",
+          "step_img": "https://2bob.co.kr/data/recipe/20220804142639-EB6OG.jpg",
+          "step_cont": "대파는 세로로 반 갈라 송송 썰고,\n명란젓은 5~6등분하고,"
+        },
+        {
+          "step_num": "2",
+          "step_img": "https://2bob.co.kr/data/recipe/20220804142658-FBSQR.jpg",
+          "step_cont": "그릇에 밥을 담고 가운데 부분을\n숟가락으로 가볍게 누르고,"
+        },
+        {
+          "step_num": "3",
+          "step_img": "https://2bob.co.kr/data/recipe/20220804142732-QZ8KW.jpg",
+          "step_cont": "누른 부분에 달걀을 깨 넣고\n꼬치로 노른자를 2~3번 찌르고,"
+        },
+        {
+          "step_num": "4",
+          "step_img": "https://2bob.co.kr/data/recipe/20220804142751-42KQ9.jpg",
+          "step_cont": "대파와 명란젓을 둘러 담은 뒤\n랩을 씌워 전자레인지에 30초씩 2번 돌리고,"
+        },
+        {
+          "step_num": "5",
+          "step_img": "https://2bob.co.kr/data/recipe/20220804142803-K04DJ.jpg",
+          "step_cont": "버터(0.5)를 올리고\n간장(0.5)을 뿌려 마무리."
+        }
+      ]
+    }    
+  ]
+}

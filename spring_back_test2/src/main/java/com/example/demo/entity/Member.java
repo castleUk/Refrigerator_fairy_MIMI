@@ -23,37 +23,37 @@ public class Member extends BaseEntity {
   private Long id;
 
   @Column(nullable = false)
-  private String email;
+  private String userEmail;
 
   @Column(nullable = false)
-  private String password;
+  private String userPw;
 
   @Column(nullable = false)
-  private String nickname;
+  private String userName;
 
   @Enumerated(EnumType.STRING) // Entity 클래스 속성 중 Enum 타입의 변수에 사용할수 있음.
   private Authority authority;
 
-  public void setNickname(String nickname) {
-    this.nickname = nickname;
+  public void setUserName(String userName) {
+    this.userName = userName;
   }
 
-  public void setPassword(String password) {
-    this.password = password;
+  public void setUserPw(String userPw) {
+    this.userPw = userPw;
   }
 
   @Builder
   public Member(
     Long id,
-    String email,
-    String password,
-    String nickname,
+    String userEmail,
+    String userPw,
+    String userName,
     Authority authority
   ) {
     this.id = id;
-    this.email = email;
-    this.password = password;
-    this.nickname = nickname;
+    this.userEmail = userEmail;
+    this.userPw = userPw;
+    this.userName = userName;
     this.authority = authority;
   }
 }

@@ -25,7 +25,7 @@ public class AuthService {
   private final TokenProvider tokenProvider;
 
   public MemberResponseDto signup(MemberRequestDto requestDto) { //회원가입을 하는 메소드
-    if (memberRepository.existsByEmail(requestDto.getEmail())) {
+    if (memberRepository.existsByUserEmail(requestDto.getUserEmail())) {
       throw new RuntimeException("이미 가입되어 있는 유저입니다");
     }
 

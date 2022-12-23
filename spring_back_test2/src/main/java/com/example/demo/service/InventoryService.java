@@ -38,14 +38,14 @@ public class InventoryService {
   //인벤토리 추가 및 아이템 담기
   public Long addInventory(
     InventoryItemDto inventoryItemDto,
-    String email,
+    String userEmail,
     int index
   ) {
     Item item = itemRepository
       .findById(inventoryItemDto.getItemId())
       .orElseThrow(EntityNotFoundException::new);
 
-    Member member = memberRepository.findByEmail(email).orElseThrow();
+    Member member = memberRepository.findByUserEmail(userEmail).orElseThrow();
     List<Freezer> freezer = freezerRepository.findByMemberId(member.getId());
     Inventory inventory = inventoryRepository.findByFreezerId(
       freezer.get(index).getId()
@@ -77,10 +77,10 @@ public class InventoryService {
 
   // 전체 리스트 조회
   public List<InventoryItemDto> readAllInventoryItemList(
-    String email,
+    String userEmail,
     int index
   ) {
-    Member member = memberRepository.findByEmail(email).orElseThrow();
+    Member member = memberRepository.findByUserEmail(userEmail).orElseThrow();
     List<Freezer> freezer = freezerRepository.findByMemberId(member.getId());
     Inventory inventory = inventoryRepository.findByFreezerId(
       freezer.get(index).getId()
@@ -94,8 +94,8 @@ public class InventoryService {
   }
 
   // 개별 조회
-  public ItemDto readOneInventoryItem(String email, int index, Long itemId) {
-    Member member = memberRepository.findByEmail(email).orElseThrow();
+  public ItemDto readOneInventoryItem(String userEmail, int index, Long itemId) {
+    Member member = memberRepository.findByUserEmail(userEmail).orElseThrow();
     List<Freezer> freezer = freezerRepository.findByMemberId(member.getId());
     Inventory inventory = inventoryRepository.findByFreezerId(
       freezer.get(index).getId()
@@ -109,12 +109,12 @@ public class InventoryService {
 
   // 수정
   public void modifyInventoryItem(
-    String email,
+    String userEmail,
     int index,
     Long itemId,
     InventoryItemDto inventoryItemDto
   ) {
-    Member member = memberRepository.findByEmail(email).orElseThrow();
+    Member member = memberRepository.findByUserEmail(userEmail).orElseThrow();
     List<Freezer> freezer = freezerRepository.findByMemberId(member.getId());
     Inventory inventory = inventoryRepository.findByFreezerId(
       freezer.get(index).getId()
@@ -128,8 +128,8 @@ public class InventoryService {
   }
 
   // 삭제
-  public void deleteInventoryItem(String email, int index, Long itemId) {
-    Member member = memberRepository.findByEmail(email).orElseThrow();
+  public void deleteInventoryItem(String userEmail, int index, Long itemId) {
+    Member member = memberRepository.findByUserEmail(userEmail).orElseThrow();
     List<Freezer> freezer = freezerRepository.findByMemberId(member.getId());
     Inventory inventory = inventoryRepository.findByFreezerId(
       freezer.get(index).getId()

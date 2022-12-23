@@ -30,7 +30,9 @@ public class FreezerController {
   public ResponseEntity<FreezerRequestDto> registerFreezer(
     @RequestBody FreezerRequestDto freezerRequestDto
   ) {
-    String email = memberService.getMyInfoBySecurity().getEmail();
+    String email = memberService.getMyInfoBySecurity().getUserEmail();
+    log.info(email);
+    log.info("여기까지 왔음 진짜임");
     return ResponseEntity.ok(
       freezerService.addFreezer(freezerRequestDto, email)
     );
@@ -39,14 +41,14 @@ public class FreezerController {
   //냉장고 전체 목록
   @GetMapping
   public List<FreezerRequestDto> readAllFreezer() {
-    String email = memberService.getMyInfoBySecurity().getEmail();
+    String email = memberService.getMyInfoBySecurity().getUserEmail();
     return freezerService.freezerList(email);
   }
 
   //냉장고 읽기
   @GetMapping("/{index}")
   public FreezerRequestDto readOneFreezer(@PathVariable("index") int index) {
-    String email = memberService.getMyInfoBySecurity().getEmail();
+    String email = memberService.getMyInfoBySecurity().getUserEmail();
     return freezerService.getFreezer(email, index);
   }
 
@@ -56,7 +58,7 @@ public class FreezerController {
     @PathVariable("index") int index,
     @RequestBody FreezerRequestDto requestDto
   ) {
-    String email = memberService.getMyInfoBySecurity().getEmail();
+    String email = memberService.getMyInfoBySecurity().getUserEmail();
 
     freezerService.update(email, index, requestDto);
   }
@@ -64,7 +66,7 @@ public class FreezerController {
   //냉장고 삭제
   @DeleteMapping("/{index}")
   public void deleteFreezer(@PathVariable("index") int index) {
-    String email = memberService.getMyInfoBySecurity().getEmail();
+    String email = memberService.getMyInfoBySecurity().getUserEmail();
     freezerService.delete(email, index);
   }
 }

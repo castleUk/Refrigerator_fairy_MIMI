@@ -15,22 +15,22 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Builder
 public class MemberRequestDto {
 
-  private String email;
-  private String password;
-  private String nickname;
+  private String userEmail;
+  private String userPw;
+  private String userName;
 
   public Member toMember(PasswordEncoder passwordEncoder) {
     return Member
       .builder()
-      .email(email)
-      .password(passwordEncoder.encode(password))
-      .nickname(nickname)
+      .userEmail(userEmail)
+      .userPw(passwordEncoder.encode(userPw))
+      .userName(userName)
       .authority(Authority.ROLE_USER)
       .build();
   }
 
   public UsernamePasswordAuthenticationToken toAuthentication() {
-    return new UsernamePasswordAuthenticationToken(email, password);
+    return new UsernamePasswordAuthenticationToken(userEmail, userPw);
   }
 }
 //Request를 받을때 쓰이는 dto.

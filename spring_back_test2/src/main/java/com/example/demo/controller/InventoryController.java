@@ -29,7 +29,7 @@ public class InventoryController {
     @RequestBody InventoryItemDto inventoryItemDto,
     int index
   ) {
-    String email = memberService.getMyInfoBySecurity().getEmail();
+    String email = memberService.getMyInfoBySecurity().getUserEmail();
     Long inventoryItemId;
 
     inventoryItemId =
@@ -41,7 +41,7 @@ public class InventoryController {
   //전체 조회
   @GetMapping("/{index}")
   public ResponseEntity<?> readAllInventoryItem(@PathVariable int index) {
-    String email = memberService.getMyInfoBySecurity().getEmail();
+    String email = memberService.getMyInfoBySecurity().getUserEmail();
     return ResponseEntity.ok(
       inventoryService.readAllInventoryItemList(email, index)
     );
@@ -53,7 +53,7 @@ public class InventoryController {
     @PathVariable("itemId") Long itemId,
     @PathVariable("index") int index
   ) {
-    String email = memberService.getMyInfoBySecurity().getEmail();
+    String email = memberService.getMyInfoBySecurity().getUserEmail();
     return ResponseEntity.ok(
       inventoryService.readOneInventoryItem(email, index, itemId)
     );
@@ -66,7 +66,7 @@ public class InventoryController {
     @PathVariable("index") int index,
     @RequestBody InventoryItemDto inventoryItemDto
   ) {
-    String email = memberService.getMyInfoBySecurity().getEmail();
+    String email = memberService.getMyInfoBySecurity().getUserEmail();
     inventoryService.modifyInventoryItem(
       email,
       index,
@@ -81,7 +81,7 @@ public class InventoryController {
     @PathVariable("itemId") Long itemId,
     @PathVariable("index") int index
   ) {
-    String email = memberService.getMyInfoBySecurity().getEmail();
+    String email = memberService.getMyInfoBySecurity().getUserEmail();
     inventoryService.deleteInventoryItem(email, index, itemId);
   }
 }

@@ -25,27 +25,27 @@ public class MemberService {
   }
 
   @Transactional
-  public MemberResponseDto changeMemberNickname(String email, String nickname) { //닉네임 변경
+  public MemberResponseDto changeMemberNickname(String userEmail, String userName) { //닉네임 변경
     Member member = memberRepository
-      .findByEmail(email)
+      .findByUserEmail(userEmail)
       .orElseThrow(() -> new RuntimeException("로그인 유저 정보가 없습니다"));
-    member.setNickname(nickname);
+    member.setUserName(userName);
     return MemberResponseDto.of(memberRepository.save(member));
   }
 
   @Transactional
   public MemberResponseDto changeMemberPassword( //패스워드 변경
-    String email,
-    String exPassword,
-    String newPassword
+    String userEmail,
+    String exUserPw,
+    String newUserPw
   ) {
     Member member = memberRepository
       .findById(SecurityUtil.getCurrentMemberId())
       .orElseThrow(() -> new RuntimeException("로그인 유저 정보가 없습니다"));
-    if (!passwordEncoder.matches(exPassword, member.getPassword())) {
+    if (!passwordEncoder.matches(exUserPw, member.getUserPw())) {
       throw new RuntimeException("비밀번호가 맞지 않습니다");
     }
-    member.setPassword(passwordEncoder.encode((newPassword)));
+    member.setUserPw(passwordEncoder.encode((newUserPw)));
     return MemberResponseDto.of(memberRepository.save(member));
   }
 }

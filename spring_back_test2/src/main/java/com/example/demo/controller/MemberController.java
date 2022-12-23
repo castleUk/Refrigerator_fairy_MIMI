@@ -22,32 +22,32 @@ public class MemberController {
   @GetMapping("/me")
   public ResponseEntity<MemberResponseDto> getMyMemberInfo() {
     MemberResponseDto myInfoBySecurity = memberService.getMyInfoBySecurity();
-    System.out.println(myInfoBySecurity.getNickname());
+    System.out.println(myInfoBySecurity.getUserName());
     return ResponseEntity.ok((myInfoBySecurity));
     // return ResponseEntity.ok(memberService.getMyInfoBySecurity());
   }
 
-  @PostMapping("/nickname")
+  @PostMapping("/username")
   public ResponseEntity<MemberResponseDto> setMemberNickname(
     @RequestBody MemberRequestDto request
   ) {
     return ResponseEntity.ok(
       memberService.changeMemberNickname(
-        request.getEmail(),
-        request.getNickname()
+        request.getUserEmail(),
+        request.getUserName()
       )
     );
   }
 
-  @PostMapping("/password")
+  @PostMapping("/userpw")
   public ResponseEntity<MemberResponseDto> setMemberPassword(
     @RequestBody ChangePasswordRequestDto request
   ) {
     return ResponseEntity.ok(
       memberService.changeMemberPassword(
-        request.getEmail(),
-        request.getExPassword(),
-        request.getNewPassword()
+        request.getUserEmail(),
+        request.getExUserPw(),
+        request.getNewUserPw()
       )
     );
   }

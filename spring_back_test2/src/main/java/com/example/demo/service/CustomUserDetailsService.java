@@ -22,7 +22,7 @@ public class CustomUserDetailsService implements UserDetailsService {
   public UserDetails loadUserByUsername(String username)  //실행한 loadUserByUsername은 받은 email을 통해 user가 실제로 존재하는지 알아보는
     throws UsernameNotFoundException {
     return memberRepository
-      .findByEmail(username)
+      .findByUserEmail(username)
       .map(this::createUserDetails)
       .orElseThrow(() ->
         new UsernameNotFoundException(username + " 을 DB에서 찾을 수 없습니다")
@@ -36,7 +36,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     return new User(
       String.valueOf(member.getId()),
-      member.getPassword(),
+      member.getUserPw(),
       Collections.singleton(grantedAuthority)
     );
   }

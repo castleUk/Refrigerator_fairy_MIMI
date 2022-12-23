@@ -24,9 +24,9 @@ public class FreezerService {
   //냉장고 등록
   public FreezerRequestDto addFreezer(
     FreezerRequestDto freezerRequestDto,
-    String email
+    String userEmail
   ) {
-    Member member = memberRepository.findByEmail(email).orElseThrow();
+    Member member = memberRepository.findByUserEmail(userEmail).orElseThrow();
     String name = freezerRequestDto.getName();
     Freezer freezer = Freezer.createFreezer(member, name);
     log.info("Freezer :" + freezer);
@@ -34,8 +34,8 @@ public class FreezerService {
   }
 
   //로그인 된 아이디의 냉장고 리스트 조회
-  public List<FreezerRequestDto> freezerList(String email) {
-    Member member = memberRepository.findByEmail(email).orElseThrow();
+  public List<FreezerRequestDto> freezerList(String userEmail) {
+    Member member = memberRepository.findByUserEmail(userEmail).orElseThrow();
     List<FreezerRequestDto> freezerRequestDto = freezerRepository
       .findByMemberId(member.getId())
       .stream()
@@ -45,8 +45,8 @@ public class FreezerService {
   }
 
   //로그인 된 아이디의 냉장고 개별조회(index 0~2)
-  public FreezerRequestDto getFreezer(String email, int index) {
-    Member member = memberRepository.findByEmail(email).orElseThrow();
+  public FreezerRequestDto getFreezer(String userEmail, int index) {
+    Member member = memberRepository.findByUserEmail(userEmail).orElseThrow();
     List<FreezerRequestDto> freezerRequestDto = freezerRepository
       .findByMemberId(member.getId())
       .stream()
@@ -57,11 +57,11 @@ public class FreezerService {
 
   //로그인 된 아이디의 냉장고 개별수정(index 0~2)
   public FreezerRequestDto update(
-    String email,
+    String userEmail,
     int index,
     FreezerRequestDto requestDto
   ) {
-    Member member = memberRepository.findByEmail(email).orElseThrow();
+    Member member = memberRepository.findByUserEmail(userEmail).orElseThrow();
     List<FreezerRequestDto> result = freezerRepository
       .findByMemberId(member.getId())
       .stream()
@@ -75,8 +75,8 @@ public class FreezerService {
   }
 
   //로그인 된 아이디의 냉장고 개별삭제(index 0~2)
-  public void delete(String email, int index) {
-    Member member = memberRepository.findByEmail(email).orElseThrow();
+  public void delete(String userEmail, int index) {
+    Member member = memberRepository.findByUserEmail(userEmail).orElseThrow();
     List<FreezerRequestDto> result = freezerRepository
       .findByMemberId(member.getId())
       .stream()
