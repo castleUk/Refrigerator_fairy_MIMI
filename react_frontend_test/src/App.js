@@ -17,7 +17,7 @@ function App() {
     <div className="app">
       <Routes>
         <Route path='/freezer' element={<MainLayout/>}></Route>
-        <Route path='/inventory' element={<ContentLayout/>}></Route>
+        <Route path='inventory' element={<ContentLayout/>}></Route>
         <Route path='/' element={<LoginPage/>}></Route>
         {/* <Route path='/register' element={<LoginPage/>}></Route> */}
       </Routes>

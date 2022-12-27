@@ -58,7 +58,10 @@ public class FreezerController {
     @PathVariable("index") int index,
     @RequestBody FreezerRequestDto requestDto
   ) {
+    log.info(requestDto.getName());
+    log.info("333333333333");
     String email = memberService.getMyInfoBySecurity().getUserEmail();
+    log.info(email);
 
     freezerService.update(email, index, requestDto);
   }

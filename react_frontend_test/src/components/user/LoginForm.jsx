@@ -3,7 +3,7 @@ import React, { useState, useCallback } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
-const LoginForm = ({ onLogin }) => {
+const LoginForm = ({ onLogin, onError }) => {
   const [account, setAccount] = useState({
     userEmail: "",
     userPw: "",
@@ -22,7 +22,13 @@ const LoginForm = ({ onLogin }) => {
     (e) => {
       e.preventDefault(); //랜더링시 실행안함
 
-      onLogin(account);
+      if (!account.userEmail) {
+        return alert("ID를 입력하세요.");
+      } else if (!account.userPw) {
+        return alert("Password를 입력하세요.");
+      } else {
+        onLogin(account);
+      }
     },
     [account, onLogin]
   );
@@ -48,6 +54,7 @@ const LoginForm = ({ onLogin }) => {
             value={account.userPw}
           />
         </Form.Group>
+        <Form.Group>{onError}</Form.Group>
         <Button variant="primary" type="submit" className="btn-login">
           로그인
         </Button>

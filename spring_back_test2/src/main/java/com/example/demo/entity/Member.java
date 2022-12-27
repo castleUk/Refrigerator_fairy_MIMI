@@ -7,6 +7,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,7 +32,7 @@ public class Member extends BaseEntity {
   @Column(nullable = false)
   private String userName;
 
-  @Enumerated(EnumType.STRING) // Entity 클래스 속성 중 Enum 타입의 변수에 사용할수 있음.
+  @Enumerated(EnumType.STRING)
   private Authority authority;
 
   public void setUserName(String userName) {

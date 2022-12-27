@@ -17,7 +17,7 @@ public class MemberService {
   private final MemberRepository memberRepository;
   private final PasswordEncoder passwordEncoder;
 
-  public MemberResponseDto getMyInfoBySecurity() { //헤더에 있는 token 값을 토대로 Member의 data를건네주는 메소드
+  public MemberResponseDto getMyInfoBySecurity() {
     return memberRepository
       .findById(SecurityUtil.getCurrentMemberId())
       .map(MemberResponseDto::of)
@@ -25,27 +25,27 @@ public class MemberService {
   }
 
   @Transactional
-  public MemberResponseDto changeMemberNickname(String userEmail, String userName) { //닉네임 변경
+  public MemberResponseDto changeMemberNickname(String email, String nickname) {
     Member member = memberRepository
-      .findByUserEmail(userEmail)
+      .findByUserEmail(email)
       .orElseThrow(() -> new RuntimeException("로그인 유저 정보가 없습니다"));
-    member.setUserName(userName);
+    member.setUserName(nickname);
     return MemberResponseDto.of(memberRepository.save(member));
   }
 
   @Transactional
-  public MemberResponseDto changeMemberPassword( //패스워드 변경
-    String userEmail,
-    String exUserPw,
-    String newUserPw
+  public MemberResponseDto changeMemberPassword(
+    String email,
+    String exPassword,
+    String newPassword
   ) {
     Member member = memberRepository
       .findById(SecurityUtil.getCurrentMemberId())
       .orElseThrow(() -> new RuntimeException("로그인 유저 정보가 없습니다"));
-    if (!passwordEncoder.matches(exUserPw, member.getUserPw())) {
+    if (!passwordEncoder.matches(exPassword, member.getUserPw())) {
       throw new RuntimeException("비밀번호가 맞지 않습니다");
     }
-    member.setUserPw(passwordEncoder.encode((newUserPw)));
+    member.setUserPw(passwordEncoder.encode((newPassword)));
     return MemberResponseDto.of(memberRepository.save(member));
   }
 }

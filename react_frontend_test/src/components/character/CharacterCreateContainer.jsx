@@ -1,26 +1,37 @@
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 import CharacterCreateForm from "./CharacterCreateForm";
-import * as api from "../../lib/api";
+import axios from "axios";
 
-const CharacterCreateContainer = () => {
+const CharacterCreateContainer = (props) => {
   const navigate = useNavigate();
 
   //등록처리
   const onRegister = async (freezerName) => {
-    console.log(freezerName)
+    const data = {
+      name: freezerName,
+    };
+    const token = localStorage.getItem("accessToken");
+    const headers = {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + token,
+    };
+
     try {
-      await api.freezerAdd(freezerName);
-
-      alert(" 등록이 완료되었습니다");
-
+      const response = await axios.post(
+        "/api/freezer/add",
+        JSON.stringify(data),
+        {
+          headers: headers,
+        }
+      );
+      props.onChange();
       navigate("/freezer");
-    } catch (e) {
-      alert(e.response.data);
+    } catch (error) {
+      console.log(error);
     }
   };
 
   return <CharacterCreateForm onRegister={onRegister} />;
 };
-
 
 export default CharacterCreateContainer;

@@ -17,16 +17,17 @@ public class InventoryItemDto {
 
   private Long inventoryItemId;
 
+  private String itemName;
+
   private int count;
 
-  private Long itemId;
 
   public static InventoryItemDto of(InventoryItem inventoryItem) {
     return InventoryItemDto
       .builder()
       .inventoryItemId(inventoryItem.getId())
       .count(inventoryItem.getCount())
-      .itemId(inventoryItem.getItem().getId())
+      .itemName(inventoryItem.getItem().getName())
       .build();
   }
 }

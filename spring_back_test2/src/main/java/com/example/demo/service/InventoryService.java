@@ -42,8 +42,7 @@ public class InventoryService {
     int index
   ) {
     Item item = itemRepository
-      .findById(inventoryItemDto.getItemId())
-      .orElseThrow(EntityNotFoundException::new);
+      .findByName(inventoryItemDto.getItemName());
 
     Member member = memberRepository.findByUserEmail(userEmail).orElseThrow();
     List<Freezer> freezer = freezerRepository.findByMemberId(member.getId());

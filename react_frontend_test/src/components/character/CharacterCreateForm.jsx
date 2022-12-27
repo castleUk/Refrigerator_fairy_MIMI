@@ -11,8 +11,6 @@ import FredgeClose from "../fredge/FredgeClose";
 const CharacterCreateForm = ({ onRegister }) => {
   //냉장고 이름
   const [freezerName, SetFreezerName] = useState("");
-  console.log("freezerName" + freezerName);
-
   // modal
   const [show, setShow] = useState(false);
 
@@ -26,12 +24,13 @@ const CharacterCreateForm = ({ onRegister }) => {
   const submitHandler = useCallback(
     (e) => {
       e.preventDefault();
+      setShow(false);
       onRegister(freezerName);
     },
     [freezerName, onRegister]
+
   );
 
-  console.log(show)
   return (
     <>
       <div className="character create">
@@ -52,8 +51,9 @@ const CharacterCreateForm = ({ onRegister }) => {
         onShow={handleShow}
         onHide={handleClose}
         onSubmit={submitHandler}
-        onClick={handleClose}
         onChange={changeFreezerNameHandler}
+        placeholder="냉장고 이름!"
+        buttonName="생성"
       />}
     </>
   );

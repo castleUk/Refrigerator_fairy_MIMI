@@ -1,6 +1,8 @@
 package com.example.demo.dto;
 
 import com.example.demo.entity.Freezer;
+import com.example.demo.entity.Member;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -17,6 +19,8 @@ public class FreezerRequestDto {
   private Long id;
 
   private String name;
+  
+  private Member member;
 
   // private Member member;
 
@@ -25,11 +29,11 @@ public class FreezerRequestDto {
       .builder()
       .id(freezer.getId())
       .name(freezer.getName())
-      // .member(freezer.getMember())
+      .member(freezer.getMember())
       .build();
   }
 
   public Freezer toEntity() {
-    return Freezer.builder().id(this.id).name(this.name).build();
+    return Freezer.builder().id(this.id).name(this.name).member(this.member).build();
   }
 }

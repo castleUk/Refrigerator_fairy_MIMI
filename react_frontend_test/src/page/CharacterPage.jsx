@@ -1,10 +1,10 @@
 import React from 'react';
-import CharacterComponent from '../components/character/CharacterComponent';
+import CharacterMainComponent from '../components/character/CharacterMainComponent';
 
 const CharacterPage = () => {
   return(
     <div className='page character-page'>
-      <CharacterComponent />
+      <CharacterMainComponent />
     </div>
   );
 }
