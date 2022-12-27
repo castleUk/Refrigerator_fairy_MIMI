@@ -9,7 +9,7 @@ const Modals = (props) => {
     <div>
       <Modal show={props.onShow} onHide={props.onHide} centered>
         <Modal.Header closeButton>
-          <Modal.Title>{props.title}</Modal.Title>
+          <Modal.Title>냉장고 생성</Modal.Title>
         </Modal.Header>
         <Form onSubmit={props.onSubmit}>
           <Modal.Body>

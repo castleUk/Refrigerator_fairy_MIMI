@@ -4,12 +4,16 @@ import Content from './common/Content';
 import Header from './common/Header';
 import InventoryClose from './inventory/InventoryClose';
 import InventoryOpen from './inventory/InventoryOpen';
+import { useLocation } from 'react-router-dom';
 
 const ContentLayout = () => {
+  const location = useLocation();
+	const index = location.state.index;
+  console.log("인덱스" + index)
   return(
     <div className='components cts'>
       <Header/>
-      <Content />
+      <Content index={index}/>
       {/* <InventoryClose /> */}
       {/* <InventoryOpen /> */}
     </div>

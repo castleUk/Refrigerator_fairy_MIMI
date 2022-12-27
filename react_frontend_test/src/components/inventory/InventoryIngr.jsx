@@ -11,7 +11,6 @@ const InventoryIngr = (props) => {
   //냉장고속 재료 목록 가져오기
    const onItemList = async () => {
     console.log("재료목록 가져오기 작동!")
-    const index = 0;
 
     const token = localStorage.getItem("accessToken");
     const headers = {
@@ -19,7 +18,7 @@ const InventoryIngr = (props) => {
       Authorization: "Bearer " + token,
     };
     try {
-      const response = await axios.get(`/api/inventory/${index}`, {
+      const response = await axios.get(`/api/inventory/0`, {
         headers: headers,
       });
       const data = await response.data;
@@ -35,18 +34,23 @@ const InventoryIngr = (props) => {
     onItemList();
   }, []);
 
-
+  
 
   // 냉장고 속 재료
   return(
     <>
-    <li className='ingr'>11</li>
-    <li className='ingr'>22</li>
-    <li className='ingr'>33</li>
-    <li className='ingr'>44</li>
-    <li className='ingr'>55</li>
-    <li className='ingr'>66</li>
-    <li className='ingr'>77</li>
+     <div>
+        {itemList.map((it) => {
+          return (
+            <div key={it.inventoryItemId}>
+              <div>
+                이름 : {it.itemName}
+                갯수 : {it.count}
+              </div>
+            </div>
+          );
+        })}
+      </div>
     </>
   );
 }

@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 //template
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
@@ -6,11 +8,43 @@ import Modal from 'react-bootstrap/Modal';
 import { BsPlusCircleDotted } from "react-icons/bs";
 import IngrComponent from '../ingr/IngrComponent';
 
-const InventoryIngrAdd = () => {
+const InventoryIngrAdd = (props) => {
+  const navigate = useNavigate();
   const [ingeCreateShow, setIngeCreateShow] = useState(false);
 
   const ingrModelClose = () => setIngeCreateShow(false);
   const ingrModelShow = () => setIngeCreateShow(true);
+
+const index = props.index;
+console.log("여기까지 내려옴" + index)
+//냉장고 아이템 등록 처리
+const onAddItem = async () => {
+  const data = {
+    "count": 10,
+    "itemName": "c"
+  }
+  const token = localStorage.getItem("accessToken");
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: "Bearer " + token,
+  };
+
+  try {
+    const response = await axios.post(
+      "/api/inventory/add?index=${index}",
+      JSON.stringify(data),
+      {
+        headers: headers,
+      }
+    );
+    props.onChange();
+    navigate("/freezer");
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+
 
   // 냉장고 재료 추가 버튼
   return(

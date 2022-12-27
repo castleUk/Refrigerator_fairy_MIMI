@@ -2,7 +2,7 @@ import React from 'react';
 import IngrContentComponent from '../components/ingrContent/IngrContentComponent';
 import InventoryComponent from '../components/inventory/InventoryComponent';
 
-const InventoryPage = () => {
+const InventoryPage = (props) => {
   return(
     <div className='page inventory-page'>
       {/* <InventoryComponent /> */}
@@ -10,7 +10,7 @@ const InventoryPage = () => {
       <div className='row'>
         <div className='col col-7'>
         <div className='right'>
-          <InventoryComponent />
+          <InventoryComponent index={props.index}/>
         </div>
         </div>
         <div className='col col-5'>

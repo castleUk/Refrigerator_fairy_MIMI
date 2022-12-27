@@ -111,7 +111,7 @@ const Character = (props) => {
           </Dropdown>
         </div>
         <div className="content-body">
-          <Link to='/inventory'>
+          <Link to={`/inventory/${props.index}`} state={{ index: props.index }}>
             <FredgeClose />
           </Link>
         </div>

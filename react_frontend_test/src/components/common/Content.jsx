@@ -2,10 +2,10 @@ import React from 'react';
 // component
 import InventoryPage from '../../page/InventoryPage';
 
-const Content = () => {
+const Content = (props) => {
   return(
     <main className='contents'>
-      <InventoryPage/>
+      <InventoryPage index={props.index}/>
     </main>
   );
 }
