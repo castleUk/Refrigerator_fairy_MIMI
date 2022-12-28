@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 // component
 import axios from "axios";
-import Character from "./Character";
-import CharacterCreateContainer from "./CharacterCreateContainer";
+import Freezer from "./Freezer";
+import FreezerCreateContainer from "./FreezerCreateContainer";
 
 // template
 
-const CharacterMainComponent = () => {
+const FreezerMainComponent = () => {
   const [freezer, SetFreezer] = useState([]);
   const [change, SetChange] = useState(false);
 
@@ -49,37 +49,37 @@ const CharacterMainComponent = () => {
           <div className="row">
             <div className="col">
               {freezer[0] ? (
-                <Character
+                <Freezer
                   onFreezer={freezer[0]}
                   index="0"
                   onChange={changeHandler}
                 />
               ) : (
-                <CharacterCreateContainer onChange={changeHandler}/>
+                <FreezerCreateContainer onChange={changeHandler}/>
               )}
             </div>
 
             <div className="col">
               {freezer[1] ? (
-                <Character
+                <Freezer
                   onFreezer={freezer[1]}
                   index="1"
                   onChange={changeHandler}
                 />
               ) : (
-                <CharacterCreateContainer onChange={changeHandler}/>
+                <FreezerCreateContainer onChange={changeHandler}/>
               )}
             </div>
 
             <div className="col">
               {freezer[2] ? (
-                <Character
+                <Freezer
                   onFreezer={freezer[2]}
                   index="2"
                   onChange={changeHandler}
                 />
               ) : (
-                <CharacterCreateContainer onChange={changeHandler}/>
+                <FreezerCreateContainer onChange={changeHandler}/>
               )}
             </div>
           </div>
@@ -89,4 +89,4 @@ const CharacterMainComponent = () => {
   );
 };
 
-export default CharacterMainComponent;
+export default FreezerMainComponent;

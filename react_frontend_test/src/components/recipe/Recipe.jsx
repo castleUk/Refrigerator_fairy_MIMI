@@ -3,9 +3,9 @@ import dummy from '../../db/items.json';
 // component
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import RecipeComponent from '../recipe/RecipeComponent';
+import RecipesComponent from '../recipe/RecipesComponent';
 
-const Item = () => {
+const Recipe = () => {
   const itemsList = dummy;
   const [recipyShow, setRecipyShow] = useState(false);
 
@@ -23,7 +23,7 @@ const Item = () => {
           {/* <Modal.Title>레시피</Modal.Title> */}
         </Modal.Header>
         <Modal.Body>
-          <RecipeComponent />
+          <RecipesComponent />
         </Modal.Body>
         <Modal.Footer>
           <Button variant="primary" onClick={handleClose}>만들기</Button>
@@ -33,4 +33,4 @@ const Item = () => {
   );
 }
 
-export default Item;
+export default Recipe;

@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
-import InventoryIngr from './InventoryIngr';
+import InventoryItem from './InventoryItem';
 
-const InventoryIngrGroup = () => {
+const InventoryItemGroup = () => {
 
   // 냉장고 속 재료 목록 그룹 (한 줄)
   return(
     <div className='inventory-list'>
       <ul className='ingr-group'>
-        <InventoryIngr />
+        <InventoryItem />
       </ul>
     </div>
   );
 }
 
-export default InventoryIngrGroup;
+export default InventoryItemGroup;

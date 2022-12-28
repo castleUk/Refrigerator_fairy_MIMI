@@ -11,7 +11,7 @@ import axios from "axios";
 import Modals from "../common/Modals";
 import DeleteModals from "../common/DeleteModals";
 
-const Character = (props) => {
+const Freezer = (props) => {
   const navigate = useNavigate();
 
   
@@ -138,4 +138,4 @@ const Character = (props) => {
   );
 };
 
-export default Character;
+export default Freezer;

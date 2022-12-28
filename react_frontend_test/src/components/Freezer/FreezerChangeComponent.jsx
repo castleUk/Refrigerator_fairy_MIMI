@@ -3,9 +3,9 @@ import React from 'react';
 import Card from 'react-bootstrap/Card';
 import CloseButton from 'react-bootstrap/CloseButton';
 //component
-import CharacterChange from './CharacterChange';
+import FreezerChange from './FreezerChange';
 
-const CharacterChangeComponent = () => {
+const FreezerChangeComponent = () => {
   return(
     <div className='change-component'>
       <div className='change-content'>
@@ -16,7 +16,7 @@ const CharacterChangeComponent = () => {
           </div>
           <div className='content-body'>
             <Card.Body>
-              <CharacterChange />
+              <FreezerChange />
             </Card.Body>
           </div>
         </Card>
@@ -26,4 +26,4 @@ const CharacterChangeComponent = () => {
   );
 }
 
-export default CharacterChangeComponent;
+export default FreezerChangeComponent;

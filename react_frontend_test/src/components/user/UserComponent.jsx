@@ -6,7 +6,7 @@ import { Link, Route } from 'react-router-dom';
 import LoginContainer from './LoginContainer';
 import RegisterContainer from './RegisterContainer';
 
-const MainComponent = () => {
+const UserComponent = () => {
   const [menu, setMenu] = useState([true, false]);
   const [viewComponent, setViewComponent] = useState(true);
 
@@ -38,4 +38,4 @@ const MainComponent = () => {
   );
 }
 
-export default MainComponent;
+export default UserComponent;

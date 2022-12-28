@@ -1,16 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-
-const InventoryIngr = (props) => {
+const InventoryItem = (props) => {
   const navigate = useNavigate();
 
   const [itemList, SetItemList] = useState([]);
-   
+
   //냉장고속 재료 목록 가져오기
-   const onItemList = async () => {
-    console.log("재료목록 가져오기 작동!")
+  const onItemList = async () => {
+    console.log("재료목록 가져오기 작동!");
 
     const token = localStorage.getItem("accessToken");
     const headers = {
@@ -29,17 +28,14 @@ const InventoryIngr = (props) => {
     }
   };
 
-
   useEffect(() => {
     onItemList();
   }, []);
 
-  
-
   // 냉장고 속 재료
-  return(
+  return (
     <>
-     <div>
+      <div>
         {itemList.map((it) => {
           return (
             <div key={it.inventoryItemId}>
@@ -53,6 +49,6 @@ const InventoryIngr = (props) => {
       </div>
     </>
   );
-}
+};
 
-export default InventoryIngr;
+export default InventoryItem;

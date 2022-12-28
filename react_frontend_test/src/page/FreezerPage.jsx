@@ -1,10 +1,10 @@
 import React from 'react';
-import CharacterMainComponent from '../components/character/CharacterMainComponent';
+import FreezerMainComponent from '../components/Freezer/FreezerMainComponent';
 
 const CharacterPage = () => {
   return(
     <div className='page character-page'>
-      <CharacterMainComponent />
+      <FreezerMainComponent />
     </div>
   );
 }

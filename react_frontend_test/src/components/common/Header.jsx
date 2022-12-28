@@ -11,7 +11,7 @@ import { ImProfile } from "react-icons/im";
 import Dropdown from "react-bootstrap/Dropdown";
 
 // component
-import CharacterChangeComponent from "../character/CharacterChangeComponent";
+import FreezerChangeComponent from "../Freezer/FreezerChangeComponent";
 import FredgeNoticeComponent from "../notice/FredgeNoticeComponent";
 
 const Header = () => {
@@ -141,7 +141,7 @@ const Header = () => {
         </div>
       </header>
       {noticeShow && <FredgeNoticeComponent />}
-      {changeShow && <CharacterChangeComponent />}
+      {changeShow && <FreezerChangeComponent />}
     </>
   );
 };

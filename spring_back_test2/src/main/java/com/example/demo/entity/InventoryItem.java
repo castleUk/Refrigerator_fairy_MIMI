@@ -38,16 +38,21 @@ public class InventoryItem extends BaseEntity {
   @Column
   private int count;
 
+  @Column
+  private String storage;
+
   public static InventoryItem createInventoryItem(
     Inventory inventory,
     Item item,
-    int count
+    int count,
+    String storage
   ) {
     return InventoryItem
       .builder()
       .inventory(inventory)
       .item(item)
       .count(count)
+      .storage(storage)
       .build();
   }
 

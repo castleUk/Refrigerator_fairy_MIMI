@@ -1,5 +1,5 @@
 import React from 'react';
-import IngrContentComponent from '../components/ingrContent/IngrContentComponent';
+import ItemContentComponent from '../components/ItemContent/ItemContentComponent';
 import InventoryComponent from '../components/inventory/InventoryComponent';
 
 const InventoryPage = (props) => {
@@ -15,7 +15,7 @@ const InventoryPage = (props) => {
         </div>
         <div className='col col-5'>
           <div className='right'>
-            <IngrContentComponent />
+            <ItemContentComponent />
           </div>
         </div>
       </div>

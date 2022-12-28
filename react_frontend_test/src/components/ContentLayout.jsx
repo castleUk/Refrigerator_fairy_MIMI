@@ -1,10 +1,8 @@
 import React from 'react';
 // component
+import { useLocation } from 'react-router-dom';
 import Content from './common/Content';
 import Header from './common/Header';
-import InventoryClose from './inventory/InventoryClose';
-import InventoryOpen from './inventory/InventoryOpen';
-import { useLocation } from 'react-router-dom';
 
 const ContentLayout = () => {
   const location = useLocation();

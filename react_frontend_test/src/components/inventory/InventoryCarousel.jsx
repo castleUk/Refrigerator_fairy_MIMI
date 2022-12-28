@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper";
 // component
-import InventoryIngrGroup from './InventoryIngrGroup';
+import InventoryItemGroup from './InventoryItemGroup';
 
 const InventoryCarousel = () => {
 
@@ -11,10 +11,10 @@ const InventoryCarousel = () => {
     <Swiper className="inventory-carousel"
       navigation={true} modules={[Navigation]}>
       <SwiperSlide>
-        <InventoryIngrGroup />
+        <InventoryItemGroup />
       </SwiperSlide>
       <SwiperSlide>
-        <InventoryIngrGroup />
+        <InventoryItemGroup />
       </SwiperSlide>
     </Swiper>
   );

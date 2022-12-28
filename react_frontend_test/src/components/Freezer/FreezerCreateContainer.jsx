@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
-import CharacterCreateForm from "./CharacterCreateForm";
+import FreezerCreateForm from "./FreezerCreateForm";
 import axios from "axios";
 
-const CharacterCreateContainer = (props) => {
+const FreezerCreateContainer = (props) => {
   const navigate = useNavigate();
 
   //등록처리
@@ -31,7 +31,7 @@ const CharacterCreateContainer = (props) => {
     }
   };
 
-  return <CharacterCreateForm onRegister={onRegister} />;
+  return <FreezerCreateForm onRegister={onRegister} />;
 };
 
-export default CharacterCreateContainer;
+export default FreezerCreateContainer;

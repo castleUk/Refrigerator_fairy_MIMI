@@ -1,11 +1,11 @@
 import React from 'react';
 // component
-import MainComponent from '../components/user/MainComponent';
+import UserComponent from '../components/user/UserComponent';
 
 const LoginPage = () => {
   return(
     <div className='login-page'>
-      <MainComponent />
+      <UserComponent />
     </div>
   );
 }

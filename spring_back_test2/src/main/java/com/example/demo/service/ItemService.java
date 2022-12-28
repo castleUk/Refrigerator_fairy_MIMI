@@ -30,9 +30,8 @@ public class ItemService {
   }
 
   //상품 조회
-  public ItemDto readOne(Long itemId) {
-    Optional<Item> result = itemRepository.findById(itemId);
-    Item item = result.orElseThrow();
+  public ItemDto readOne(String itemName) {
+    Item item = itemRepository.findByName(itemName);
     ItemDto itemDto = modelMapper.map(item, ItemDto.class);
     return itemDto;
   }

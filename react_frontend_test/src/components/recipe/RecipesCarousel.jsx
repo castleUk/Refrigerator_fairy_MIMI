@@ -3,10 +3,10 @@ import React, { useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Navigation, Autoplay } from 'swiper';
 import Carousel from 'react-bootstrap/Carousel';
-import Item from './Item';
-import ItemsGroup from './ItemGroup';
+import Recipe from './Recipe';
+import RecipesGroup from './RecipesGroup';
 
-const ItemsCarousel = () => {
+const RecipesCarousel = () => {
   return(
     <Swiper 
       slidesPerView={1}
@@ -25,14 +25,14 @@ const ItemsCarousel = () => {
       className="item-swiper"
     >
       <SwiperSlide>
-        <ItemsGroup />
+        <RecipesGroup />
       </SwiperSlide>
 
       <SwiperSlide>
-        <ItemsGroup />
+        <RecipesGroup />
       </SwiperSlide>
     </Swiper>
   );
 }
 
-export default ItemsCarousel;
+export default RecipesCarousel;

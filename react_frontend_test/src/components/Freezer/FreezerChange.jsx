@@ -4,7 +4,7 @@ import FredgeClose from '../fredge/FredgeClose';
 //icon
 import { GiCardExchange } from "react-icons/gi";
 
-const CharacterChange = () => {
+const FreezerChange = () => {
   return(
     <div className='change'>
       <div className='img'>
@@ -20,4 +20,4 @@ const CharacterChange = () => {
   );
 }
 
-export default CharacterChange;
+export default FreezerChange;

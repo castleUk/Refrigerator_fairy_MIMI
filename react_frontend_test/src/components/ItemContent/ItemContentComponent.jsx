@@ -3,19 +3,19 @@ import React from 'react';
 import Card from 'react-bootstrap/Card';
 // component
 import NutrientComponent from '../nutrient/NutrientComponent';
-import ItemsComponent from '../items/ItemsComponent';
+import RecipesComponent from '../recipe/RecipesComponent';
 import WeatherComponent from '../weather/WeatherComponent';
 import TimeComponent from '../time/TimeComponent';
 
-const IngrContentComponent = () => {
+const ItemContentComponent = () => {
   return(
     <div className='ingr-content-component'>
       <WeatherComponent />
       <TimeComponent />
       <NutrientComponent />
-      <ItemsComponent />
+      <RecipesComponent />
     </div>
   );
 }
 
-export default IngrContentComponent;
+export default ItemContentComponent;

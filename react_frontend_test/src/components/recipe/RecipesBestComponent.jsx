@@ -1,9 +1,9 @@
 import React from 'react';
-import ItemsGroup from './ItemGroup';
+import RecipesGroup from './RecipesGroup';
 // component
-import ItemsCarousel from './ItemsCarousel';
+import RecipesCarousel from './RecipesCarousel';
 
-const ItemsBestComponent = () => {
+const RecipesBestComponent = () => {
   return(
     <div className='items-component'>
       <div className='items-content'>
@@ -11,11 +11,11 @@ const ItemsBestComponent = () => {
           <h5>메뉴 추천</h5>
         </div>
         <div className='content-body'>
-          <ItemsCarousel />
+          <RecipesCarousel />
         </div>
       </div>
     </div>
   );
 }
 
-export default ItemsBestComponent;
+export default RecipesBestComponent;

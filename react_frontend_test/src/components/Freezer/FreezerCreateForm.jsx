@@ -8,7 +8,7 @@ import Modals from "../common/Modals";
 import { BsPlusCircleDotted } from "react-icons/bs";
 import FredgeClose from "../fredge/FredgeClose";
 
-const CharacterCreateForm = ({ onRegister }) => {
+const FreezerCreateForm = ({ onRegister }) => {
   //냉장고 이름
   const [freezerName, SetFreezerName] = useState("");
   // modal
@@ -59,4 +59,4 @@ const CharacterCreateForm = ({ onRegister }) => {
   );
 };
 
-export default CharacterCreateForm;
+export default FreezerCreateForm;

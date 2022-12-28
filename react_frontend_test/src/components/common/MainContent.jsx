@@ -1,12 +1,12 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 // component
-import CharacterPage from '../../page/CharacterPage';
+import FreezerPage from '../../page/FreezerPage';
 
 const Content = () => {
   return(
     <main className='contents'>
-      <CharacterPage/>
+      <FreezerPage/>
     </main>
   );
 }

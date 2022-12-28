@@ -67,7 +67,8 @@ public class InventoryService {
       InventoryItem inventoryItem = InventoryItem.createInventoryItem(
         inventory,
         item,
-        inventoryItemDto.getCount()
+        inventoryItemDto.getCount(),
+        inventoryItemDto.getStorage()
       );
       inventoryItemRepository.save(inventoryItem);
       return inventoryItem.getId();

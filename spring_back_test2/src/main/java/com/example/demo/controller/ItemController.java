@@ -40,11 +40,11 @@ public class ItemController {
     return ResponseEntity.ok(itemService.readAll());
   }
 
-  @GetMapping("/{itemId}")
+  @GetMapping("/{itemName}")
   public ResponseEntity<ItemDto> readOneItem(
-    @PathVariable("itemId") Long itemId
+    @PathVariable("itemName") String itemName
   ) throws Exception {
-    return ResponseEntity.ok(itemService.readOne(itemId));
+    return ResponseEntity.ok(itemService.readOne(itemName));
   }
 
   @DeleteMapping("/{itemId}")

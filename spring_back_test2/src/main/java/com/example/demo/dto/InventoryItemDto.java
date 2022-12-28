@@ -21,6 +21,8 @@ public class InventoryItemDto {
 
   private int count;
 
+  private String storage;
+
 
   public static InventoryItemDto of(InventoryItem inventoryItem) {
     return InventoryItemDto
@@ -28,6 +30,7 @@ public class InventoryItemDto {
       .inventoryItemId(inventoryItem.getId())
       .count(inventoryItem.getCount())
       .itemName(inventoryItem.getItem().getName())
+      .storage(inventoryItem.getStorage())
       .build();
   }
 }
