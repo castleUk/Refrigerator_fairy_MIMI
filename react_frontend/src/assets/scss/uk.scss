@@ -1,0 +1,17 @@
+@charset "UTF-8";
+  .register {
+    .message {
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 24px;
+      letter-spacing: -1px;
+      bottom: -10px;
+      left: 0;
+      &.success {
+        color: lightseagreen;
+      }
+      &.error {
+        color: #ff2727;
+      }
+    }
+  }
