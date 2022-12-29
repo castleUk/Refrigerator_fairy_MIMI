@@ -5,16 +5,16 @@ import { Navigation } from "swiper";
 // component
 import InventoryItemGroup from './InventoryItemGroup';
 
-const InventoryCarousel = () => {
+const InventoryCarousel = (props) => {
 
   return(
     <Swiper className="inventory-carousel"
       navigation={true} modules={[Navigation]}>
       <SwiperSlide>
-        <InventoryItemGroup />
+        <InventoryItemGroup index={props.index}/>
       </SwiperSlide>
       <SwiperSlide>
-        <InventoryItemGroup />
+        <InventoryItemGroup index={props.index}/>
       </SwiperSlide>
     </Swiper>
   );

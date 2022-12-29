@@ -6,7 +6,6 @@ export const adminSetup = async (userEmail, userPw, userName) => {
     userPw: userPw,
     userName: userName,
   };
-
   try {
     const response = await axios.post("/auth/signup", JSON.stringify(data), {
       headers: {
@@ -21,7 +20,6 @@ export const adminSetup = async (userEmail, userPw, userName) => {
 
 //로그인 API 호출 함수
 export const login = async (account) => {
-
   const loginInfo = {
     userEmail: account.userEmail,
     userPw: account.userPw,
@@ -42,17 +40,15 @@ export const login = async (account) => {
     axios.defaults.headers.common["Authorization"] = "Bearer " + accessToken;
 
     localStorage.setItem("accessToken", accessToken);
-    alert("로그인 성공!")
+    alert("로그인 성공!");
 
     console.log(data);
   } catch (error) {
-    alert(error)
-    
+    alert(error);
   }
 };
 
 //냉장고 생성 호출
-
 
 //냉장고 리스트 조회 호출
 

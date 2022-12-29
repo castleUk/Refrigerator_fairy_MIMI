@@ -1,21 +1,30 @@
-import React from 'react';
+import React from "react";
+import { Modal, Button } from "react-bootstrap";
 // component
-import NutrientTable from './NutrientTable';
+import NutrientTable from "./NutrientTable";
+import RecipesGroup from "../recipe/RecipesGroup";
 
-const NutrientComponent = () => {
-  return(
-    <div className='nutrient-component'>
-      <div className='nutrient-content'>
-        <div className='content-header'>
-          <h5 className='title'>양파</h5>
-          <span className='count-text'>5개</span>
+const NutrientComponent = ({ show, onHide, item }) => {
+  console.log("아이템이름 나와야됨 " + item);
+
+  return (
+    <Modal size="lg" show={show} onHide={onHide} className="recipy-modal">
+      <Modal.Header closeButton>
+        <span>
+          {item}
+        </span>
+      </Modal.Header>
+      <Modal.Body>
+        <NutrientTable />
+        <h5>메뉴 추천</h5>
+        <div className="content-body">
+          <RecipesGroup />
         </div>
-        <div className='content-body'>
-          <NutrientTable />
-        </div>
-      </div>
-    </div>
+      </Modal.Body>
+      <Modal.Footer>
+      </Modal.Footer>
+    </Modal>
   );
-}
+};
 
 export default NutrientComponent;

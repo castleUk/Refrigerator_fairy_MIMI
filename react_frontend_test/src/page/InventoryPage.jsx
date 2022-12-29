@@ -15,7 +15,7 @@ const InventoryPage = (props) => {
         </div>
         <div className='col col-5'>
           <div className='right'>
-            <ItemContentComponent />
+            <ItemContentComponent index={props.index}/>
           </div>
         </div>
       </div>

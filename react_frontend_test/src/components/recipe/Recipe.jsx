@@ -17,6 +17,19 @@ const Recipe = () => {
         <img className="item-img" src="#"onClick={itemHandleShow} />
         <div className="item-title">김치찌개</div>
       </div>
+      <div className="item col">
+        <img className="item-img" src="#"onClick={itemHandleShow} />
+        <div className="item-title">김치찌개</div>
+      </div>
+      <div className="item col">
+        <img className="item-img" src="#"onClick={itemHandleShow} />
+        <div className="item-title">김치찌개</div>
+      </div>
+      <div className="item col">
+        <img className="item-img" src="#"onClick={itemHandleShow} />
+        <div className="item-title">김치찌개</div>
+      </div>
+ 
 
       <Modal size='lg' show={recipyShow} onHide={handleClose} className="recipy-modal">
         <Modal.Header closeButton>

@@ -23,6 +23,8 @@ public class InventoryItemDto {
 
   private String storage;
 
+  private String itemImg;
+
 
   public static InventoryItemDto of(InventoryItem inventoryItem) {
     return InventoryItemDto
@@ -30,6 +32,7 @@ public class InventoryItemDto {
       .inventoryItemId(inventoryItem.getId())
       .count(inventoryItem.getCount())
       .itemName(inventoryItem.getItem().getName())
+      .itemImg(inventoryItem.getItem().getImg())
       .storage(inventoryItem.getStorage())
       .build();
   }

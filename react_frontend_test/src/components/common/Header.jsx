@@ -23,16 +23,14 @@ const Header = () => {
   //로그인 상태 관리
   const [isLogin, setIsLogin] = useState(false);
 
-
   //조회처리
   const onMyInfo = async () => {
-    console.log("onMyInfo 작동")
+    console.log("onMyInfo 작동");
     const token = localStorage.getItem("accessToken");
     const headers = {
       "Content-Type": "application/json",
       Authorization: "Bearer " + token,
     };
-
     try {
       const response = await axios.get("/api/member/me", {
         headers: headers,
@@ -40,13 +38,11 @@ const Header = () => {
       const data = await response.data;
       setMyInfo(data);
       console.log("내정보" + data.userName);
-      
     } catch (error) {
       console.log(error);
       setMyInfo([]);
     }
   };
-
 
   useEffect(() => {
     onMyInfo();
@@ -62,7 +58,7 @@ const Header = () => {
     e.preventDefault();
     setIsLogin(false);
     localStorage.removeItem("accessToken");
-    navigate("/")
+    navigate("/");
   };
 
   const noticeHandleClick = (e) => {
@@ -117,7 +113,9 @@ const Header = () => {
             )}
             <li className="sub-item">
               <Dropdown className="user-dropdown">
-                <Dropdown.Toggle id="userDropdown">{myInfo.userName} 님</Dropdown.Toggle>
+                <Dropdown.Toggle id="userDropdown">
+                  {myInfo.userName} 님
+                </Dropdown.Toggle>
                 <Dropdown.Menu>
                   <Dropdown.Item>
                     <ImProfile className="icon" /> 내정보
