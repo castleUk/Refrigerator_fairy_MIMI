@@ -46,16 +46,13 @@ const ItemComponent = (props) => {
           headers: headers,
         });
         const data = response.data;
-        console.log("데이터" + data);
         setItemList(data);
-        console.log("아이템 리스트" + itemList);
       } catch (error) {
         console.log(error);
       }
     } else {
       const filterData = itemList.filter((data) => data.name.includes(search));
       setFilterItemList(filterData);
-      console.log("진짜 검색된 데이터" + filterItemList);
     }
 
     setSearch("");

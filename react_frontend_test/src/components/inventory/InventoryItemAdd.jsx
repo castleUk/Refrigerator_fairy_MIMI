@@ -16,18 +16,14 @@ const InventoryItemAdd = (props) => {
   const ItemModalShow = () => setItemCreateShow(true);
 
   const index = props.index;
-  console.log("여기까지 내려옴" + index);
 
   //냉장고에 아이템처리
   const onFreezerItemAdd = async (itemName, count, storage) => {
-    console.log("onFreezerItemAdd 작동!");
-    console.log(itemName[0]);
     const data = {
       itemName: itemName[0],
       count: count,
       storage: storage,
     };
-    console.log("데이터" + data.itemName);
     const token = localStorage.getItem("accessToken");
     const headers = {
       "Content-Type": "application/json",
@@ -43,7 +39,6 @@ const InventoryItemAdd = (props) => {
         }
       );
       const responseData = await response.data;
-      console.log(responseData);
     } catch (error) {
       console.log(error);
     }

@@ -4,12 +4,10 @@ import { useNavigate } from "react-router-dom";
 import NutrientComponent from "../nutrient/NutrientComponent";
 
 const InventoryItem = (props) => {
-  console.log("inventoryItemindex" + props.index);
   const navigate = useNavigate();
 
   const [itemList, setItemList] = useState([]);
   const [itemInfo, setItemInfo] = useState([]);
-  const [clicked, setClicked] = useState();
   const [showModal, setShowModal] = useState(false);
 
   //냉장고속 재료 목록 가져오기
@@ -35,22 +33,17 @@ const InventoryItem = (props) => {
     onItemList();
   }, []);
 
-  // const showModalHandler = (e) => {
-  //   e.preventDefault();
-  //   setShowModal(true);
-  // };
-
   const closeModalHandler = () => {
     setShowModal(false);
   };
 
   const modalHandler = (itemName) => {
+    setShowModal(true);
     setItemInfo(itemList.find((e) => e.itemName === itemName));
   };
 
   return (
-    <>
-      <div>
+      <>
         {itemList.map((it) => {
           return (
             <>
@@ -61,22 +54,19 @@ const InventoryItem = (props) => {
                     className="item-img"
                     src={it.itemImg}
                     onClick={() => modalHandler(it.itemName)}
-                    clicked={clicked}
-                    setClicked={setClicked}
                   />
                 </div>
-                <NutrientComponent
-                  clicked={clicked}
-                  show={showModal}
-                  onHide={closeModalHandler}
-                  setClicked={setClicked}
-                />
               </div>
             </>
           );
         })}
-      </div>
-    </>
+        <NutrientComponent
+          itemInfo={itemInfo}
+          show={showModal}
+          onHide={closeModalHandler}
+          setItemInfo={setItemInfo}
+        />
+      </>
   );
 };
 
