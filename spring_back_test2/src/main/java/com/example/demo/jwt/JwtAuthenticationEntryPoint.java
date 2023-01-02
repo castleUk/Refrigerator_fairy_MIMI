@@ -1,21 +1,59 @@
 package com.example.demo.jwt;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.JSONObject;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
 
+import com.example.demo.util.Code;
+import com.google.gson.JsonObject;
+
 @Component
 public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
-    @Override
-    public void commence(HttpServletRequest request,
-                         HttpServletResponse response,
-                         AuthenticationException authException) throws IOException {
-        // 유효한 자격증명을 제공하지 않고 접근하려 할때 401(인증 실패)
-        response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
-    }
+
+  @Override
+  public void commence(
+          HttpServletRequest request,
+          HttpServletResponse response,
+          AuthenticationException authException
+  ) throws IOException {
+      Object exception = (Object)request.getAttribute("exception");
+
+      if(exception == null) {
+          setResponse(response, Code.FAILED_MESSAGE);
+      }
+      //잘못된 타입의 토큰인 경우
+      else if(exception.equals(Code.WRONG_TYPE_TOKEN.getCode())) {
+          setResponse(response, Code.WRONG_TYPE_TOKEN);
+      }
+      else if(exception.equals(Code.WRONG_TYPE_SIGNATURE.getCode())) {
+          setResponse(response, Code.WRONG_TYPE_SIGNATURE);
+      }
+      //토큰 만료된 경우
+      else if(exception.equals(Code.EXPIRED_TOKEN.getCode())) {
+          setResponse(response, Code.EXPIRED_TOKEN);
+      }
+      else {
+          setResponse(response, Code.UNSUPPORTED_TOKEN);
+      }
+  }
+
+  //한글 출력을 위해 getWriter() 사용
+  private void setResponse(HttpServletResponse response, Code errorCode) throws IOException {
+      response.setContentType("application/json;charset=UTF-8");
+      response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+
+      JsonObject responseJson = new JsonObject();
+      responseJson.addProperty("timestamp", String.valueOf(LocalDateTime.now()));
+      responseJson.addProperty("code", errorCode.getCode());
+      responseJson.addProperty("message", errorCode.getMessage());
+
+      response.getWriter().print(responseJson);
+  }
 }

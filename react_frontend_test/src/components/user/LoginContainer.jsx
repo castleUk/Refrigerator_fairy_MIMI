@@ -22,13 +22,15 @@ const LoginContainer = () => {
         { headers: { "Content-Type": "application/json" } }
       );
       const data = await response.data;
-      const accessToken = data.accessToken;
-      axios.defaults.headers.common["Authorization"] = "Bearer " + accessToken;
-      localStorage.setItem("accessToken", accessToken);
+      axios.defaults.headers.common["Authorization"] = "Bearer " + data.accessToken;
+      localStorage.setItem("accessToken", data.accessToken);
+      localStorage.setItem("refreshToken", data.refreshToken);
+      localStorage.setItem("accessTokenExp", data.accessTokenExp)
       alert("로그인 성공!");
-      navigate("/freezer")
+      navigate("/freezer",{ replace: true})
     } catch (error) {
      if(error.response.status === 401){
+      console.log("에러 인데요")
       setError("아이디 or 비밀번호를 확인하세요")
      }
   };

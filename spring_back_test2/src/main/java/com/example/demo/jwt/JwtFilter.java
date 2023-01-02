@@ -12,6 +12,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import com.example.demo.util.Code;
+
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.MalformedJwtException;
+import io.jsonwebtoken.UnsupportedJwtException;
+import io.jsonwebtoken.security.SignatureException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
@@ -34,13 +40,33 @@ public class JwtFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+
+        log.info("JwTFilter 작동중");
+        
         String jwt = resolveToken(request);
-
-        if (StringUtils.hasText(jwt) && tokenProvider.validateToken(jwt)) {
-            Authentication authentication = tokenProvider.getAuthentication(jwt);
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-        }
-
+try {
+    if (StringUtils.hasText(jwt) && tokenProvider.validateToken(jwt)) {
+        Authentication authentication = tokenProvider.getAuthentication(jwt);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+    }
+} catch (SignatureException e) {
+    log.info("잘못된 JWT 서명입니다.");
+    request.setAttribute("exception", Code.WRONG_TYPE_SIGNATURE.getCode());
+} catch (MalformedJwtException e) {
+    log.info("유효하지 않은 구성의 JWT 토큰입니다.");
+    request.setAttribute("exception", Code.WRONG_TYPE_TOKEN.getCode());
+} catch (ExpiredJwtException e) {
+    log.info("만료된 JWT 토큰입니다.");
+    request.setAttribute("exception", Code.EXPIRED_TOKEN.getCode());
+} catch (UnsupportedJwtException e) {
+    log.info("지원되지 않는 형식이나 구성의 JWT 토큰입니다.");
+    request.setAttribute("exception", Code.UNSUPPORTED_TOKEN.getCode());
+} catch (IllegalArgumentException e) {
+    log.info(e.toString().split(":")[1].trim());
+    request.setAttribute("exception", Code.UNSUPPORTED_TOKEN.getCode());
+}
+ 
+        log.info("jwt토큰에 걸리는게 없어요");
         filterChain.doFilter(request, response);
     }
 }
