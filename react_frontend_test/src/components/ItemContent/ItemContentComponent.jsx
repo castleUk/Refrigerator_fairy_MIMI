@@ -12,7 +12,7 @@ const ItemContentComponent = () => {
     <div className='ingr-content-component'>
       <WeatherComponent />
       <TimeComponent />
-      <NutrientComponent />
+      {/* <NutrientComponent /> */}
       <RecipesComponent />
     </div>
   );

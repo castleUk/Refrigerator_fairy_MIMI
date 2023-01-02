@@ -1,19 +1,17 @@
-import React, { useState, useCallback, useRef } from 'react';
+import React, { useCallback, useState } from 'react';
 // template
-import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Button from 'react-bootstrap/Button';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Form from 'react-bootstrap/Form';
 // icon
-import { BsPlus } from "react-icons/bs";
-import { BiMinus } from "react-icons/bi";
 import { AiFillDelete } from "react-icons/ai";
+import { BiMinus } from "react-icons/bi";
+import { BsPlus } from "react-icons/bs";
 // component
-import ItemImg from './ItemImg';
 
 const Item = ({filterItemList, onFreezerItemAdd}) => {
-  const [count, setCount]  = useState("1");
+  const [count, setCount]  = useState(1);
   const [storage, setStorage] = useState("");
-
 
   
   const itemName = filterItemList.map(it=>it.name)

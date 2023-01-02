@@ -14,6 +14,22 @@ const RecipesComponent = () => {
           <RecipesGroup />
         </div>
       </div>
+      <div className='items-content'>
+        <div className='content-header'>
+          <h5>메뉴 추천</h5>
+        </div>
+        <div className='content-body'>
+          <RecipesGroup />
+        </div>
+      </div>
+      <div className='items-content'>
+        <div className='content-header'>
+          <h5>메뉴 추천</h5>
+        </div>
+        <div className='content-body'>
+          <RecipesGroup />
+        </div>
+      </div>
     </div>
   );
 }

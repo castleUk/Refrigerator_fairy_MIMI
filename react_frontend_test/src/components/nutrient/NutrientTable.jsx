@@ -3,12 +3,12 @@ import React from 'react';
 import Table from 'react-bootstrap/Table';
 import Nutrient from './Nutrient';
 
-const NutrientTable = () => {
+const NutrientTable = ({nutrientInfo}) => {
   return(
     <>
     <h6 className='title'>영양성분</h6>
     <Table striped className='table'>
-      <Nutrient />
+      <Nutrient nutrientInfo={nutrientInfo}/>
     </Table>
     </>
   );
