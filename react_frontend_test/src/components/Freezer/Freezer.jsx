@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 // template
 import Card from "react-bootstrap/Card";
@@ -8,8 +8,9 @@ import { AiOutlineMore } from "react-icons/ai";
 import FredgeClose from "../fredge/FredgeClose";
 
 import axios from "axios";
-import Modals from "../common/Modals";
+import { instance } from "../api/Api";
 import DeleteModals from "../common/DeleteModals";
+import Modals from "../common/Modals";
 
 const Freezer = (props) => {
   const navigate = useNavigate();
@@ -22,18 +23,10 @@ const Freezer = (props) => {
       name: freezerName,
     };
     const index = props.index;
-    const token = localStorage.getItem("accessToken");
-    const headers = {
-      "Content-Type": "application/json",
-      Authorization: "Bearer " + token,
-    };
     try {
-      await axios.put(
+      await instance.put(
         `/api/freezer/${index}`,
-        JSON.stringify(data),
-        {
-          headers: headers,
-        }
+        JSON.stringify(data)
       );
       props.onChange();
       navigate("/freezer");

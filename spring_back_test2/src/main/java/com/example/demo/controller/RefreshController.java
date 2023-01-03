@@ -26,20 +26,20 @@ public class RefreshController {
 
 
   @PostMapping("/refresh")
-  public ResponseEntity<RefreshApiResponseMessage> validateRefreshToken(@RequestBody TokenDto tokenDto){
+  public Map<String, String> validateRefreshToken(@RequestBody TokenDto tokenDto){
 
       log.info("refresh controller 실행");
+      log.info("tokenDto" + tokenDto);
       Map<String, String> map = jwtService.validateRefreshToken(tokenDto.getRefreshToken());
-
+      log.info("맵" + map);
       if(map.get("status").equals("402")){
           log.info("RefreshController - Refresh Token이 만료.");
-          RefreshApiResponseMessage refreshApiResponseMessage = new RefreshApiResponseMessage(map);
-          return new ResponseEntity<RefreshApiResponseMessage>(refreshApiResponseMessage, HttpStatus.UNAUTHORIZED);
+          return map;
       }
 
       log.info("RefreshController - Refresh Token이 유효.");
-      RefreshApiResponseMessage refreshApiResponseMessage = new RefreshApiResponseMessage(map);
-      return new ResponseEntity<RefreshApiResponseMessage>(refreshApiResponseMessage, HttpStatus.OK);
+      return map;
 
   }
+
 }

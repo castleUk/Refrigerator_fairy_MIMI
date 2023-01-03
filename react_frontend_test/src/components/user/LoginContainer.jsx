@@ -22,10 +22,8 @@ const LoginContainer = () => {
         { headers: { "Content-Type": "application/json" } }
       );
       const data = await response.data;
-      axios.defaults.headers.common["Authorization"] = "Bearer " + data.accessToken;
       localStorage.setItem("accessToken", data.accessToken);
       localStorage.setItem("refreshToken", data.refreshToken);
-      localStorage.setItem("accessTokenExp", data.accessTokenExp)
       alert("로그인 성공!");
       navigate("/freezer",{ replace: true})
     } catch (error) {

@@ -6,7 +6,6 @@ import java.time.LocalDateTime;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.JSONObject;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
@@ -14,7 +13,10 @@ import org.springframework.stereotype.Component;
 import com.example.demo.util.Code;
 import com.google.gson.JsonObject;
 
+import lombok.extern.log4j.Log4j2;
+
 @Component
+@Log4j2
 public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
   @Override
@@ -37,6 +39,7 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
       }
       //토큰 만료된 경우
       else if(exception.equals(Code.EXPIRED_TOKEN.getCode())) {
+            log.info("엔트리포인트 까지 왔음 만료!");
           setResponse(response, Code.EXPIRED_TOKEN);
       }
       else {

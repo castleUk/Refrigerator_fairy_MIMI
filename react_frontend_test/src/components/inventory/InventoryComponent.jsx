@@ -6,7 +6,6 @@ import InventoryItemAdd from './InventoryItemAdd';
 const InventoryComponent = (props) => {
   // 냉장 보관 / 냉동 보관 / 실온 보관
 
-  console.log("inventoryComponent index" + props.index)
   return(
     <div className='inventory-component'>
       <div className='inventory-content'>

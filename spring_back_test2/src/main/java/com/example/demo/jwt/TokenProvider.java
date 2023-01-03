@@ -6,11 +6,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.stream.Collectors;
 
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -21,19 +17,14 @@ import org.springframework.stereotype.Component;
 
 import com.example.demo.dto.TokenDto;
 import com.example.demo.entity.RefreshToken;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.UnsupportedJwtException;
 import io.jsonwebtoken.io.Decoders;
-import io.jsonwebtoken.io.IOException;
 import io.jsonwebtoken.security.Keys;
-import io.swagger.models.Response;
 import lombok.extern.log4j.Log4j2;
 
 @Component
@@ -42,7 +33,7 @@ public class TokenProvider {
 
   private static final String AUTHORITIES_KEY = "auth";
   private static final String BEARER_TYPE = "bearer";
-  private static final long ACCESS_TOKEN_EXPIRE_TIME = 10 * 60 * 30;
+  private static final long ACCESS_TOKEN_EXPIRE_TIME = 300 * 60 * 30;
   private static final long REFRESH_TOKEN_EXPIRE_TIME = 1000 * 60 * 30 * 30;
 
   private final Key key;
@@ -153,7 +144,7 @@ log.info("Hear please" + authentication);
       if (!claims.getBody().getExpiration().before(new Date())) {
         return recreationAccessToken(
           claims.getBody().get("sub").toString(),
-          claims.getBody().get("roles")
+          claims.getBody().get("auth")
         );
       }
     } catch (Exception e) {
@@ -164,9 +155,9 @@ log.info("Hear please" + authentication);
     return null;
   }
 
-  public String recreationAccessToken(String userEmail, Object roles) {
+  public String recreationAccessToken(String userEmail, Object auth) {
     Claims claims = Jwts.claims().setSubject(userEmail);
-    claims.put("roles", roles);
+    claims.put("auth", auth);
     Date now = new Date();
 
     //access Token

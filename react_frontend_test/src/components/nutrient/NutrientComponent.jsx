@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Modal, Button } from "react-bootstrap";
 import { useEffect } from "react";
 import axios from "axios";
+import { instance } from "../api/Api";
 // component
 import NutrientTable from "./NutrientTable";
 import RecipesGroup from "../recipe/RecipesGroup";
@@ -9,18 +10,12 @@ import RecipesGroup from "../recipe/RecipesGroup";
 const NutrientComponent = ({ show, onHide, itemInfo, setItemInfo }) => {
   const [nutrientInfo, setNutrientInfo] = useState([]);
 
+
   //재료 성분 가져오기
   const onItemInfo = async () => {
-    const token = localStorage.getItem("accessToken");
-    const headers = {
-      "Content-Type": "application/json",
-      Authorization: "Bearer " + token,
-    };
     try {
-      const response = await axios.get(`/api/item/${itemInfo.itemName}`, {
-        headers: headers,
-      });
-      const data = await response.data;
+      const response = await instance.get(`/api/item/${itemInfo.itemName}`);
+      const data =  response.data;
       setNutrientInfo(data);
     } catch (error) {
       console.log(error);

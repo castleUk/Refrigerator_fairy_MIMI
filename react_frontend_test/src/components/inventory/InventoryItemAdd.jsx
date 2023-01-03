@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { instance } from "../api/Api";
 //template
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
@@ -24,19 +24,11 @@ const InventoryItemAdd = (props) => {
       count: count,
       storage: storage,
     };
-    const token = localStorage.getItem("accessToken");
-    const headers = {
-      "Content-Type": "application/json",
-      Authorization: "Bearer " + token,
-    };
 
     try {
-      const response = await axios.post(
+      const response = await instance.post(
         `/api/inventory/add?index=${index}`,
-        JSON.stringify(data),
-        {
-          headers: headers,
-        }
+        JSON.stringify(data)
       );
       const responseData = await response.data;
     } catch (error) {

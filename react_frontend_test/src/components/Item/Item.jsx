@@ -45,10 +45,6 @@ const Item = ({filterItemList, onFreezerItemAdd}) => {
     setStorage(e.target.value);
   }
 
-  console.log(storage)
-
-
-
 
   return(
     <div className='ingr'>
