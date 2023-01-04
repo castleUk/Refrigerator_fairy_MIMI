@@ -50,4 +50,9 @@ public class AuthService {
         return token;
     }
 
+    //아이디 중복 체크
+    public boolean checkEmail(String email) {
+        return memberRepository.existsByUserEmail(email);
+    }
+
 }
