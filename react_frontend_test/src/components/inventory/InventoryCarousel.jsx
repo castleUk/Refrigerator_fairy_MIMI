@@ -6,15 +6,15 @@ import { Navigation } from "swiper";
 import InventoryItemGroup from './InventoryItemGroup';
 
 const InventoryCarousel = (props) => {
-
+  console.log("InventoryCarousel" + props.index)
   return(
     <Swiper className="inventory-carousel"
       navigation={true} modules={[Navigation]}>
       <SwiperSlide>
-        <InventoryItemGroup index={props.index}/>
+        <InventoryItemGroup index={props.index} itemCreateShow={props.itemCreateShow}/>
       </SwiperSlide>
       <SwiperSlide>
-        <InventoryItemGroup index={props.index}/>
+        <InventoryItemGroup index={props.index} itemCreateShow={props.itemCreateShow}/>
       </SwiperSlide>
     </Swiper>
   );

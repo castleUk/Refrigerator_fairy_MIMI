@@ -12,17 +12,20 @@ const NutrientComponent = ({ show, onHide, itemInfo, setItemInfo }) => {
 
 
   //재료 성분 가져오기
-  const onItemInfo = async () => {
-    try {
-      const response = await instance.get(`/api/item/${itemInfo.itemName}`);
-      const data =  response.data;
-      setNutrientInfo(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+
 
   useEffect(() => {
+    const onItemInfo = async () => {
+      console.log("onitemInfo 실행됌")
+      try {
+        const response = await instance.get(`/api/item/${itemInfo.itemName}`);
+        const data =  response.data;
+        console.log("왜 자꾸 오류남?" + data)
+        setNutrientInfo(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
     onItemInfo();
   }, [show]);
 

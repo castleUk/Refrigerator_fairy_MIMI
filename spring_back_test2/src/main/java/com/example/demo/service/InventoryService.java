@@ -41,6 +41,7 @@ public class InventoryService {
     String userEmail,
     int index
   ) {
+    log.info("인벤토리 추가 실행");
     Item item = itemRepository
       .findByName(inventoryItemDto.getItemName());
 

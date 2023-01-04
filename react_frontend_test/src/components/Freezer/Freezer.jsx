@@ -14,7 +14,7 @@ import Modals from "../common/Modals";
 
 const Freezer = (props) => {
   const navigate = useNavigate();
-
+  const index = props.index;
   
   //수정처리
   const onChangeName = async (freezerName) => {
@@ -88,6 +88,11 @@ const Freezer = (props) => {
       onDelete();
     }
 
+    const freezerNavigateHandler = (e) => {
+      e.preventDefault();
+      navigate(`/inventory/${index}`, { state: index });
+    }
+
   return (
     <div className="character">
       <Card>
@@ -103,10 +108,8 @@ const Freezer = (props) => {
             </Dropdown.Menu>
           </Dropdown>
         </div>
-        <div className="content-body">
-          <Link to={`/inventory/${props.index}`} state={{ index: props.index }}>
+        <div className="content-body" onClick={freezerNavigateHandler}>
             <FredgeClose />
-          </Link>
         </div>
       </Card>
       {changeFreezerModal && (

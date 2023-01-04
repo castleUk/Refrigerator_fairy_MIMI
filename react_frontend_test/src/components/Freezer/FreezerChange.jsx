@@ -1,23 +1,42 @@
-import React from 'react';
+import React from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 //component
-import FredgeClose from '../fredge/FredgeClose';
+import FredgeClose from "../fredge/FredgeClose";
 //icon
-import { GiCardExchange } from "react-icons/gi";
+import { GiCardExchange, GiConsoleController } from "react-icons/gi";
 
-const FreezerChange = () => {
-  return(
-    <div className='change'>
-      <div className='img'>
-        <FredgeClose />
-      </div>
-      <div className='text'>
-        <div className='title'>우리집 냉장고 1</div>
-        <div className='btn-change'>
-          <GiCardExchange className='icon'></GiCardExchange>
+
+
+const FreezerChange = ({ freezer }) => {
+   const navigate = useNavigate();
+ 
+
+  const FreezerChangeHandler = (index, e) => {
+    navigate(`/inventory/${index}` , {state : `${index}`})
+    window.location.reload();
+    e.preventDefault();
+    
+
+  }
+
+  console.log("프리저" + JSON.stringify(freezer));
+  return (
+    <>
+      {freezer.map((it, index) => (
+        <div className="change">
+          <div className="img">
+            <FredgeClose />
+          </div>
+          <div className="text">{it.name}</div>
+          <div className="btn-change">
+            <GiCardExchange className="icon" onClick={() => {
+              FreezerChangeHandler(index)
+            }}></GiCardExchange>
+          </div>
         </div>
-      </div>
-    </div>
+      ))}
+    </>
   );
-}
+};
 
 export default FreezerChange;

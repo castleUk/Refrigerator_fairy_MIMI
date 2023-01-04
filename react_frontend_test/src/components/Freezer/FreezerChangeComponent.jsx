@@ -1,4 +1,6 @@
 import React from 'react';
+import { useState, useEffect } from 'react';
+import { instance } from '../api/Api';
 //template
 import Card from 'react-bootstrap/Card';
 import CloseButton from 'react-bootstrap/CloseButton';
@@ -6,6 +8,26 @@ import CloseButton from 'react-bootstrap/CloseButton';
 import FreezerChange from './FreezerChange';
 
 const FreezerChangeComponent = () => {
+  const [freezer, SetFreezer] = useState([]);
+    
+  //조회처리
+    const onListUp = async () => {
+      try {
+        const response = await instance.get("/api/freezer")
+          const data = response.data;
+          SetFreezer(data);
+      } catch (error) {
+        console.log("에러" + error)
+      }
+          
+        };
+    
+      useEffect(() => {
+        onListUp();
+      }, []);
+
+
+
   return(
     <div className='change-component'>
       <div className='change-content'>
@@ -16,7 +38,7 @@ const FreezerChangeComponent = () => {
           </div>
           <div className='content-body'>
             <Card.Body>
-              <FreezerChange />
+              <FreezerChange freezer={freezer}/>
             </Card.Body>
           </div>
         </Card>

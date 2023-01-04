@@ -6,7 +6,9 @@ import Header from './common/Header';
 
 const ContentLayout = () => {
   const location = useLocation();
-	const index = location.state.index;
+	const index = location.state;
+  console.log(location)
+  console.log("최초 ContentLayout" + index)
   return(
     <div className='components cts'>
       <Header/>

@@ -9,7 +9,7 @@ import { BiMinus } from "react-icons/bi";
 import { BsPlus } from "react-icons/bs";
 // component
 
-const Item = ({filterItemList, onFreezerItemAdd}) => {
+const Item = ({filterItemList, onFreezerItemAdd, hide}) => {
   const [count, setCount]  = useState(1);
   const [storage, setStorage] = useState("");
 
@@ -85,14 +85,11 @@ const Item = ({filterItemList, onFreezerItemAdd}) => {
               <Form.Label>유통기한</Form.Label>
               <Form.Control type="date"  name=""/>
             </Form.Group>
-            <Button variant="primary" type="submit">
+            <Button variant="primary" type="submit" onClick={hide}>
             등록
           </Button>
           </Form>
         </div>
-      </div>
-      <div className='ingr-delete'>
-        <Button className='btn-delete'><AiFillDelete className='icon'/></Button>
       </div>
     </div>
   );

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { useEffect } from "react";
 import { instance } from "../api/Api";
 // component
@@ -15,7 +14,6 @@ const ItemComponent = (props) => {
   useEffect(() => {
     const itemSearch = async () => {
       try {
-        console.
         const response = await instance.get(`/api/item`);
         const data = response.data;
         console.log("데이터" + data);
@@ -60,7 +58,11 @@ const ItemComponent = (props) => {
           search={search}
           onChangeSearch={onChangeSearch}
         />
-        <Item filterItemList={filterItemList} onFreezerItemAdd={props.onFreezerItemAdd}/>
+        <Item
+          filterItemList={filterItemList}
+          onFreezerItemAdd={props.onFreezerItemAdd}
+          hide={props.ItemModalClose}
+        />
       </div>
     </div>
   );
