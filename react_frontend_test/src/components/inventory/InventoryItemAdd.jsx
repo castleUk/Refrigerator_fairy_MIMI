@@ -17,11 +17,13 @@ const InventoryItemAdd = (props) => {
   const index = props.index;
 
   //냉장고에 아이템처리
-  const onFreezerItemAdd = async (itemName, count, storage) => {
+  const onFreezerItemAdd = async (itemName, count, storage, expDate, regDate) => {
     const data = {
       itemName: itemName[0],
       count: count,
       storage: storage,
+      expDate : expDate,
+      regDate : regDate
     };
 
     try {

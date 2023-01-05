@@ -29,6 +29,7 @@ const NutrientComponent = ({ show, onHide, itemInfo, setItemInfo }) => {
     onItemInfo();
   }, [show]);
 
+  console.log("아이템인포" + itemInfo)
   return (
     <Modal size="lg" show={show} onHide={onHide} className="recipy-modal">
       <Modal.Header closeButton>
@@ -39,7 +40,7 @@ const NutrientComponent = ({ show, onHide, itemInfo, setItemInfo }) => {
         <NutrientTable nutrientInfo={nutrientInfo} />
         <h5>메뉴 추천</h5>
         <div className="content-body">
-          <RecipesGroup />
+          <RecipesGroup itemName={itemInfo.itemName}/>
         </div>
       </Modal.Body>
       <Modal.Footer></Modal.Footer>

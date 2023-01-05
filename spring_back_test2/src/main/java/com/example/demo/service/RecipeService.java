@@ -21,7 +21,7 @@ public class RecipeService {
   private final ModelMapper modelMapper;
 
   //레시피 등록
-  public Long register(RecipeDto recipeDto) {
+  public  Long register(RecipeDto recipeDto) {
     Recipe recipe = modelMapper.map(recipeDto, Recipe.class);
     return recipeRepository.save(recipe).getId();
   }

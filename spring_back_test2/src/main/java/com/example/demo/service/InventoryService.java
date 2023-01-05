@@ -69,7 +69,9 @@ public class InventoryService {
         inventory,
         item,
         inventoryItemDto.getCount(),
-        inventoryItemDto.getStorage()
+        inventoryItemDto.getStorage(),
+        inventoryItemDto.getExpDate(),
+        inventoryItemDto.getRegDate()
       );
       inventoryItemRepository.save(inventoryItem);
       return inventoryItem.getId();
