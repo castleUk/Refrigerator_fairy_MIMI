@@ -14,15 +14,13 @@ const Recipe = ({ itemName }) => {
   const itemHandleShow = () => setRecipyShow(true);
 
   console.log("아이템인포3" + itemName);
- // 재료 이름으로 레시피 제목 검색
+  // 재료 이름으로 레시피 제목 검색
   const onSearchRecipyName = async () => {
     try {
-      const response = await instance.get(
-        `/api/recipeItem/recipe/${itemName}`
-      );
+      const response = await instance.get(`/api/recipeItem/recipe/${itemName}`);
       const data = response.data;
-      console.log("데이타" + JSON.stringify(data))
-      setRecipeNameList(data)
+      console.log("데이타" + JSON.stringify(data));
+      setRecipeNameList(data);
     } catch (error) {
       console.log(error);
     }
@@ -30,26 +28,18 @@ const Recipe = ({ itemName }) => {
 
   useEffect(() => {
     onSearchRecipyName();
-  },[]);
+  }, []);
 
   return (
     <>
-      <div className="item col">
-        <img className="item-img" src="#" onClick={itemHandleShow} />
-        <div className="item-title">김치찌개</div>
-      </div>
-      <div className="item col">
-        <img className="item-img" src="#" onClick={itemHandleShow} />
-        <div className="item-title">김치찌개</div>
-      </div>
-      <div className="item col">
-        <img className="item-img" src="#" onClick={itemHandleShow} />
-        <div className="item-title">김치찌개</div>
-      </div>
-      <div className="item col">
-        <img className="item-img" src="#" onClick={itemHandleShow} />
-        <div className="item-title">김치찌개</div>
-      </div>
+      
+        {recipyNameList.map((it) => (
+          <div className="item col" key={it.recipeName}>
+            <img className="item-img" src="#" onClick={itemHandleShow} />
+            <div className="item-title">{it.recipeName}</div>
+            </div>
+        ))}
+      
 
       <Modal
         size="lg"

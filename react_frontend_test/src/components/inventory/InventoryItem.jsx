@@ -21,6 +21,7 @@ const InventoryItem = (props) => {
     const onItemList = async () => {
       console.log("onItemList 실행됌");
       try {
+        
         const response = await instance.get(`/api/inventory/${index}`);
         const data = response.data;
         setItemList(data);

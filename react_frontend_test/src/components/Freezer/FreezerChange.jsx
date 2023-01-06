@@ -12,7 +12,12 @@ const FreezerChange = ({ freezer }) => {
  
 
   const FreezerChangeHandler = (index, e) => {
-    navigate(`/inventory/${index}` , {state : `${index}`})
+
+    console("인덱스2" + index)
+
+    if(index === "0" || index === "1" || index === "2" ){
+      navigate(`/inventory/${index}` , {state : `${index}`});
+      }
     window.location.reload();
     e.preventDefault();
     
