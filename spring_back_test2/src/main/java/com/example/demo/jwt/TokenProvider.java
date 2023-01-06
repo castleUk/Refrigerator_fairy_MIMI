@@ -1,22 +1,11 @@
 package com.example.demo.jwt;
 
-import com.example.demo.dto.TokenDto;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.MalformedJwtException;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.UnsupportedJwtException;
-import io.jsonwebtoken.io.Decoders;
-import io.jsonwebtoken.security.Keys;
 import java.security.Key;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.stream.Collectors;
-import lombok.extern.log4j.Log4j2;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -25,6 +14,18 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
+
+import com.example.demo.dto.TokenDto;
+import com.example.demo.entity.RefreshToken;
+
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.security.Keys;
+import lombok.extern.log4j.Log4j2;
 
 @Component
 @Log4j2
@@ -46,6 +47,8 @@ public class TokenProvider {
 
   // 토큰 생성
   public TokenDto generateTokenDto(Authentication authentication) {
+log.info("Hear please" + authentication);
+
     String authorities = authentication
       .getAuthorities()
       .stream()
@@ -79,8 +82,9 @@ public class TokenProvider {
       .builder()
       .grantType(BEARER_TYPE)
       .accessToken(accessToken)
+      .accessTokenExp(tokenExpiresIn)
       .refreshToken(refreshToken)
-      .tokenExpiresIn(tokenExpiresIn.getTime())
+      .key(authentication.getName())
       .build();
   }
 
@@ -102,22 +106,14 @@ public class TokenProvider {
   }
 
   public boolean validateToken(String token) {
-    try {
-      Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
-      return true;
-    } catch (
-      io.jsonwebtoken.security.SecurityException | MalformedJwtException e
-    ) {
-      log.info("잘못된 JWT 서명입니다.");
-    } catch (ExpiredJwtException e) {
-      log.info("만료된 JWT 토큰입니다.");
-    } catch (UnsupportedJwtException e) {
-      log.info("지원되지 않는 JWT 토큰입니다.");
-    } catch (IllegalArgumentException e) {
-      log.info("JWT 토큰이 잘못되었습니다.");
-    }
-    return false;
+    Jws<Claims> claimsJws = Jwts.parserBuilder()
+            .setSigningKey(key)
+            .build()
+            .parseClaimsJws(token);
+    return !claimsJws.getBody().isEmpty();
+
   }
+
 
   private Claims parseClaims(String accessToken) {
     try {
@@ -130,5 +126,49 @@ public class TokenProvider {
     } catch (ExpiredJwtException e) {
       return e.getClaims();
     }
+  }
+
+  public String validateRefreshToken(RefreshToken refreshTokenObj) {
+    // refresh 객체에서 refreshToken 추출
+    String refreshToken = refreshTokenObj.getRefreshToken();
+
+    try {
+      // 검증
+      Jws<Claims> claims = Jwts
+        .parserBuilder()
+        .setSigningKey(key)
+        .build()
+        .parseClaimsJws(refreshToken);
+
+      //refresh 토큰의 만료시간이 지나지 않았을 경우, 새로운 access 토큰을 생성합니다.
+      if (!claims.getBody().getExpiration().before(new Date())) {
+        return recreationAccessToken(
+          claims.getBody().get("sub").toString(),
+          claims.getBody().get("auth")
+        );
+      }
+    } catch (Exception e) {
+      //refresh 토큰이 만료되었을 경우, 로그인이 필요합니다.
+      return null;
+    }
+
+    return null;
+  }
+
+  public String recreationAccessToken(String userEmail, Object auth) {
+    Claims claims = Jwts.claims().setSubject(userEmail);
+    claims.put("auth", auth);
+    Date now = new Date();
+
+    //access Token
+    String accessToken = Jwts
+      .builder()
+      .setClaims(claims)
+      .setIssuedAt(now)
+      .setExpiration(new Date(now.getTime() + ACCESS_TOKEN_EXPIRE_TIME))
+      .signWith(key, SignatureAlgorithm.HS512)
+      .compact();
+
+    return accessToken;
   }
 }

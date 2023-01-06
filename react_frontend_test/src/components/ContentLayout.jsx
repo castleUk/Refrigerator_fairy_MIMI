@@ -6,14 +6,12 @@ import Header from './common/Header';
 
 const ContentLayout = () => {
   const location = useLocation();
-	const index = location.state.index;
-  console.log("인덱스2222" + index)
+	const index = location.state;
+  console.log("최초 ContentLayout" + index)
   return(
     <div className='components cts'>
       <Header/>
       <Content index={index}/>
-      {/* <InventoryClose /> */}
-      {/* <InventoryOpen /> */}
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 // template
 import Card from "react-bootstrap/Card";
@@ -8,12 +8,13 @@ import { AiOutlineMore } from "react-icons/ai";
 import FredgeClose from "../fredge/FredgeClose";
 
 import axios from "axios";
-import Modals from "../common/Modals";
+import { instance } from "../api/Api";
 import DeleteModals from "../common/DeleteModals";
+import Modals from "../common/Modals";
 
 const Freezer = (props) => {
   const navigate = useNavigate();
-
+  const index = props.index;
   
   //수정처리
   const onChangeName = async (freezerName) => {
@@ -22,18 +23,10 @@ const Freezer = (props) => {
       name: freezerName,
     };
     const index = props.index;
-    const token = localStorage.getItem("accessToken");
-    const headers = {
-      "Content-Type": "application/json",
-      Authorization: "Bearer " + token,
-    };
     try {
-      await axios.put(
+      await instance.put(
         `/api/freezer/${index}`,
-        JSON.stringify(data),
-        {
-          headers: headers,
-        }
+        JSON.stringify(data)
       );
       props.onChange();
       navigate("/freezer");
@@ -95,6 +88,11 @@ const Freezer = (props) => {
       onDelete();
     }
 
+    const freezerNavigateHandler = (e) => {
+      e.preventDefault();
+      navigate(`/inventory/${index}`, { state: index });
+    }
+
   return (
     <div className="character">
       <Card>
@@ -110,10 +108,8 @@ const Freezer = (props) => {
             </Dropdown.Menu>
           </Dropdown>
         </div>
-        <div className="content-body">
-          <Link to={`/inventory/${props.index}`} state={{ index: props.index }}>
+        <div className="content-body" onClick={freezerNavigateHandler}>
             <FredgeClose />
-          </Link>
         </div>
       </Card>
       {changeFreezerModal && (

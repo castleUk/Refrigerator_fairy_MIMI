@@ -1,5 +1,7 @@
 package com.example.demo.dto;
 
+import java.util.Date;
+
 import com.example.demo.entity.InventoryItem;
 import com.example.demo.entity.Item;
 import lombok.AllArgsConstructor;
@@ -25,6 +27,10 @@ public class InventoryItemDto {
 
   private String itemImg;
 
+  private Date expDate;
+
+  private Date regDate;
+
 
   public static InventoryItemDto of(InventoryItem inventoryItem) {
     return InventoryItemDto
@@ -34,6 +40,8 @@ public class InventoryItemDto {
       .itemName(inventoryItem.getItem().getName())
       .itemImg(inventoryItem.getItem().getImg())
       .storage(inventoryItem.getStorage())
+      .expDate(inventoryItem.getExpDate())
+      .regDate(inventoryItem.getRegDate())
       .build();
   }
 }

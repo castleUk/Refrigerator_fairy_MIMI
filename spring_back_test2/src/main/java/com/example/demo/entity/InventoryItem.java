@@ -1,6 +1,9 @@
 package com.example.demo.entity;
 
 import com.example.demo.dto.InventoryItemDto;
+
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -8,6 +11,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -38,6 +44,13 @@ public class InventoryItem extends BaseEntity {
   @Column
   private int count;
 
+  @Temporal(TemporalType.DATE)
+  private Date regDate;
+
+
+  @Temporal(TemporalType.DATE)
+  private Date expDate;
+
   @Column
   private String storage;
 
@@ -45,7 +58,9 @@ public class InventoryItem extends BaseEntity {
     Inventory inventory,
     Item item,
     int count,
-    String storage
+    String storage,
+    Date expDate,
+    Date regDate
   ) {
     return InventoryItem
       .builder()
@@ -53,6 +68,8 @@ public class InventoryItem extends BaseEntity {
       .item(item)
       .count(count)
       .storage(storage)
+      .expDate(expDate)
+      .regDate(regDate)
       .build();
   }
 

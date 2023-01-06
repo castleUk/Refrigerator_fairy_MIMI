@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.dto.FreezerRequestDto;
 import com.example.demo.entity.Freezer;
+import com.example.demo.entity.Inventory;
 import com.example.demo.entity.Member;
 import com.example.demo.repository.FreezerRepository;
 import com.example.demo.repository.MemberRepository;

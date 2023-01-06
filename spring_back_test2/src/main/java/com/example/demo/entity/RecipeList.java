@@ -1,6 +1,5 @@
 package com.example.demo.entity;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -8,33 +7,34 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 @Entity
+@Builder
 @Getter
 @Setter
-@ToString
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Inventory extends BaseEntity {
+public class RecipeList extends BaseEntity {
 
   @Id
-  @Column(name = "inventory_id")
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "recipeList_id")
   private Long id;
 
-  @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE )
-  @JoinColumn(name = "freezer_id")
-  private Freezer freezer;
+  @Column(nullable = false)
+  private String recipeList;
 
-  public static Inventory createInventory(Freezer freezer) {
-    return Inventory.builder().freezer(freezer).build();
-  }
+  @Column(nullable = false)
+  private String imgUrl;
+
+  //레시피
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "recipe_id")
+  private Recipe recipe;
 }

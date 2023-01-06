@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { useEffect } from "react";
+import { instance } from "../api/Api";
 // component
 import Item from "./Item";
 import ItemSearch from "./ItemSearch";
@@ -13,15 +13,8 @@ const ItemComponent = (props) => {
 
   useEffect(() => {
     const itemSearch = async () => {
-      const token = localStorage.getItem("accessToken");
-      const headers = {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + token,
-      };
       try {
-        const response = await axios.get(`/api/item`, {
-          headers: headers,
-        });
+        const response = await instance.get(`/api/item`);
         const data = response.data;
         console.log("데이터" + data);
         setItemList(data);
@@ -36,15 +29,8 @@ const ItemComponent = (props) => {
     e.preventDefault();
     console.log("OnSearch 실행됨");
     if (search === null || search === "") {
-      const token = localStorage.getItem("accessToken");
-      const headers = {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + token,
-      };
       try {
-        const response = axios.get(`/api/item`, {
-          headers: headers,
-        });
+        const response = instance.get(`/api/item`);
         const data = response.data;
         setItemList(data);
       } catch (error) {
@@ -72,7 +58,11 @@ const ItemComponent = (props) => {
           search={search}
           onChangeSearch={onChangeSearch}
         />
-        <Item filterItemList={filterItemList} onFreezerItemAdd={props.onFreezerItemAdd}/>
+        <Item
+          filterItemList={filterItemList}
+          onFreezerItemAdd={props.onFreezerItemAdd}
+          hide={props.ItemModalClose}
+        />
       </div>
     </div>
   );

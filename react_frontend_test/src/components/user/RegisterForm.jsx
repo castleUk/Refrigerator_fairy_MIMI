@@ -3,6 +3,7 @@ import React, { useState, useCallback } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
+import { instance } from "../api/Api";
 
 const RegisterForm = ({ onRegister }) => {
   //오류 메시지
@@ -27,6 +28,8 @@ const RegisterForm = ({ onRegister }) => {
   const [isUserPwCk, setIsUserPwCk] = useState(false);
   const [isUserEmail, setIsUserEmail] = useState(false);
   const [isUserName, setIsUserName] = useState(false);
+
+  const [isCheckEmail, setIsCheckEmail] = useState(false);
   // const [isUserPhone, setIsUserPhone]= useState(false);
 
   {
@@ -146,13 +149,49 @@ const RegisterForm = ({ onRegister }) => {
     [userEmail, userPw, userName, onRegister]
   );
 
+  const onCheckEmail = async () => {
+    try {
+      const response = await  instance.get(`/auth/checkEmail/${userEmail}` , userEmail);
+      const data = response.data;
+      if(data===false){
+        alert("사용가능한 아이디 입니다.")
+        setIsCheckEmail(true)
+      }else{
+        alert("이미 사용중인 아이디 입니다.")
+        setIsCheckEmail(false)
+      }
+
+
+
+    } catch (e) {
+      console.log(e.response.data);
+    }
+  };
+
+  const emailCheckHandler = (e) => {
+    e.preventDefault();
+    onCheckEmail()
+    
+
+    
+  };
+
   return (
     <div className="register">
       <Form onSubmit={submitHandler}>
         <Form.Group className="mb-3 form-group" controlId="userName">
-          <Form.Control type="text" placeholder="이름" onChange={changeUserNameHandler} required />
-          {userName.length > 0 && <span className={`message ${isUserName ? 'success' : 'error'}`}>{userNameMessage}</span>}
-         </Form.Group>
+          <Form.Control
+            type="text"
+            placeholder="이름"
+            onChange={changeUserNameHandler}
+            required
+          />
+          {userName.length > 0 && (
+            <span className={`message ${isUserName ? "success" : "error"}`}>
+              {userNameMessage}
+            </span>
+          )}
+        </Form.Group>
         {/* <Form.Group className="mb-3 form-group" controlId="userId">
           <InputGroup>
             <Form.Control type="text" placeholder="아이디" onChange={changeUserIdHandler} required/>
@@ -162,20 +201,23 @@ const RegisterForm = ({ onRegister }) => {
         </Form.Group>  */}
         <Form.Group className="mb-3 form-group" controlId="userEmail">
           <InputGroup>
-          <Form.Control
-            type="email"
-            placeholder="이메일"
-            onChange={changeUserEmailHandler}
-            required
-          />
-          <Button variant="outline-secondary" id="idReCk" className="btn-check">
-            중복확인
-          </Button>
-          {userEmail.length > 0 && (
-            <span className={`message ${isUserEmail ? "success" : "error"}`}>
-              {userEmailMessage}
-            </span>
-          )}
+            <Form.Control
+              type="email"
+              placeholder="이메일"
+              onChange={changeUserEmailHandler}
+              required
+            />
+            <Button
+              onClick={emailCheckHandler}>
+              이메일 중복확인
+            </Button>
+
+
+            {userEmail.length > 0 && (
+              <span className={`message ${isUserEmail ? "success" : "error"}`}>
+                {userEmailMessage}
+              </span>
+            )}
           </InputGroup>
         </Form.Group>
         <Form.Group className="mb-3 form-group" controlId="userPw">
@@ -213,7 +255,7 @@ const RegisterForm = ({ onRegister }) => {
           variant="primary"
           type="submit"
           className="btn-register"
-          disabled={!(isUserEmail && isUserName && isUserPw && isUserPwCk)}
+          disabled={!(isUserEmail && isUserName && isUserPw && isUserPwCk && isCheckEmail)}
         >
           회원가입
         </Button>

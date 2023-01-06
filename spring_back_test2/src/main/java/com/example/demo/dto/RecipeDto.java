@@ -1,5 +1,7 @@
 package com.example.demo.dto;
 
+import com.example.demo.entity.Recipe;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,5 +17,10 @@ public class RecipeDto {
 
   private String name;
 
-  private String imgUrl;
+
+
+  public static RecipeDto of(Recipe recipe) {
+    return RecipeDto
+      .builder().name(recipe.getName()).build();
+  }
 }

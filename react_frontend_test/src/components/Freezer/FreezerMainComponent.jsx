@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { instance } from "../api/Api";
 // component
-import axios from "axios";
 import Freezer from "./Freezer";
 import FreezerCreateContainer from "./FreezerCreateContainer";
 
@@ -11,7 +11,6 @@ const FreezerMainComponent = () => {
   const [change, SetChange] = useState(false);
 
   const changeHandler = () => {
-    console.log("실행됐음");
     if (change === false) {
       SetChange(true);
     } else {
@@ -21,22 +20,15 @@ const FreezerMainComponent = () => {
 
   //조회처리
   const onListUp = async () => {
-    const token = localStorage.getItem("accessToken");
-    const headers = {
-      "Content-Type": "application/json",
-      Authorization: "Bearer " + token,
-    };
-
-    try {
-      const response = await axios.get("/api/freezer", {
-        headers: headers,
-      });
-      const data = await response.data;
+  try {
+    const response = await instance.get("/api/freezer")
+      const data = response.data;
       SetFreezer(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  } catch (error) {
+    console.log("에러" + error)
+  }
+      
+    };
 
   useEffect(() => {
     onListUp();

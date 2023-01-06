@@ -7,7 +7,7 @@ const InventoryItemGroup = (props) => {
   return(
     <div className='inventory-list'>
       <ul className='ingr-group'>
-        <InventoryItem index={props.index}/>
+        <InventoryItem index={props.index} itemCreateShow={props.itemCreateShow}/>
       </ul>
     </div>
   );

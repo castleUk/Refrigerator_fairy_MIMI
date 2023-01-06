@@ -1,6 +1,9 @@
 package com.example.demo.entity;
 
 import com.example.demo.dto.RecipeDto;
+
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -29,11 +32,9 @@ public class Recipe extends BaseEntity {
   @Column(nullable = false)
   private String name;
 
-  @Column(nullable = false)
-  private String imgUrl;
+ 
 
   public void change(RecipeDto recipeDto) {
     this.name = recipeDto.getName();
-    this.imgUrl = recipeDto.getImgUrl();
   }
 }
