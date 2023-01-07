@@ -61,7 +61,7 @@ const ItemComponent = (props) => {
         <Item
           filterItemList={filterItemList}
           onFreezerItemAdd={props.onFreezerItemAdd}
-          hide={props.ItemModalClose}
+          hide={props.hide}
         />
       </div>
     </div>
