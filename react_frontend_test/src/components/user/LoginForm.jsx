@@ -2,6 +2,7 @@ import React, { useState, useCallback } from "react";
 // template
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import PwSearchModal from "./PwSearchModal";
 
 const LoginForm = ({ onLogin, onError }) => {
   const [account, setAccount] = useState({
@@ -56,13 +57,13 @@ const LoginForm = ({ onLogin, onError }) => {
         </Form.Group>
         <Form.Group>{onError}</Form.Group>
 
-
-
         <Button variant="primary" type="submit" className="btn-login">
           로그인
         </Button>
       </Form>
-      <div><b>비밀번호를 잊어버리셨나요?</b></div>
+      <div>
+        <PwSearchModal />
+      </div>
     </div>
   );
 };
