@@ -1,51 +1,47 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
-import { instance } from '../api/Api';
+import React from "react";
+import { useState, useEffect } from "react";
+import { instance } from "../api/Api";
 //template
-import Card from 'react-bootstrap/Card';
-import CloseButton from 'react-bootstrap/CloseButton';
+import Card from "react-bootstrap/Card";
+import CloseButton from "react-bootstrap/CloseButton";
 //component
-import FreezerChange from './FreezerChange';
+import FreezerChange from "./FreezerChange";
 
-const FreezerChangeComponent = () => {
+const FreezerChangeComponent = (props) => {
   const [freezer, SetFreezer] = useState([]);
-    
+
   //조회처리
-    const onListUp = async () => {
-      try {
-        const response = await instance.get("/api/freezer")
-          const data = response.data;
-          SetFreezer(data);
-      } catch (error) {
-        console.log("에러" + error)
-      }
-          
-        };
-    
-      useEffect(() => {
-        onListUp();
-      }, []);
+  const onListUp = async () => {
+    try {
+      const response = await instance.get("/api/freezer");
+      const data = response.data;
+      SetFreezer(data);
+    } catch (error) {
+      console.log("에러" + error);
+    }
+  };
 
+  useEffect(() => {
+    onListUp();
+  }, []);
 
-
-  return(
-    <div className='change-component'>
-      <div className='change-content'>
+  return (
+    <div className="change-component">
+      <div className="change-content">
         <Card>
-          <div className='content-header'>
+          <div className="content-header">
             <Card.Title>냉장고 체인지</Card.Title>
-            <CloseButton className='right' />
+            <CloseButton className="right" onClick={props.onClick} />
           </div>
-          <div className='content-body'>
+          <div className="content-body">
             <Card.Body>
-              <FreezerChange freezer={freezer}/>
+              <FreezerChange freezer={freezer} />
             </Card.Body>
           </div>
         </Card>
-        
       </div>
     </div>
   );
-}
+};
 
 export default FreezerChangeComponent;

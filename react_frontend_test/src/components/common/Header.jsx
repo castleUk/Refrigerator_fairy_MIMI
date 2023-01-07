@@ -36,7 +36,6 @@ const Header = () => {
     }
   };
 
-
   useEffect(() => {
     onMyInfo();
     if (localStorage.getItem("accessToken") === null) {
@@ -129,8 +128,8 @@ const Header = () => {
           </ul>
         </div>
       </header>
-      {noticeShow && <FredgeNoticeComponent />}
-      {changeShow && <FreezerChangeComponent />}
+      {noticeShow && <FredgeNoticeComponent onClick={noticeHandleClick} />}
+      {changeShow && <FreezerChangeComponent onClick={changeHandleClick} />}
     </>
   );
 };
