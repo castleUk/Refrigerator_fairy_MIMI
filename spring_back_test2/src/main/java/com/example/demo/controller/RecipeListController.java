@@ -25,9 +25,9 @@ public class RecipeListController {
     return ResponseEntity.ok(recipeListService.addRecipeList(dto));
   }
 
-  @GetMapping //해당 레시피의 레시피아이템 전체조회
+  @GetMapping("/{recipeName}") //해당 레시피의 레시피아이템 전체조회
   public List<RecipeListRequestDto> readAllRecipeItem(
-    @RequestBody String RecipeName
+    @PathVariable("recipeName") String RecipeName
   ) {
     return recipeListService.recipeListSearch(RecipeName);
   }

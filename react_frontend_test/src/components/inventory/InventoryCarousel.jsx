@@ -14,14 +14,19 @@ const InventoryCarousel = (props) => {
       modules={[Navigation]}
     >
       <SwiperSlide>
+        <h4 className="title">냉장보관</h4>
         <InventoryItemGroup
           index={props.index}
           itemCreateShow={props.itemCreateShow}
         />
       </SwiperSlide>
-      {/* <SwiperSlide>
-        <InventoryItemGroup index={props.index} itemCreateShow={props.itemCreateShow}/>
-      </SwiperSlide> */}
+      <SwiperSlide>
+        <h4 className="title">냉동보관</h4>
+        {/* <InventoryItemGroup
+          index={props.index}
+          itemCreateShow={props.itemCreateShow}
+        /> */}
+      </SwiperSlide>
     </Swiper>
   );
 };

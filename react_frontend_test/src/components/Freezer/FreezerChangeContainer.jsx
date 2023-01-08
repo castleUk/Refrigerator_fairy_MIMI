@@ -5,7 +5,7 @@ import FredgeClose from "../fredge/FredgeClose";
 //icon
 import { GiCardExchange, GiConsoleController } from "react-icons/gi";
 
-const FreezerChange = ({ freezer }) => {
+const FreezerChangeContainer = ({ freezer }) => {
   const navigate = useNavigate();
 
   const FreezerChangeHandler = (index, e) => {
@@ -41,4 +41,4 @@ const FreezerChange = ({ freezer }) => {
   );
 };
 
-export default FreezerChange;
+export default FreezerChangeContainer;

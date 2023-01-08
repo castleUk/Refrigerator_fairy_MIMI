@@ -3,10 +3,9 @@ import React, { useState, useCallback } from "react";
 import Card from "react-bootstrap/Card";
 // icon
 
-import Modals from "../common/Modals";
-
 import { BsPlusCircleDotted } from "react-icons/bs";
 import FredgeClose from "../fredge/FredgeClose";
+import FreezerCreateModal from "./Modals/FreezerCreateModal";
 
 const FreezerCreateForm = ({ onRegister }) => {
   //냉장고 이름
@@ -28,7 +27,6 @@ const FreezerCreateForm = ({ onRegister }) => {
       onRegister(freezerName);
     },
     [freezerName, onRegister]
-
   );
 
   return (
@@ -47,14 +45,16 @@ const FreezerCreateForm = ({ onRegister }) => {
         </Card>
       </div>
 
-      {show && <Modals
-        onShow={handleShow}
-        onHide={handleClose}
-        onSubmit={submitHandler}
-        onChange={changeFreezerNameHandler}
-        placeholder="냉장고 이름!"
-        buttonName="생성"
-      />}
+      {show && (
+        <FreezerCreateModal
+          onShow={handleShow}
+          onHide={handleClose}
+          onSubmit={submitHandler}
+          onChange={changeFreezerNameHandler}
+          placeholder="냉장고 이름!"
+          buttonName="생성"
+        />
+      )}
     </>
   );
 };

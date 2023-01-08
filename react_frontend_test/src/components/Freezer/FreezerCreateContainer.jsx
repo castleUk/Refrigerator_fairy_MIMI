@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import FreezerCreateForm from "./FreezerCreateForm";
-import axios from "axios";
 import { instance } from "../api/Api";
+import FreezerCreateForm from "./FreezerCreateForm";
 
 const FreezerCreateContainer = (props) => {
   const navigate = useNavigate();
@@ -12,10 +11,7 @@ const FreezerCreateContainer = (props) => {
       name: freezerName,
     };
     try {
-      const response = await instance.post(
-        "/api/freezer/add",
-        JSON.stringify(data)
-      );
+      await instance.post("/api/freezer/add", JSON.stringify(data));
       props.onChange();
       navigate("/freezer");
     } catch (error) {

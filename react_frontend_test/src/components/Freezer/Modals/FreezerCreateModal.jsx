@@ -4,7 +4,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 
-const Modals = (props) => {
+const FreezerCreateModal = (props) => {
   return (
     <div>
       <Modal show={props.onShow} onHide={props.onHide} centered>
@@ -22,7 +22,7 @@ const Modals = (props) => {
           </Modal.Body>
           <Modal.Footer>
             <Button type="submit" variant="primary">
-            {props.buttonName}
+              {props.buttonName}
             </Button>
           </Modal.Footer>
         </Form>
@@ -31,4 +31,4 @@ const Modals = (props) => {
   );
 };
 
-export default Modals;
+export default FreezerCreateModal;

@@ -9,7 +9,7 @@ import { BiMinus } from "react-icons/bi";
 import { BsPlus } from "react-icons/bs";
 // component
 
-const Item = ({ filterItemList, onFreezerItemAdd, hide }) => {
+const ItemAddForm = ({ filterItemList, onFreezerItemAdd, hide }) => {
   const [count, setCount] = useState(1);
   const [storage, setStorage] = useState("");
   const [expDate, setExpDate] = useState();
@@ -103,4 +103,4 @@ const Item = ({ filterItemList, onFreezerItemAdd, hide }) => {
   );
 };
 
-export default Item;
+export default ItemAddForm;

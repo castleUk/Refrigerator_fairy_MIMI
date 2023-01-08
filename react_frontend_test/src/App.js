@@ -6,18 +6,17 @@ import "../src/assets/scss/app.scss";
 import { Route, Routes } from "react-router-dom";
 
 // page
-import MainLayout from "./components/MainLayout";
+import FreezerLayout from "./components/Freezer/FreezerLayout";
 import LoginPage from "./page/LoginPage";
-import ContentLayout from "./components/ContentLayout";
+import InventoryLayout from "./components/inventory/InventoryLayout";
 
 function App() {
   return (
     <div className="app">
       <Routes>
-          <Route path="/freezer" element={<MainLayout />}></Route>
-          <Route path="/inventory/:index" element={<ContentLayout />}></Route>
-          <Route path="/" element={<LoginPage />}></Route>
-          {/* <Route path='/register' element={<LoginPage/>}></Route> */}
+        <Route path="/freezer" element={<FreezerLayout />}></Route>
+        <Route path="/inventory/:index" element={<InventoryLayout />}></Route>
+        <Route path="/" element={<LoginPage />}></Route>
       </Routes>
     </div>
   );

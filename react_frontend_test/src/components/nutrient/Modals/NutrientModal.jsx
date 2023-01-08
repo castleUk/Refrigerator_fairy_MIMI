@@ -1,11 +1,11 @@
 import { Modal, Button } from "react-bootstrap";
 import { useState } from "react";
 import { useEffect } from "react";
-import { instance } from "../api/Api";
-import NutrientTable from "../nutrient/NutrientTable";
-import RecipesGroup from "../recipe/RecipesGroup";
+import { instance } from "../../api/Api";
+import NutrientTable from "../NutrientTable";
+import RecipesGroup from "../../recipe/RecipesGroup";
 
-const ItemModal = ({ show, onHide, itemInfo, setItemInfo }) => {
+const NutrientModal = ({ show, onHide, itemInfo, setItemInfo }) => {
   const [nutrientInfo, setNutrientInfo] = useState([]);
   const [test, setTest] = useState();
   console.log("영양성분?" + nutrientInfo);
@@ -44,4 +44,4 @@ const ItemModal = ({ show, onHide, itemInfo, setItemInfo }) => {
   );
 };
 
-export default ItemModal;
+export default NutrientModal;

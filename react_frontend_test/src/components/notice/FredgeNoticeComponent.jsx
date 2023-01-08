@@ -3,6 +3,17 @@ import Card from "react-bootstrap/Card";
 import CloseButton from "react-bootstrap/CloseButton";
 
 const FredgeNoticeComponent = (props) => {
+  const onItemList = async () => {
+    console.log("onItemList 실행됌");
+    try {
+      const response = await instance.get(`/api/inventory/${index}`);
+      const data = response.data;
+      setItemList(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="notice-component">
       <div className="notice-content">

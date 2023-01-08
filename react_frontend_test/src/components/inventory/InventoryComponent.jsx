@@ -12,15 +12,18 @@ const InventoryComponent = (props) => {
     <div className="inventory-component">
       <div className="inventory-content">
         <div className="content-header">
-          <h4 className="title">냉장보관</h4>
           <InventoryItemAdd
             index={props.index}
             itemCreateShow={itemCreateShow}
             setItemCreateShow={setItemCreateShow}
           />
         </div>
+
         <div className="content-body">
-          <InventoryCarousel index={props.index} itemCreateShow={itemCreateShow}/>
+          <InventoryCarousel
+            index={props.index}
+            itemCreateShow={itemCreateShow}
+          />
         </div>
       </div>
     </div>

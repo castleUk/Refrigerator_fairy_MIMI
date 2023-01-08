@@ -1,18 +1,16 @@
-import React, { useState } from 'react';
+import React from "react";
 // template
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination, Navigation, Autoplay } from 'swiper';
-import Carousel from 'react-bootstrap/Carousel';
-import Recipe from './Recipe';
-import RecipesGroup from './RecipesGroup';
+import { Autoplay, Navigation, Pagination } from "swiper";
+import { Swiper, SwiperSlide } from "swiper/react";
+import RecipesGroup from "./RecipesGroup";
 
 const RecipesCarousel = () => {
-  return(
-    <Swiper 
+  return (
+    <Swiper
       slidesPerView={1}
       spaceBetween={30}
       pagination={{
-        clickable: true
+        clickable: true,
       }}
       centeredSlides={true}
       autoplay={{
@@ -33,6 +31,6 @@ const RecipesCarousel = () => {
       </SwiperSlide>
     </Swiper>
   );
-}
+};
 
 export default RecipesCarousel;

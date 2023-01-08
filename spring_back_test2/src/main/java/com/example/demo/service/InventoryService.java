@@ -42,8 +42,7 @@ public class InventoryService {
     int index
   ) {
     log.info("인벤토리 추가 실행");
-    Item item = itemRepository
-      .findByName(inventoryItemDto.getItemName());
+    Item item = itemRepository.findByName(inventoryItemDto.getItemName());
 
     Member member = memberRepository.findByUserEmail(userEmail).orElseThrow();
     List<Freezer> freezer = freezerRepository.findByMemberId(member.getId());
@@ -78,7 +77,20 @@ public class InventoryService {
     }
   }
 
-  // 전체 리스트 조회
+  // //그냥 내 모든 리스트 조회
+  // public List<InventoryItemDto> readAllItemList(String userEmail) {
+  //   Member member = memberRepository.findByUserEmail(userEmail).orElseThrow();
+  //   List<Freezer> freezer = freezerRepository.findByMemberId(member.getId());
+  //   List<Inventory> inventory = inventoryRepository.findAllByFreezer(freezer);
+  //   List<InventoryItemDto> inventoryItem = inventoryItemRepository
+  //     .findByInventoryId(inventory.getId())
+  //     .stream()
+  //     .map(InventoryItemDto::of)
+  //     .collect(Collectors.toList());
+  //   return inventoryItem;
+  // }
+
+  // 해당 냉장고의 전체 리스트 조회
   public List<InventoryItemDto> readAllInventoryItemList(
     String userEmail,
     int index
@@ -97,7 +109,11 @@ public class InventoryService {
   }
 
   // 개별 조회
-  public ItemDto readOneInventoryItem(String userEmail, int index, Long itemId) {
+  public ItemDto readOneInventoryItem(
+    String userEmail,
+    int index,
+    Long itemId
+  ) {
     Member member = memberRepository.findByUserEmail(userEmail).orElseThrow();
     List<Freezer> freezer = freezerRepository.findByMemberId(member.getId());
     Inventory inventory = inventoryRepository.findByFreezerId(

@@ -2,15 +2,16 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 import { instance } from "../api/Api";
 // component
-import Item from "./Item";
-import ItemSearch from "./ItemSearch";
+import ItemAddForm from "./ItemAddForm";
+import ItemSearchForm from "./ItemSearchForm";
 
-const ItemComponent = (props) => {
+const ItemSearchAddComponent = (props) => {
   //재료검색..
   const [search, setSearch] = useState("");
   const [itemList, setItemList] = useState([]);
   const [filterItemList, setFilterItemList] = useState([]);
 
+  ///////////// 이 부분 뭔가 손 봐야 할것 같은데....?
   useEffect(() => {
     const itemSearch = async () => {
       try {
@@ -53,12 +54,12 @@ const ItemComponent = (props) => {
   return (
     <div className="ingr-component">
       <div className="ingr-content">
-        <ItemSearch
+        <ItemSearchForm
           onSearch={onSearch}
           search={search}
           onChangeSearch={onChangeSearch}
         />
-        <Item
+        <ItemAddForm
           filterItemList={filterItemList}
           onFreezerItemAdd={props.onFreezerItemAdd}
           hide={props.hide}
@@ -68,4 +69,4 @@ const ItemComponent = (props) => {
   );
 };
 
-export default ItemComponent;
+export default ItemSearchAddComponent;

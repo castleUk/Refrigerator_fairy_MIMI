@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { instance } from "../api/Api";
 // component
-import Freezer from "./Freezer";
+import FreezerContainer from "./FreezerContainer";
 import FreezerCreateContainer from "./FreezerCreateContainer";
 
 // template
@@ -20,15 +20,14 @@ const FreezerMainComponent = () => {
 
   //조회처리
   const onListUp = async () => {
-  try {
-    const response = await instance.get("/api/freezer")
+    try {
+      const response = await instance.get("/api/freezer");
       const data = response.data;
       SetFreezer(data);
-  } catch (error) {
-    console.log("에러" + error)
-  }
-      
-    };
+    } catch (error) {
+      console.log("에러" + error);
+    }
+  };
 
   useEffect(() => {
     onListUp();
@@ -41,37 +40,37 @@ const FreezerMainComponent = () => {
           <div className="row">
             <div className="col">
               {freezer[0] ? (
-                <Freezer
+                <FreezerContainer
                   onFreezer={freezer[0]}
                   index="0"
                   onChange={changeHandler}
                 />
               ) : (
-                <FreezerCreateContainer onChange={changeHandler}/>
+                <FreezerCreateContainer onChange={changeHandler} />
               )}
             </div>
 
             <div className="col">
               {freezer[1] ? (
-                <Freezer
+                <FreezerContainer
                   onFreezer={freezer[1]}
                   index="1"
                   onChange={changeHandler}
                 />
               ) : (
-                <FreezerCreateContainer onChange={changeHandler}/>
+                <FreezerCreateContainer onChange={changeHandler} />
               )}
             </div>
 
             <div className="col">
               {freezer[2] ? (
-                <Freezer
+                <FreezerContainer
                   onFreezer={freezer[2]}
                   index="2"
                   onChange={changeHandler}
                 />
               ) : (
-                <FreezerCreateContainer onChange={changeHandler}/>
+                <FreezerCreateContainer onChange={changeHandler} />
               )}
             </div>
           </div>

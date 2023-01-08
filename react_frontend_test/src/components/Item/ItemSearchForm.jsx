@@ -5,8 +5,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 
-const ItemSearch = (props) => {
-  
+const ItemSearchForm = (props) => {
   return (
     <div className="ingr-search search">
       <Form onSubmit={props.onSearch}>
@@ -26,4 +25,4 @@ const ItemSearch = (props) => {
   );
 };
 
-export default ItemSearch;
+export default ItemSearchForm;

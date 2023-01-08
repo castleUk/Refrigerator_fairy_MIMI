@@ -5,7 +5,7 @@ import { instance } from "../api/Api";
 import Card from "react-bootstrap/Card";
 import CloseButton from "react-bootstrap/CloseButton";
 //component
-import FreezerChange from "./FreezerChange";
+import FreezerChangeContainer from "./FreezerChangeContainer";
 
 const FreezerChangeComponent = (props) => {
   const [freezer, SetFreezer] = useState([]);
@@ -35,7 +35,7 @@ const FreezerChangeComponent = (props) => {
           </div>
           <div className="content-body">
             <Card.Body>
-              <FreezerChange freezer={freezer} />
+              <FreezerChangeContainer freezer={freezer} />
             </Card.Body>
           </div>
         </Card>
