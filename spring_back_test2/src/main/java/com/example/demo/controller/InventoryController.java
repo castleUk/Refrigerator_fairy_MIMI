@@ -67,7 +67,7 @@ public class InventoryController {
         .msg("냉장고아이템 조회 성공")
         .body(inventoryItemListRespDto)
         .build(),
-      HttpStatus.CREATED
+      HttpStatus.OK
     );
   }
 
@@ -85,27 +85,47 @@ public class InventoryController {
 
   //수정
   @PutMapping("/{index}/{itemId}")
-  public void modifyInventoryItem(
+  public ResponseEntity<?> modifyInventoryItem(
     @PathVariable("itemId") Long itemId,
     @PathVariable("index") int index,
     @RequestBody InventoryItemReqDto inventoryItemDto
   ) {
     String email = memberService.getMyInfoBySecurity().getUserEmail();
-    inventoryService.modifyInventoryItem(
+    InventoryItemRespDto inventoryItemRespDto = inventoryService.modifyInventoryItem(
       email,
       index,
       itemId,
       inventoryItemDto
     );
+
+    return new ResponseEntity<>(
+      CMRespDto
+        .builder()
+        .code(1)
+        .msg("냉장고아이템 수정 성공")
+        .body(inventoryItemRespDto)
+        .build(),
+      HttpStatus.OK
+    );
   }
 
   //삭제
   @DeleteMapping("/{index}/{itemId}")
-  public void deleteInventoryItem(
+  public ResponseEntity<?> deleteInventoryItem(
     @PathVariable("itemId") Long itemId,
     @PathVariable("index") int index
   ) {
     String email = memberService.getMyInfoBySecurity().getUserEmail();
     inventoryService.deleteInventoryItem(email, index, itemId);
+
+    return new ResponseEntity<>(
+      CMRespDto
+        .builder()
+        .code(1)
+        .msg("냉장고아이템 삭제 성공")
+        .body(null)
+        .build(),
+      HttpStatus.OK
+    );
   }
 }

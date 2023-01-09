@@ -1,7 +1,7 @@
 package com.example.demo.entity;
 
+import com.example.demo.dto.response.InventoryRespDto;
 import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,9 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-
-import com.example.demo.dto.response.InventoryRespDto;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -40,16 +37,19 @@ public class Inventory extends BaseEntity {
   @JoinColumn(name = "freezer_id")
   private Freezer freezer;
 
-  @OneToMany(mappedBy = "inventory", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+  @OneToMany(
+    mappedBy = "inventory",
+    fetch = FetchType.LAZY,
+    cascade = CascadeType.REMOVE
+  )
   private List<InventoryItem> inventoryItem;
 
-
-  public InventoryRespDto toDto(){
-    return InventoryRespDto.builder().freezer(freezer).inventoryItem(inventoryItem).id(id).build();
-
-  }
-
-  public static Inventory createInventory(Freezer freezer) {
-    return Inventory.builder().freezer(freezer).build();
+  public InventoryRespDto toDto() {
+    return InventoryRespDto
+      .builder()
+      .freezer(freezer)
+      .inventoryItem(inventoryItem)
+      .id(id)
+      .build();
   }
 }

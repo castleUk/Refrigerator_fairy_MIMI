@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class RecipeListRequestDto {
+public class RecipeContentReqDto {
 
   private String recipeName;
 
@@ -18,8 +18,8 @@ public class RecipeListRequestDto {
 
   private String recipeList;
 
-  public static RecipeListRequestDto of(RecipeList recipeList) {
-    return RecipeListRequestDto
+  public static RecipeContentReqDto of(RecipeList recipeList) {
+    return RecipeContentReqDto
       .builder()
       .recipeName(recipeList.getRecipe().getName())
       .recipeList(recipeList.getRecipeList())

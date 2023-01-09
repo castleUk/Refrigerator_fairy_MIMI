@@ -1,5 +1,6 @@
 package com.example.demo.entity;
 
+import com.example.demo.dto.response.RecipeItemRespDto;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -34,7 +35,7 @@ public class RecipeItem extends BaseEntity {
   private Item item;
 
   //레시피
-  @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE )
+  @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
   @JoinColumn(name = "recipe_id")
   private Recipe recipe;
 
@@ -44,5 +45,14 @@ public class RecipeItem extends BaseEntity {
 
   public void addCount(int count) {
     this.count += count;
+  }
+
+  public RecipeItemRespDto toDTO() {
+    return RecipeItemRespDto
+      .builder()
+      .itemCount(count)
+      .itemName(item.getName())
+      .recipeName(recipe.getName())
+      .build();
   }
 }

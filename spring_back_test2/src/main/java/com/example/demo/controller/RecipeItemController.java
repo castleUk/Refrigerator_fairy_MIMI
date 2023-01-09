@@ -1,10 +1,15 @@
 package com.example.demo.controller;
 
-import com.example.demo.dto.request.RecipeItemRequestDto;
-import com.example.demo.dto.response.RecipeItemResponseDto;
+import com.example.demo.dto.request.RecipeItemReqDto;
+import com.example.demo.dto.response.CMRespDto;
+import com.example.demo.dto.response.RecipeItemListRespDto;
+import com.example.demo.dto.response.RecipeItemRespDto;
+import com.example.demo.dto.response.RecipeRespDto;
+import com.example.demo.entity.RecipeItem;
 import com.example.demo.service.RecipeItemService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,27 +27,69 @@ public class RecipeItemController {
   private final RecipeItemService recipeItemService;
 
   @PostMapping("/add") //레시피아이템 추가
-  public ResponseEntity<?> addRecipe(@RequestBody RecipeItemRequestDto dto)
+  public ResponseEntity<?> addRecipe(@RequestBody RecipeItemReqDto dto)
     throws Exception {
-    return ResponseEntity.ok(recipeItemService.addRecipeItem(dto));
+    RecipeItemRespDto recipeItemRespDto = recipeItemService.addRecipeItem(dto);
+
+    return new ResponseEntity<>(
+      CMRespDto
+        .builder()
+        .code(1)
+        .msg("레시피 아이템 등록 성공")
+        .body(recipeItemRespDto)
+        .build(),
+      HttpStatus.CREATED
+    );
   }
 
   @GetMapping("/{name}") //해당 재료의 레시피아이템 전체조회
-  public List<RecipeItemResponseDto> readAllRecipeItem(
+  public ResponseEntity<?> readAllRecipeItem(
     @PathVariable("name") String name
   ) {
-    return recipeItemService.recipeSearch(name);
+    RecipeItemListRespDto recipeItemListRespDto = recipeItemService.recipeSearch(
+      name
+    );
+    return new ResponseEntity<>(
+      CMRespDto
+        .builder()
+        .code(1)
+        .msg("해당 재료의 레시피 전체 조회")
+        .body(recipeItemListRespDto)
+        .build(),
+      HttpStatus.OK
+    );
   }
 
-  @GetMapping("/recipe/{name}") //해당 레시피의 레시피아이템 전체조회
-  public List<RecipeItemResponseDto> readAllItemRecipe(
+  @GetMapping("/recipe/{name}") //해당 레시피의 재료 전체조회
+  public ResponseEntity<?> readAllItemRecipe(
     @PathVariable("name") String name
   ) {
-    return recipeItemService.itemSearch(name);
+    RecipeItemListRespDto recipeItemListRespDto = recipeItemService.itemSearch(
+      name
+    );
+    return new ResponseEntity<>(
+      CMRespDto
+        .builder()
+        .code(1)
+        .msg("해당 레시피의 재료 전체 조회")
+        .body(recipeItemListRespDto)
+        .build(),
+      HttpStatus.OK
+    );
   }
 
   @DeleteMapping
-  public void deleteRecipeItem(@RequestBody RecipeItemRequestDto dto) {
+  public ResponseEntity<?> deleteRecipeItem(@RequestBody RecipeItemReqDto dto) {
     recipeItemService.deleteRecipeItem(dto);
+
+    return new ResponseEntity<>(
+      CMRespDto
+        .builder()
+        .code(1)
+        .msg("레시피아이템 삭제 완료")
+        .body(null)
+        .build(),
+      HttpStatus.OK
+    );
   }
 }

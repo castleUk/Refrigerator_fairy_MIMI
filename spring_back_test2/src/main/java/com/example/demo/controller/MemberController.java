@@ -24,7 +24,6 @@ public class MemberController {
     MemberRespDto myInfoBySecurity = memberService.getMyInfoBySecurity();
     System.out.println(myInfoBySecurity.getUserName());
     return ResponseEntity.ok((myInfoBySecurity));
-    // return ResponseEntity.ok(memberService.getMyInfoBySecurity());
   }
 
   @PostMapping("/username")

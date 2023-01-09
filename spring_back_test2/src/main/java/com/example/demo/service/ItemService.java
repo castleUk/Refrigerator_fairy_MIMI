@@ -1,14 +1,14 @@
 package com.example.demo.service;
 
-import com.example.demo.dto.ItemDto;
+import com.example.demo.dto.request.ItemReqDto;
+import com.example.demo.dto.response.ItemListRespDto;
+import com.example.demo.dto.response.ItemRespDto;
 import com.example.demo.entity.Item;
 import com.example.demo.repository.ItemRepository;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,42 +20,41 @@ public class ItemService {
 
   private final ItemRepository itemRepository;
 
-  private final ModelMapper modelMapper;
-
   //상품등록
-  public Long register(ItemDto itemDto) {
-    Item item = modelMapper.map(itemDto, Item.class);
-    Long id = itemRepository.save(item).getId();
-    return id;
+  public ItemRespDto addItem(ItemReqDto itemReqDto) {
+    Item item = itemRepository.save(itemReqDto.toEntity());
+    return item.toDto();
   }
 
   //상품 조회
-  public ItemDto readOne(String itemName) {
+  public ItemRespDto getOneItem(String itemName) {
     Item item = itemRepository.findByName(itemName);
-    ItemDto itemDto = modelMapper.map(item, ItemDto.class);
-    return itemDto;
+    return item.toDto();
   }
 
   //상품 수정
-  public void modify(ItemDto itemDto) {
-    Optional<Item> result = itemRepository.findById(itemDto.getId());
-    Item item = result.orElseThrow();
-    item.change(itemDto);
-    itemRepository.save(item);
+  public ItemRespDto modify(ItemReqDto itemReqDto) {
+    Item item = itemRepository.findById(itemReqDto.getId()).get();
+    item.change(itemReqDto);
+    return item.toDto();
   }
 
   //삭제 처리
-  public void remove(Long itemId) {
-    itemRepository.deleteById(itemId);
+  public void remove(Long id) {
+    itemRepository.deleteById(id);
   }
 
   // 전체 목록
-  public List<ItemDto> readAll() {
-    List<Item> result = itemRepository.findAll();
-    List<ItemDto> resultList = result
+  public ItemListRespDto getItemList() {
+    List<ItemRespDto> resultList = itemRepository
+      .findAll()
       .stream()
-      .map(Item -> modelMapper.map(Item, ItemDto.class))
+      .map(Item::toDto)
       .collect(Collectors.toList());
-    return resultList;
+    ItemListRespDto itemRespListDto = ItemListRespDto
+      .builder()
+      .itemList(resultList)
+      .build();
+    return itemRespListDto;
   }
 }

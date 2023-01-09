@@ -1,6 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.dto.request.RecipeListRequestDto;
+import com.example.demo.dto.request.RecipeContentReqDto;
 import com.example.demo.service.RecipeListService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -20,13 +20,13 @@ public class RecipeListController {
   private final RecipeListService recipeListService;
 
   @PostMapping("/add") //레시피아이템 추가
-  public ResponseEntity<?> addRecipe(@RequestBody RecipeListRequestDto dto)
+  public ResponseEntity<?> addRecipe(@RequestBody RecipeContentReqDto dto)
     throws Exception {
     return ResponseEntity.ok(recipeListService.addRecipeList(dto));
   }
 
   @GetMapping("/{recipeName}") //해당 레시피의 레시피아이템 전체조회
-  public List<RecipeListRequestDto> readAllRecipeItem(
+  public List<RecipeContentReqDto> readAllRecipeItem(
     @PathVariable("recipeName") String RecipeName
   ) {
     return recipeListService.recipeListSearch(RecipeName);

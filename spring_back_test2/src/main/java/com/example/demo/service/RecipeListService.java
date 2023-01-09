@@ -1,6 +1,6 @@
 package com.example.demo.service;
 
-import com.example.demo.dto.request.RecipeListRequestDto;
+import com.example.demo.dto.request.RecipeContentReqDto;
 import com.example.demo.entity.Recipe;
 import com.example.demo.entity.RecipeList;
 import com.example.demo.repository.RecipeListRepository;
@@ -20,7 +20,7 @@ public class RecipeListService {
   private final RecipeRepository recipeRepository;
 
   //레시피 리스트 등록
-  public RecipeListRequestDto addRecipeList(RecipeListRequestDto dto) {
+  public RecipeContentReqDto addRecipeList(RecipeContentReqDto dto) {
     Recipe recipe = recipeRepository.findByName(dto.getRecipeName());
     RecipeList recipeList = RecipeList
       .builder()
@@ -28,17 +28,17 @@ public class RecipeListService {
       .recipeList(dto.getRecipeList())
       .imgUrl(dto.getImgUrl())
       .build();
-    return RecipeListRequestDto.of(recipeListRepository.save(recipeList));
+    return RecipeContentReqDto.of(recipeListRepository.save(recipeList));
   }
 
   //레시피이름으로 레시피 리스트 쭉 받아오기
-  public List<RecipeListRequestDto> recipeListSearch(String name) {
+  public List<RecipeContentReqDto> recipeListSearch(String name) {
     Recipe recipe = recipeRepository.findByName(name);
     List<RecipeList> recipeList = recipeListRepository.findByRecipe(recipe);
 
-    List<RecipeListRequestDto> recipeItemListDto = recipeList
+    List<RecipeContentReqDto> recipeItemListDto = recipeList
       .stream()
-      .map(RecipeListRequestDto::of)
+      .map(RecipeContentReqDto::of)
       .collect(Collectors.toList());
 
     return recipeItemListDto;
