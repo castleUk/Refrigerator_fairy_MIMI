@@ -1,8 +1,8 @@
 package com.example.demo.service;
 
 import com.example.demo.dto.RecipeItemDto;
-import com.example.demo.dto.RecipeItemRequestDto;
-import com.example.demo.dto.RecipeItemResponseDto;
+import com.example.demo.dto.request.RecipeItemRequestDto;
+import com.example.demo.dto.response.RecipeItemResponseDto;
 import com.example.demo.entity.Item;
 import com.example.demo.entity.Recipe;
 import com.example.demo.entity.RecipeItem;

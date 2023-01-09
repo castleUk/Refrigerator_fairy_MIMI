@@ -1,6 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.dto.RecipeListRequestDto;
+import com.example.demo.dto.request.RecipeListRequestDto;
 import com.example.demo.service.RecipeListService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;

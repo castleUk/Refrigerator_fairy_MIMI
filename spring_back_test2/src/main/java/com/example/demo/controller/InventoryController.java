@@ -1,6 +1,9 @@
 package com.example.demo.controller;
 
-import com.example.demo.dto.InventoryItemDto;
+import com.example.demo.dto.request.InventoryItemReqDto;
+import com.example.demo.dto.response.CMRespDto;
+import com.example.demo.dto.response.InventoryItemListRespDto;
+import com.example.demo.dto.response.InventoryItemRespDto;
 import com.example.demo.service.InventoryService;
 import com.example.demo.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -26,45 +29,66 @@ public class InventoryController {
   //추가
   @PostMapping("/add")
   public ResponseEntity<?> addInventoryItem(
-    @RequestBody InventoryItemDto inventoryItemDto,
+    @RequestBody InventoryItemReqDto inventoryItemReqDto,
     int index
   ) {
     String email = memberService.getMyInfoBySecurity().getUserEmail();
-    Long inventoryItemId;
 
-    inventoryItemId =
-      inventoryService.addInventory(inventoryItemDto, email, index);
+    InventoryItemRespDto inventoryItemRespDto = inventoryService.addInventory(
+      inventoryItemReqDto,
+      email,
+      index
+    );
 
-    return new ResponseEntity<Long>(inventoryItemId, HttpStatus.OK);
+    return new ResponseEntity<>(
+      CMRespDto
+        .builder()
+        .code(1)
+        .msg("냉장고에 아이템 등록 성공")
+        .body(inventoryItemRespDto)
+        .build(),
+      HttpStatus.CREATED
+    );
   }
 
   //전체 조회
   @GetMapping("/{index}")
-  public ResponseEntity<?> readAllInventoryItem(@PathVariable int index) {
+  public ResponseEntity<?> getAllInventoryItem(@PathVariable int index) {
     String email = memberService.getMyInfoBySecurity().getUserEmail();
-    return ResponseEntity.ok(
-      inventoryService.readAllInventoryItemList(email, index)
+
+    InventoryItemListRespDto inventoryItemListRespDto = inventoryService.getInventoryItemList(
+      email,
+      index
+    );
+    return new ResponseEntity<>(
+      CMRespDto
+        .builder()
+        .code(1)
+        .msg("냉장고아이템 조회 성공")
+        .body(inventoryItemListRespDto)
+        .build(),
+      HttpStatus.CREATED
     );
   }
 
-  //개별 조회
-  @GetMapping("/{index}/{itemId}")
-  public ResponseEntity<?> readOneInventoryItem(
-    @PathVariable("itemId") Long itemId,
-    @PathVariable("index") int index
-  ) {
-    String email = memberService.getMyInfoBySecurity().getUserEmail();
-    return ResponseEntity.ok(
-      inventoryService.readOneInventoryItem(email, index, itemId)
-    );
-  }
+  // //개별 조회
+  // @GetMapping("/{index}/{itemId}")
+  // public ResponseEntity<?> readOneInventoryItem(
+  //   @PathVariable("itemId") Long itemId,
+  //   @PathVariable("index") int index
+  // ) {
+  //   String email = memberService.getMyInfoBySecurity().getUserEmail();
+  //   return ResponseEntity.ok(
+  //     inventoryService.readOneInventoryItem(email, index, itemId)
+  //   );
+  // }
 
   //수정
   @PutMapping("/{index}/{itemId}")
   public void modifyInventoryItem(
     @PathVariable("itemId") Long itemId,
     @PathVariable("index") int index,
-    @RequestBody InventoryItemDto inventoryItemDto
+    @RequestBody InventoryItemReqDto inventoryItemDto
   ) {
     String email = memberService.getMyInfoBySecurity().getUserEmail();
     inventoryService.modifyInventoryItem(

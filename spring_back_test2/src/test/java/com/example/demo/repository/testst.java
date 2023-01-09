@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.example.demo.dto.FreezerRequestDto;
+import com.example.demo.dto.request.FreezerReqDto;
 import com.example.demo.entity.Freezer;
 import com.example.demo.entity.Inventory;
 import com.example.demo.entity.Member;

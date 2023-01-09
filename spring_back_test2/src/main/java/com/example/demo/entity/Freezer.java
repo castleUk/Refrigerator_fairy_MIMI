@@ -1,5 +1,6 @@
 package com.example.demo.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -8,20 +9,17 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import lombok.AllArgsConstructor;
+import javax.persistence.OneToOne;
+
+import com.example.demo.dto.response.FreezerRespDto;
+
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
 @Entity
 @Getter
-@Setter
-@ToString
-@Builder
 @NoArgsConstructor
-@AllArgsConstructor
 public class Freezer extends BaseEntity {
 
   @Id
@@ -36,11 +34,27 @@ public class Freezer extends BaseEntity {
   @Column
   private String name;
 
-  public static Freezer createFreezer(Member member, String name) {
-    return Freezer.builder().name(name).member(member).build();
+  @OneToOne(mappedBy = "freezer", cascade = CascadeType.REMOVE) // 양방향
+    private Inventory inventory;
+
+  @Builder
+  public Freezer(Long id, Member member, String name) {
+    this.id = id;
+    this.member = member;
+    this.name = name;
   }
+
 
   public void changeName(String name) {
     this.name = name;
   }
+
+  public void update(String name){
+    this.name = name;
+  }
+
+  public FreezerRespDto toDto(){
+    return FreezerRespDto.builder().id(id).name(name).build();
+  }
+
 }

@@ -1,7 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.config.SecurityUtil;
-import com.example.demo.dto.MemberResponseDto;
+import com.example.demo.dto.response.MemberRespDto;
 import com.example.demo.entity.Member;
 import com.example.demo.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -17,24 +17,25 @@ public class MemberService {
   private final MemberRepository memberRepository;
   private final PasswordEncoder passwordEncoder;
 
-  public MemberResponseDto getMyInfoBySecurity() {
+  public MemberRespDto getMyInfoBySecurity() {
     return memberRepository
       .findById(SecurityUtil.getCurrentMemberId())
-      .map(MemberResponseDto::of)
+      .map(Member::toDto)
       .orElseThrow(() -> new RuntimeException("로그인 유저 정보가 없습니다"));
   }
 
   @Transactional
-  public MemberResponseDto changeMemberNickname(String email, String nickname) {
+  public MemberRespDto changeMemberNickname(String email, String nickname) {
     Member member = memberRepository
       .findByUserEmail(email)
       .orElseThrow(() -> new RuntimeException("로그인 유저 정보가 없습니다"));
     member.setUserName(nickname);
-    return MemberResponseDto.of(memberRepository.save(member));
+    memberRepository.save(member);
+    return member.toDto();
   }
 
   @Transactional
-  public MemberResponseDto changeMemberPassword(
+  public MemberRespDto changeMemberPassword(
     String email,
     String exPassword,
     String newPassword
@@ -46,6 +47,7 @@ public class MemberService {
       throw new RuntimeException("비밀번호가 맞지 않습니다");
     }
     member.setUserPw(passwordEncoder.encode((newPassword)));
-    return MemberResponseDto.of(memberRepository.save(member));
+    memberRepository.save(member);
+    return member.toDto();
   }
 }

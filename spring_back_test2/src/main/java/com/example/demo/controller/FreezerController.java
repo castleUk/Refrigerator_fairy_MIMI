@@ -1,12 +1,14 @@
 package com.example.demo.controller;
 
-import com.example.demo.dto.FreezerRequestDto;
-import com.example.demo.service.FreezerService;
-import com.example.demo.service.MemberService;
-import java.util.List;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.validation.Valid;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +17,16 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.example.demo.dto.request.FreezerReqDto;
+import com.example.demo.dto.response.CMRespDto;
+import com.example.demo.dto.response.FreezerListRespDto;
+import com.example.demo.dto.response.FreezerRespDto;
+import com.example.demo.service.FreezerService;
+import com.example.demo.service.MemberService;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 
 @RestController
 @RequiredArgsConstructor
@@ -27,49 +39,113 @@ public class FreezerController {
 
   //냉장고 추가
   @PostMapping("/add")
-  public ResponseEntity<FreezerRequestDto> registerFreezer(
-    @RequestBody FreezerRequestDto freezerRequestDto
+  public ResponseEntity<?> saveFreezer(
+    @RequestBody @Valid FreezerReqDto freezerRequestDto,
+    BindingResult bindingResult
   ) {
+    if (bindingResult.hasErrors()) {
+      Map<String, String> errorMap = new HashMap<>();
+      for (FieldError fe : bindingResult.getFieldErrors()) {
+        errorMap.put(fe.getField(), fe.getDefaultMessage());
+      }
+      throw new RuntimeException(errorMap.toString());
+    }
     String email = memberService.getMyInfoBySecurity().getUserEmail();
-    log.info(email);
-    log.info("여기까지 왔음 진짜임");
-    return ResponseEntity.ok(
-      freezerService.addFreezer(freezerRequestDto, email)
+    FreezerRespDto freezerRespDto = freezerService.addFreezer(
+      freezerRequestDto,
+      email
+    );
+
+    return new ResponseEntity<>(
+      CMRespDto
+        .builder()
+        .code(1)
+        .msg("냉장고 등록 성공")
+        .body(freezerRespDto)
+        .build(),
+      HttpStatus.CREATED
     );
   }
 
   //냉장고 전체 목록
   @GetMapping
-  public List<FreezerRequestDto> readAllFreezer() {
+  public ResponseEntity<?> getFreezerList() {
     String email = memberService.getMyInfoBySecurity().getUserEmail();
-    return freezerService.freezerList(email);
+    FreezerListRespDto freezerListRespDto = freezerService.getFreezerList(
+      email
+    );
+    return new ResponseEntity<>(
+      CMRespDto
+        .builder()
+        .code(1)
+        .msg("냉장고 목록 가져오기 성공")
+        .body(freezerListRespDto)
+        .build(),
+      HttpStatus.OK
+    );
   }
 
   //냉장고 읽기
   @GetMapping("/{index}")
-  public FreezerRequestDto readOneFreezer(@PathVariable("index") int index) {
+  public ResponseEntity<?> getOneFreezer(@PathVariable("index") int index) {
     String email = memberService.getMyInfoBySecurity().getUserEmail();
-    return freezerService.getFreezer(email, index);
+    FreezerRespDto freezerRespDto = freezerService.getFreezer(email, index);
+    return new ResponseEntity<>(
+      CMRespDto
+        .builder()
+        .code(1)
+        .msg("냉장고 한건 조회 성공")
+        .body(freezerRespDto)
+        .build(),
+      HttpStatus.OK
+    );
   }
 
   //냉장고수정
   @PutMapping("/{index}")
-  public void updateFreezer(
+  public ResponseEntity<?> updateFreezer(
     @PathVariable("index") int index,
-    @RequestBody FreezerRequestDto requestDto
+    @RequestBody @Valid FreezerReqDto requestDto,
+    BindingResult bindingResult
   ) {
-    log.info(requestDto.getName());
-    log.info("333333333333");
-    String email = memberService.getMyInfoBySecurity().getUserEmail();
-    log.info(email);
+    if (bindingResult.hasErrors()) {
+      Map<String, String> errorMap = new HashMap<>();
+      for (FieldError fe : bindingResult.getFieldErrors()) {
+        errorMap.put(fe.getField(), fe.getDefaultMessage());
+      }
 
-    freezerService.update(email, index, requestDto);
+      throw new RuntimeException(errorMap.toString());
+    }
+    String email = memberService.getMyInfoBySecurity().getUserEmail();
+    FreezerRespDto FreezerRespDto = freezerService.update(
+      email,
+      index,
+      requestDto
+    );
+    return new ResponseEntity<>(
+      CMRespDto
+        .builder()
+        .code(1)
+        .msg("냉장고 수정 성공")
+        .body(FreezerRespDto)
+        .build(),
+      HttpStatus.OK
+    );
   }
 
   //냉장고 삭제
   @DeleteMapping("/{index}")
-  public void deleteFreezer(@PathVariable("index") int index) {
+  public ResponseEntity<?> deleteFreezer(@PathVariable("index") int index) {
     String email = memberService.getMyInfoBySecurity().getUserEmail();
     freezerService.delete(email, index);
+    return new ResponseEntity<>(
+      CMRespDto
+        .builder()
+        .code(1)
+        .msg("냉장고 삭제하기 성공")
+        .body(null)
+        .build(),
+      HttpStatus.OK
+    );
   }
 }

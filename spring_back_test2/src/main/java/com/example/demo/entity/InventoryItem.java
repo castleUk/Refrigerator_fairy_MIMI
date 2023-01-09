@@ -1,9 +1,10 @@
 package com.example.demo.entity;
 
-import com.example.demo.dto.InventoryItemDto;
-
+import com.example.demo.dto.request.InventoryItemReqDto;
+import com.example.demo.dto.request.InventoryReqDto;
+import com.example.demo.dto.response.InventoryItemRespDto;
+import com.example.demo.dto.response.InventoryRespDto;
 import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,7 +14,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -33,7 +33,7 @@ public class InventoryItem extends BaseEntity {
   @Column(name = "inventory_item_id")
   private Long id;
 
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne
   @JoinColumn(name = "inventory_id")
   private Inventory inventory;
 
@@ -47,29 +47,19 @@ public class InventoryItem extends BaseEntity {
   @Temporal(TemporalType.DATE)
   private Date regDate;
 
-
   @Temporal(TemporalType.DATE)
   private Date expDate;
 
   @Column
   private String storage;
 
-  public static InventoryItem createInventoryItem(
-    Inventory inventory,
-    Item item,
-    int count,
-    String storage,
-    Date expDate,
-    Date regDate
-  ) {
-    return InventoryItem
+  public InventoryItemRespDto toDto() {
+    return InventoryItemRespDto
       .builder()
-      .inventory(inventory)
+      .id(id)
       .item(item)
       .count(count)
       .storage(storage)
-      .expDate(expDate)
-      .regDate(regDate)
       .build();
   }
 
@@ -77,7 +67,7 @@ public class InventoryItem extends BaseEntity {
     this.count += count;
   }
 
-  public void change(InventoryItemDto inventoryItemDto) {
-    InventoryItemDto.builder().count(inventoryItemDto.getCount());
+  public void update(InventoryItemReqDto inventoryItemReqDto) {
+    InventoryItemRespDto.builder().count(inventoryItemReqDto.getCount());
   }
 }

@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import com.example.demo.dto.response.CMRespDto;
+
 @RestControllerAdvice
 @Log4j2
 @RequiredArgsConstructor
@@ -37,5 +39,13 @@ public class CustomRestAdvice {
     }
 
     return ResponseEntity.badRequest().body(errorMap);
+  }
+
+  @ExceptionHandler(RuntimeException.class)
+  public ResponseEntity<?> apiException(RuntimeException e) {
+    return new ResponseEntity<>(
+      CMRespDto.builder().code(-1).msg(e.getMessage()).build(),
+      HttpStatus.BAD_REQUEST
+    );
   }
 }

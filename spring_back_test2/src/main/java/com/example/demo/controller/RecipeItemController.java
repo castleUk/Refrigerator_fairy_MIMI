@@ -1,7 +1,7 @@
 package com.example.demo.controller;
 
-import com.example.demo.dto.RecipeItemRequestDto;
-import com.example.demo.dto.RecipeItemResponseDto;
+import com.example.demo.dto.request.RecipeItemRequestDto;
+import com.example.demo.dto.response.RecipeItemResponseDto;
 import com.example.demo.service.RecipeItemService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;

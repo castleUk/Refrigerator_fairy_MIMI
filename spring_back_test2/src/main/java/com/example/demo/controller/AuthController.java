@@ -1,10 +1,10 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.MailDto;
-import com.example.demo.dto.MemberRequestDto;
-import com.example.demo.dto.MemberResponseDto;
-import com.example.demo.dto.PwFinderRequestDto;
 import com.example.demo.dto.TokenDto;
+import com.example.demo.dto.request.MemberReqDto;
+import com.example.demo.dto.request.PwFinderRequestDto;
+import com.example.demo.dto.response.MemberRespDto;
 import com.example.demo.service.AuthService;
 import com.example.demo.service.SendMailService;
 import java.util.HashMap;
@@ -28,16 +28,17 @@ public class AuthController {
   private final AuthService authService;
   private final SendMailService sendMailService;
 
+  //회원가입
   @PostMapping("/signup")
-  public ResponseEntity<MemberResponseDto> signup(
-    @RequestBody MemberRequestDto requestDto
+  public ResponseEntity<MemberRespDto> signup(
+    @RequestBody MemberReqDto requestDto
   ) {
     return ResponseEntity.ok(authService.signup(requestDto));
   }
-
+  //로그인
   @PostMapping("/login")
   public ResponseEntity<TokenDto> login(
-    @RequestBody MemberRequestDto requestDto
+    @RequestBody MemberReqDto requestDto
   ) {
     return ResponseEntity.ok(authService.login(requestDto));
   }

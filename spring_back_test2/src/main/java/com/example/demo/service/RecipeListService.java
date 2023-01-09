@@ -1,6 +1,6 @@
 package com.example.demo.service;
 
-import com.example.demo.dto.RecipeListRequestDto;
+import com.example.demo.dto.request.RecipeListRequestDto;
 import com.example.demo.entity.Recipe;
 import com.example.demo.entity.RecipeList;
 import com.example.demo.repository.RecipeListRepository;

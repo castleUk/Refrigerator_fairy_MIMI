@@ -22,8 +22,10 @@ const FreezerMainComponent = () => {
   const onListUp = async () => {
     try {
       const response = await instance.get("/api/freezer");
-      const data = response.data;
+      console.log("냉장고 조회" + JSON.stringify(response.data.body.freezers))
+      const data = response.data.body.freezers;
       SetFreezer(data);
+      console.log(freezer)
     } catch (error) {
       console.log("에러" + error);
     }
