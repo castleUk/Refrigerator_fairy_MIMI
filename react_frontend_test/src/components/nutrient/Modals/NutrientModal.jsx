@@ -26,12 +26,16 @@ const NutrientModal = ({ show, onHide, itemInfo, setItemInfo }) => {
   }, [show]);
   return (
     <>
-      <Modal size="lg" show={show} onHide={onHide} className="recipy-modal">
+      <Modal size="lg" show={show} onHide={onHide} className="ingr-detail-modal">
         <Modal.Header closeButton>
-          이름 : {itemInfo.itemName}
-          갯수 : {itemInfo.count}
+          <img className="ingr-img" src={itemInfo.itemImg} alt={itemInfo.itemName} />
+          <div className="detail-ingr">
+            <h5 className="title">{itemInfo.itemName}</h5>
+            <span className="count-text">갯수 : {itemInfo.count}</span>
+          </div>
         </Modal.Header>
         <Modal.Body>
+          
           <NutrientTable nutrientInfo={nutrientInfo} />
           <h5>메뉴 추천</h5>
           <div className="content-body">
