@@ -3,6 +3,7 @@
 $font-color: #121212 !default;
 
 // card
+$border: 1px solid #F2F2F2 !important;
 $card-border-color: #F2F2F2 !important;
 $card-box-shadow : 2px 2px 5px 1px rgb(0 0 0 / 10%) !default;
 
@@ -22,6 +23,7 @@ $warning-color: #FEDA03 !default;
 $warning-hover-color: #E3C305 !default;
 $danger-color: #F26666 !default;
 $danger-hover-color: #E15C5C !default;
+
 
 // icon image
 $icon-arrow-left: url('../images/icon/icon-angle-left.svg') !default;
