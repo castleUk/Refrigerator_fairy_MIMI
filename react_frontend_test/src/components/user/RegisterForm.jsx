@@ -172,8 +172,6 @@ const RegisterForm = ({ onRegister }) => {
     e.preventDefault();
     onCheckEmail()
     
-
-    
   };
 
   return (
@@ -208,17 +206,18 @@ const RegisterForm = ({ onRegister }) => {
               required
             />
             <Button
-              onClick={emailCheckHandler}>
+              onClick={emailCheckHandler}
+              className="btn-email-check"
+              variant="outline-secondary">
               이메일 중복확인
             </Button>
-
-
-            {userEmail.length > 0 && (
-              <span className={`message ${isUserEmail ? "success" : "error"}`}>
-                {userEmailMessage}
-              </span>
-            )}
           </InputGroup>
+          
+          {userEmail.length > 0 && (
+            <span className={`message ${isUserEmail ? "success" : "error"}`}>
+              {userEmailMessage}
+            </span>
+          )}
         </Form.Group>
         <Form.Group className="mb-3 form-group" controlId="userPw">
           <Form.Control
