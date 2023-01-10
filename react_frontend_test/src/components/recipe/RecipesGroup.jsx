@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React from "react";
 //component
-import Recipe from './Recipe';
+import RecipesSearch from "./RecipesSearch";
 
-const RecipesGroup= () => {
-  return(
+const RecipesGroup = ({ itemName }) => {
+  return (
     <div className="item-group row">
-      <Recipe />
+      <RecipesSearch itemName={itemName} />
     </div>
   );
-}
+};
 
 export default RecipesGroup;

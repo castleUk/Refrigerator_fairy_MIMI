@@ -1,11 +1,22 @@
 package com.example.demo.controller;
 
-import com.example.demo.dto.InventoryItemDto;
+import com.example.demo.dto.request.InventoryItemReqDto;
+import com.example.demo.dto.response.CMRespDto;
+import com.example.demo.dto.response.InventoryItemListRespDto;
+import com.example.demo.dto.response.InventoryItemRespDto;
 import com.example.demo.service.InventoryService;
 import com.example.demo.service.MemberService;
 import lombok.RequiredArgsConstructor;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.validation.Valid;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,64 +35,118 @@ public class InventoryController {
   private final MemberService memberService;
 
   //추가
-  @PostMapping("/add")
+  @PostMapping("/add/{index}")
   public ResponseEntity<?> addInventoryItem(
-    @RequestBody InventoryItemDto inventoryItemDto,
-    int index
+    @RequestBody @Valid InventoryItemReqDto inventoryItemReqDto,
+    @PathVariable int index,  BindingResult bindingResult
   ) {
+    if (bindingResult.hasErrors()) {
+      Map<String, String> errorMap = new HashMap<>();
+      for (FieldError fe : bindingResult.getFieldErrors()) {
+        errorMap.put(fe.getField(), fe.getDefaultMessage());
+      }
+
+      System.out.println("==========================");
+      System.out.println(errorMap.toString());
+      System.out.println("==========================");
+
+      throw new RuntimeException(errorMap.toString());
+    }
+    
     String email = memberService.getMyInfoBySecurity().getUserEmail();
-    Long inventoryItemId;
 
-    inventoryItemId =
-      inventoryService.addInventory(inventoryItemDto, email, index);
+    InventoryItemRespDto inventoryItemRespDto = inventoryService.addInventory(
+      inventoryItemReqDto,
+      email,
+      index
+    );
 
-    return new ResponseEntity<Long>(inventoryItemId, HttpStatus.OK);
+    return new ResponseEntity<>(
+      CMRespDto
+        .builder()
+        .code(1)
+        .msg("냉장고에 아이템 등록 성공")
+        .body(inventoryItemRespDto)
+        .build(),
+      HttpStatus.CREATED
+    );
   }
 
   //전체 조회
   @GetMapping("/{index}")
-  public ResponseEntity<?> readAllInventoryItem(@PathVariable int index) {
+  public ResponseEntity<?> getAllInventoryItem(@PathVariable int index) {
     String email = memberService.getMyInfoBySecurity().getUserEmail();
-    return ResponseEntity.ok(
-      inventoryService.readAllInventoryItemList(email, index)
+
+    InventoryItemListRespDto inventoryItemListRespDto = inventoryService.getInventoryItemList(
+      email,
+      index
+    );
+    return new ResponseEntity<>(
+      CMRespDto
+        .builder()
+        .code(1)
+        .msg("냉장고아이템 조회 성공")
+        .body(inventoryItemListRespDto)
+        .build(),
+      HttpStatus.OK
     );
   }
 
-  //개별 조회
-  @GetMapping("/{index}/{itemId}")
-  public ResponseEntity<?> readOneInventoryItem(
-    @PathVariable("itemId") Long itemId,
-    @PathVariable("index") int index
-  ) {
-    String email = memberService.getMyInfoBySecurity().getUserEmail();
-    return ResponseEntity.ok(
-      inventoryService.readOneInventoryItem(email, index, itemId)
-    );
-  }
+  // //개별 조회
+  // @GetMapping("/{index}/{itemId}")
+  // public ResponseEntity<?> readOneInventoryItem(
+  //   @PathVariable("itemId") Long itemId,
+  //   @PathVariable("index") int index
+  // ) {
+  //   String email = memberService.getMyInfoBySecurity().getUserEmail();
+  //   return ResponseEntity.ok(
+  //     inventoryService.readOneInventoryItem(email, index, itemId)
+  //   );
+  // }
 
   //수정
   @PutMapping("/{index}/{itemId}")
-  public void modifyInventoryItem(
+  public ResponseEntity<?> modifyInventoryItem(
     @PathVariable("itemId") Long itemId,
     @PathVariable("index") int index,
-    @RequestBody InventoryItemDto inventoryItemDto
+    @RequestBody InventoryItemReqDto inventoryItemDto
   ) {
     String email = memberService.getMyInfoBySecurity().getUserEmail();
-    inventoryService.modifyInventoryItem(
+    InventoryItemRespDto inventoryItemRespDto = inventoryService.modifyInventoryItem(
       email,
       index,
       itemId,
       inventoryItemDto
     );
+
+    return new ResponseEntity<>(
+      CMRespDto
+        .builder()
+        .code(1)
+        .msg("냉장고아이템 수정 성공")
+        .body(inventoryItemRespDto)
+        .build(),
+      HttpStatus.OK
+    );
   }
 
   //삭제
   @DeleteMapping("/{index}/{itemId}")
-  public void deleteInventoryItem(
+  public ResponseEntity<?> deleteInventoryItem(
     @PathVariable("itemId") Long itemId,
     @PathVariable("index") int index
   ) {
     String email = memberService.getMyInfoBySecurity().getUserEmail();
     inventoryService.deleteInventoryItem(email, index, itemId);
+
+    return new ResponseEntity<>(
+      CMRespDto
+        .builder()
+        .code(1)
+        .msg("냉장고아이템 삭제 성공")
+        .body(null)
+        .build(),
+      HttpStatus.OK
+    );
   }
 }

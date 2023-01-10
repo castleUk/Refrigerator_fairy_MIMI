@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
+import { instance } from "../api/Api";
 import FreezerCreateForm from "./FreezerCreateForm";
-import axios from "axios";
 
 const FreezerCreateContainer = (props) => {
   const navigate = useNavigate();
@@ -10,20 +10,8 @@ const FreezerCreateContainer = (props) => {
     const data = {
       name: freezerName,
     };
-    const token = localStorage.getItem("accessToken");
-    const headers = {
-      "Content-Type": "application/json",
-      Authorization: "Bearer " + token,
-    };
-
     try {
-      const response = await axios.post(
-        "/api/freezer/add",
-        JSON.stringify(data),
-        {
-          headers: headers,
-        }
-      );
+      await instance.post("/api/freezer/add", JSON.stringify(data));
       props.onChange();
       navigate("/freezer");
     } catch (error) {

@@ -8,13 +8,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import com.example.demo.dto.response.MemberRespDto;
+
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
-@Builder
 @NoArgsConstructor
 public class Member extends BaseEntity {
 
@@ -35,6 +36,15 @@ public class Member extends BaseEntity {
   @Enumerated(EnumType.STRING)
   private Authority authority;
 
+  @Builder
+  public Member(Long id, String userEmail, String userPw, String userName, Authority authority) {
+    this.id = id;
+    this.userEmail = userEmail;
+    this.userPw = userPw;
+    this.userName = userName;
+    this.authority = authority;
+  }
+
   public void setUserName(String userName) {
     this.userName = userName;
   }
@@ -43,18 +53,7 @@ public class Member extends BaseEntity {
     this.userPw = userPw;
   }
 
-  @Builder
-  public Member(
-    Long id,
-    String userEmail,
-    String userPw,
-    String userName,
-    Authority authority
-  ) {
-    this.id = id;
-    this.userEmail = userEmail;
-    this.userPw = userPw;
-    this.userName = userName;
-    this.authority = authority;
+  public MemberRespDto toDto() {
+    return MemberRespDto.builder().id(id).userEmail(userEmail).userName(userName).build();
   }
 }

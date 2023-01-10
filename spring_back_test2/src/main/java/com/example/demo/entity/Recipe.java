@@ -1,6 +1,7 @@
 package com.example.demo.entity;
 
-import com.example.demo.dto.RecipeDto;
+import com.example.demo.dto.request.RecipeReqDto;
+import com.example.demo.dto.response.RecipeRespDto;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,7 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -29,11 +29,11 @@ public class Recipe extends BaseEntity {
   @Column(nullable = false)
   private String name;
 
-  @Column(nullable = false)
-  private String imgUrl;
+  public void change(RecipeReqDto recipeReqDto) {
+    this.name = recipeReqDto.getName();
+  }
 
-  public void change(RecipeDto recipeDto) {
-    this.name = recipeDto.getName();
-    this.imgUrl = recipeDto.getImgUrl();
+  public RecipeRespDto toDto() {
+    return RecipeRespDto.builder().id(id).name(name).build();
   }
 }

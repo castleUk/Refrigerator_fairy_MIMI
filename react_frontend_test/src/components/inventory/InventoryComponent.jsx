@@ -1,23 +1,56 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from "react";
+import { instance } from "../api/Api";
 // component
-import InventoryCarousel from './InventoryCarousel';
-import InventoryItemAdd from './InventoryItemAdd';
+import InventoryCarousel from "./InventoryCarousel";
+import InventoryItemAdd from "./InventoryItemAdd";
 
 const InventoryComponent = (props) => {
+  const [itemCreateShow, setItemCreateShow] = useState(false);
+  const [itemList, setItemList] = useState([]);
+  const [itemReload, setItemReload] = useState(false);
+
+  const index = props.index;
+
+  useEffect(() => {
+    const onItemList = async () => {
+      console.log("onItemList 실행됌");
+      try {
+        const response = await instance.get(`/api/inventory/${index}`);
+        const data = response.data.body.inventoryItem;
+        setItemList(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    onItemList();
+  }, [itemReload]);
+
   // 냉장 보관 / 냉동 보관 / 실온 보관
-  return(
-    <div className='inventory-component'>
-      <div className='inventory-content'>
-        <div className='content-header'>
-          <h4 className='title'>냉장보관</h4>
-          <InventoryItemAdd index={props.index}/>
+
+  return (
+    <div className="inventory-component">
+      <div className="inventory-content">
+        <div className="content-header">
+          <InventoryItemAdd
+            index={props.index}
+            itemCreateShow={itemCreateShow}
+            setItemCreateShow={setItemCreateShow}
+            setItemReload={setItemReload}
+            itemReload={itemReload}
+          />
         </div>
-        <div className='content-body'>
-          <InventoryCarousel />
+
+        <div className="content-body">
+          <InventoryCarousel
+            index={props.index}
+            itemCreateShow={itemCreateShow}
+            itemList={itemList}
+          />
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default InventoryComponent;

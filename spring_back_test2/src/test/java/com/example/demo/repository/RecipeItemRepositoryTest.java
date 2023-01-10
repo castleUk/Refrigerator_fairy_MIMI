@@ -1,11 +1,8 @@
 package com.example.demo.repository;
 
-import java.util.List;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.example.demo.entity.RecipeItem;
 import com.example.demo.service.RecipeItemService;
 
 public class RecipeItemRepositoryTest {
