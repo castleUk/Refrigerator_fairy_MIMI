@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 //template
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper";

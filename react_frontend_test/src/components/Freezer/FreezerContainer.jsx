@@ -7,8 +7,8 @@ import Dropdown from "react-bootstrap/Dropdown";
 import { AiOutlineMore } from "react-icons/ai";
 import FredgeClose from "../fredge/FredgeClose";
 
-import FreezerChangeModal from "./Modals/FreezerChangeModal";
-import FreezerDeleteModal from "./Modals/FreezerDeleteModal";
+import FreezerChangeModal from "./modals/FreezerChangeModal";
+import FreezerDeleteModal from "./modals/FreezerDeleteModal";
 
 const FreezerContainer = (props) => {
   const navigate = useNavigate();

@@ -1,13 +1,8 @@
-import { Modal, Button } from "react-bootstrap";
-import { useState } from "react";
-import { useEffect } from "react";
-import { instance } from "../../api/Api";
-import NutrientTable from "../NutrientTable";
+import Modal from "react-bootstrap/Modal";
 import RecipesGroup from "../../recipe/RecipesGroup";
+import NutrientTable from "../NutrientTable";
 
 const NutrientModal = ({ show, onHide, itemInfo, setItemInfo }) => {
-  const [nutrientInfo, setNutrientInfo] = useState([]);
-  const [test, setTest] = useState();
   console.log("로그" + JSON.stringify(itemInfo));
 
   return (

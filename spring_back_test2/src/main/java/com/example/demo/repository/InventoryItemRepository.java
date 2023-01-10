@@ -8,4 +8,8 @@ public interface InventoryItemRepository
   extends JpaRepository<InventoryItem, Long> {
   InventoryItem findByInventoryIdAndItemId(Long inventoryId, Long itemId);
   List<InventoryItem> findByInventoryId(Long inventoryId);
+
+  List<InventoryItem> findByInventory_Freezer_Member_UserEmail(
+    String userEmail
+  );
 }

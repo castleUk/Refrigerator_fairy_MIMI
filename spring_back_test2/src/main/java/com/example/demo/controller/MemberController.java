@@ -40,14 +40,25 @@ public class MemberController {
 
   @PostMapping("/userpw")
   public ResponseEntity<MemberRespDto> setMemberPassword(
-    @RequestBody ChangePasswordRequestDto request
+    @RequestBody ChangePasswordRequestDto dto
   ) {
+    String email = memberService.getMyInfoBySecurity().getUserEmail();
     return ResponseEntity.ok(
       memberService.changeMemberPassword(
-        request.getUserEmail(),
-        request.getExUserPw(),
-        request.getNewUserPw()
+        email,
+        dto.getExUserPw(),
+        dto.getNewUserPw()
       )
+    );
+  }
+
+  @PostMapping("/userpwch")
+  public ResponseEntity<?> memberPwCk(
+    @RequestBody ChangePasswordRequestDto dto
+  ) {
+    String email = memberService.getMyInfoBySecurity().getUserEmail();
+    return ResponseEntity.ok(
+      memberService.memberPwCk(email, dto.getExUserPw())
     );
   }
 }

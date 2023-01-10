@@ -1,5 +1,6 @@
 package com.example.demo.entity;
 
+import com.example.demo.dto.response.MemberRespDto;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -7,9 +8,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
-import com.example.demo.dto.response.MemberRespDto;
-
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -37,7 +35,13 @@ public class Member extends BaseEntity {
   private Authority authority;
 
   @Builder
-  public Member(Long id, String userEmail, String userPw, String userName, Authority authority) {
+  public Member(
+    Long id,
+    String userEmail,
+    String userPw,
+    String userName,
+    Authority authority
+  ) {
     this.id = id;
     this.userEmail = userEmail;
     this.userPw = userPw;
@@ -54,6 +58,12 @@ public class Member extends BaseEntity {
   }
 
   public MemberRespDto toDto() {
-    return MemberRespDto.builder().id(id).userEmail(userEmail).userName(userName).build();
+    return MemberRespDto
+      .builder()
+      .id(id)
+      .userEmail(userEmail)
+      .userName(userName)
+      .userPw(userPw)
+      .build();
   }
 }

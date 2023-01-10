@@ -4,7 +4,6 @@ import Button from "react-bootstrap/Button";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import Form from "react-bootstrap/Form";
 // icon
-import { AiFillDelete } from "react-icons/ai";
 import { BiMinus } from "react-icons/bi";
 import { BsPlus } from "react-icons/bs";
 // component
@@ -60,7 +59,7 @@ const ItemAddForm = ({ filterItemList, onFreezerItemAdd, hide }) => {
     <div className="ingr">
       <div className="ingr-img">
         {filterItemList.map((it) => {
-          return <img src={it.img} className="item-img"></img>;
+          return <img alt="재료이미지" src={it.img} className="item-img"></img>;
         })}
       </div>
       <div className="ingr-content">
@@ -95,7 +94,12 @@ const ItemAddForm = ({ filterItemList, onFreezerItemAdd, hide }) => {
               <Form.Control type="date" name="" onChange={expDateHandler} />
             </Form.Group>
             <div className="modal-footer">
-              <Button variant="primary" type="submit" onClick={hide} className="btn-create">
+              <Button
+                variant="primary"
+                type="submit"
+                onClick={hide}
+                className="btn-create"
+              >
                 등록
               </Button>
             </div>

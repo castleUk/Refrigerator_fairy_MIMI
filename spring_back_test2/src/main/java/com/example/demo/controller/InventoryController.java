@@ -6,13 +6,10 @@ import com.example.demo.dto.response.InventoryItemListRespDto;
 import com.example.demo.dto.response.InventoryItemRespDto;
 import com.example.demo.service.InventoryService;
 import com.example.demo.service.MemberService;
-import lombok.RequiredArgsConstructor;
-
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.validation.Valid;
-
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -38,7 +35,8 @@ public class InventoryController {
   @PostMapping("/add/{index}")
   public ResponseEntity<?> addInventoryItem(
     @RequestBody @Valid InventoryItemReqDto inventoryItemReqDto,
-    @PathVariable int index,  BindingResult bindingResult
+    @PathVariable int index,
+    BindingResult bindingResult
   ) {
     if (bindingResult.hasErrors()) {
       Map<String, String> errorMap = new HashMap<>();
@@ -52,7 +50,7 @@ public class InventoryController {
 
       throw new RuntimeException(errorMap.toString());
     }
-    
+
     String email = memberService.getMyInfoBySecurity().getUserEmail();
 
     InventoryItemRespDto inventoryItemRespDto = inventoryService.addInventory(
@@ -72,7 +70,7 @@ public class InventoryController {
     );
   }
 
-  //전체 조회
+  //해당 냉장고 전체 조회
   @GetMapping("/{index}")
   public ResponseEntity<?> getAllInventoryItem(@PathVariable int index) {
     String email = memberService.getMyInfoBySecurity().getUserEmail();
@@ -92,17 +90,23 @@ public class InventoryController {
     );
   }
 
-  // //개별 조회
-  // @GetMapping("/{index}/{itemId}")
-  // public ResponseEntity<?> readOneInventoryItem(
-  //   @PathVariable("itemId") Long itemId,
-  //   @PathVariable("index") int index
-  // ) {
-  //   String email = memberService.getMyInfoBySecurity().getUserEmail();
-  //   return ResponseEntity.ok(
-  //     inventoryService.readOneInventoryItem(email, index, itemId)
-  //   );
-  // }
+  //내 꺼 전체 조회
+  @GetMapping("/all")
+  public ResponseEntity<?> getAllItem() {
+    String email = memberService.getMyInfoBySecurity().getUserEmail();
+    InventoryItemListRespDto inventoryItemListRespDto = inventoryService.getAllItem(
+      email
+    );
+    return new ResponseEntity<>(
+      CMRespDto
+        .builder()
+        .code(1)
+        .msg("냉장고아이템 조회 성공")
+        .body(inventoryItemListRespDto)
+        .build(),
+      HttpStatus.OK
+    );
+  }
 
   //수정
   @PutMapping("/{index}/{itemId}")

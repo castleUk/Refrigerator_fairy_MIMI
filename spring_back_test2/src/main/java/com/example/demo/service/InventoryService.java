@@ -1,12 +1,5 @@
 package com.example.demo.service;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
-import org.springframework.transaction.annotation.Transactional;
-
-import org.springframework.stereotype.Service;
-
 import com.example.demo.dto.request.InventoryItemReqDto;
 import com.example.demo.dto.response.InventoryItemListRespDto;
 import com.example.demo.dto.response.InventoryItemRespDto;
@@ -20,9 +13,12 @@ import com.example.demo.repository.InventoryItemRepository;
 import com.example.demo.repository.InventoryRepository;
 import com.example.demo.repository.ItemRepository;
 import com.example.demo.repository.MemberRepository;
-
+import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -43,9 +39,7 @@ public class InventoryService {
     int index
   ) {
     log.info("인벤토리 추가 실행");
-    Item item = itemRepository.findByName(
-      inventoryItemReqDto.getItemName()
-    );
+    Item item = itemRepository.findByName(inventoryItemReqDto.getItemName());
 
     Member member = memberRepository.findByUserEmail(userEmail).orElseThrow();
     List<Freezer> freezer = freezerRepository.findByMemberId(member.getId());
@@ -54,10 +48,7 @@ public class InventoryService {
     );
 
     if (inventory == null) {
-      inventory = Inventory
-        .builder()
-        .freezer(freezer.get(index))
-        .build();
+      inventory = Inventory.builder().freezer(freezer.get(index)).build();
       inventoryRepository.save(inventory);
     }
 
@@ -81,18 +72,20 @@ public class InventoryService {
     }
   }
 
-  // //그냥 내 모든 리스트 조회
-  // public List<InventoryItemDto> readAllItemList(String userEmail) {
-  //   Member member = memberRepository.findByUserEmail(userEmail).orElseThrow();
-  //   List<Freezer> freezer = freezerRepository.findByMemberId(member.getId());
-  //   List<Inventory> inventory = inventoryRepository.findAllByFreezer(freezer);
-  //   List<InventoryItemDto> inventoryItem = inventoryItemRepository
-  //     .findByInventoryId(inventory.getId())
-  //     .stream()
-  //     .map(InventoryItemDto::of)
-  //     .collect(Collectors.toList());
-  //   return inventoryItem;
-  // }
+  //그냥 내 모든 리스트 조회
+  public InventoryItemListRespDto getAllItem(String userEmail) {
+    List<InventoryItemRespDto> inventoryItem = inventoryItemRepository
+      .findByInventory_Freezer_Member_UserEmail(userEmail)
+      .stream()
+      .map(InventoryItem::toDto)
+      .collect(Collectors.toList());
+
+    InventoryItemListRespDto inventoryItemListRespDto = InventoryItemListRespDto
+      .builder()
+      .inventoryItemList(inventoryItem)
+      .build();
+    return inventoryItemListRespDto;
+  }
 
   // 해당 냉장고의 전체 리스트 조회
   public InventoryItemListRespDto getInventoryItemList(

@@ -30,42 +30,6 @@ const RegisterForm = ({ onRegister }) => {
   const [isUserName, setIsUserName] = useState(false);
 
   const [isCheckEmail, setIsCheckEmail] = useState(false);
-  // const [isUserPhone, setIsUserPhone]= useState(false);
-
-  {
-    /* <style type='text/css'>
-  {`
-  .register {
-    .message {
-      font-weight: 500;
-      font-size: 1.6rem;
-      line-height: 24px;
-      letter-spacing: -1px;
-      position: absolute;
-      bottom: -10px;
-      left: 0;
-      &.success {
-        color: #8f8c8b;
-      }
-      &.error {
-        color: #ff2727;
-      }
-    }
-  }
-`}
-</style> */
-  }
-
-  // const changeUserIdHandler = useCallback((e) => {
-  //   setUserId(e.target.value);
-  //   if(e.target.value.length <2 || e.target.value.length >10 ){
-  //     setUserIdMessage("2글자 이상 10글자 미만으로 작성해주세요.")
-  //     setIsUserId(false)
-  //   }else{
-  //     setUserIdMessage("올바른 아이디 형식입니다.")
-  //     setIsUserId(true)
-  //   }
-  // }, []);
 
   const changeUserPwHandler = useCallback((e) => {
     const passwordRegex =
@@ -126,20 +90,6 @@ const RegisterForm = ({ onRegister }) => {
     }
   }, []);
 
-  // const changeUserPhoneHandler = useCallback((e) => {
-  //   const phoneRegex = /^01(?:0|1|[6-9])-(?:\d{3}|\d{4})-\d{4}$/
-  //   const phoneCurrent = e.target.value
-  //   setUserPhone(phoneCurrent)
-
-  //   if (!phoneRegex.test(phoneCurrent)) {
-  //     setUserPhoneMessage('형식에 맞게 입력해주세요. 예시 : 010-1234-4567' )
-  //     setUserPhone(false)
-  //   } else {
-  //     setUserPhoneMessage('올바른 형식입니다.)')
-  //     setIsUserPhone(true)
-  //   }
-  // }, []);
-
   const submitHandler = useCallback(
     (e) => {
       e.preventDefault();
@@ -151,18 +101,18 @@ const RegisterForm = ({ onRegister }) => {
 
   const onCheckEmail = async () => {
     try {
-      const response = await  instance.get(`/auth/checkEmail/${userEmail}` , userEmail);
+      const response = await instance.get(
+        `/auth/checkEmail/${userEmail}`,
+        userEmail
+      );
       const data = response.data;
-      if(data===false){
-        alert("사용가능한 아이디 입니다.")
-        setIsCheckEmail(true)
-      }else{
-        alert("이미 사용중인 아이디 입니다.")
-        setIsCheckEmail(false)
+      if (data === false) {
+        alert("사용가능한 아이디 입니다.");
+        setIsCheckEmail(true);
+      } else {
+        alert("이미 사용중인 아이디 입니다.");
+        setIsCheckEmail(false);
       }
-
-
-
     } catch (e) {
       console.log(e.response.data);
     }
@@ -170,8 +120,7 @@ const RegisterForm = ({ onRegister }) => {
 
   const emailCheckHandler = (e) => {
     e.preventDefault();
-    onCheckEmail()
-    
+    onCheckEmail();
   };
 
   return (
@@ -190,13 +139,6 @@ const RegisterForm = ({ onRegister }) => {
             </span>
           )}
         </Form.Group>
-        {/* <Form.Group className="mb-3 form-group" controlId="userId">
-          <InputGroup>
-            <Form.Control type="text" placeholder="아이디" onChange={changeUserIdHandler} required/>
-            <Button variant="outline-secondary" id="idReCk" className="btn-check">중복확인</Button>
-            {userId.length > 0 && <span className={`message ${isUserId ? 'success' : 'error'}`}>{userIdMessage}</span>}
-          </InputGroup>
-        </Form.Group>  */}
         <Form.Group className="mb-3 form-group" controlId="userEmail">
           <InputGroup>
             <Form.Control
@@ -208,11 +150,12 @@ const RegisterForm = ({ onRegister }) => {
             <Button
               onClick={emailCheckHandler}
               className="btn-email-check"
-              variant="outline-secondary">
+              variant="outline-secondary"
+            >
               이메일 중복확인
             </Button>
           </InputGroup>
-          
+
           {userEmail.length > 0 && (
             <span className={`message ${isUserEmail ? "success" : "error"}`}>
               {userEmailMessage}
@@ -254,7 +197,15 @@ const RegisterForm = ({ onRegister }) => {
           variant="primary"
           type="submit"
           className="btn-register"
-          disabled={!(isUserEmail && isUserName && isUserPw && isUserPwCk && isCheckEmail)}
+          disabled={
+            !(
+              isUserEmail &&
+              isUserName &&
+              isUserPw &&
+              isUserPwCk &&
+              isCheckEmail
+            )
+          }
         >
           회원가입
         </Button>

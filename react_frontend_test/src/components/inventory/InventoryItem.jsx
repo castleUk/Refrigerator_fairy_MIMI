@@ -1,17 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
-import { instance } from "../api/Api";
+import React, { useState } from "react";
 import NutrientComponent from "../nutrient/NutrientComponent";
 
 const InventoryItem = (props) => {
-  const location = useLocation();
   const itemList = props.itemList;
   const [itemInfo, setItemInfo] = useState([]);
   const [showModal, setShowModal] = useState(false);
 
   console.log("아이템인포" + JSON.stringify(itemInfo));
-
-
 
   const closeModalHandler = () => {
     setShowModal(false);

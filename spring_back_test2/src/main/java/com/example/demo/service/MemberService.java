@@ -50,4 +50,15 @@ public class MemberService {
     memberRepository.save(member);
     return member.toDto();
   }
+
+  @Transactional
+  public boolean memberPwCk(String email, String userPw) {
+    Member member = memberRepository
+      .findById(SecurityUtil.getCurrentMemberId())
+      .orElseThrow(() -> new RuntimeException("로그인 유저 정보가 없습니다"));
+    if (!passwordEncoder.matches(userPw, member.getUserPw())) {
+      return false;
+    }
+    return true;
+  }
 }
