@@ -55,6 +55,7 @@ const ItemAddForm = ({ filterItemList, onFreezerItemAdd, hide }) => {
   console.log("등록일" + regDate);
 
   console.log("뭔데" + JSON.stringify(filterItemList));
+
   return (
     <div className="ingr">
       <div className="ingr-img">
@@ -93,9 +94,11 @@ const ItemAddForm = ({ filterItemList, onFreezerItemAdd, hide }) => {
               <Form.Label>유통기한</Form.Label>
               <Form.Control type="date" name="" onChange={expDateHandler} />
             </Form.Group>
-            <Button variant="primary" type="submit" onClick={hide}>
-              등록
-            </Button>
+            <div className="modal-footer">
+              <Button variant="primary" type="submit" onClick={hide} className="btn-create">
+                등록
+              </Button>
+            </div>
           </Form>
         </div>
       </div>

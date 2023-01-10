@@ -13,7 +13,7 @@ const PwSearchModal = () => {
 
   return (
     <div>
-      <Button variant="text" onClick={handleShow}>
+      <Button variant="text" onClick={handleShow} className="btn-pw">
         비밀번호를 잊으셨나요?
       </Button>
 

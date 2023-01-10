@@ -6,7 +6,7 @@ import Nutrient from './Nutrient';
 const NutrientTable = ({itemInfo}) => {
   return(
     <>
-    <h6 className='title'>영양성분</h6>
+    <h5 className='title'>영양성분</h5>
     <Table striped className='table'>
       <Nutrient itemInfo={itemInfo}/>
     </Table>
