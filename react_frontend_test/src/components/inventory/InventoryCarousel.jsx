@@ -18,6 +18,7 @@ const InventoryCarousel = (props) => {
         <InventoryItemGroup
           index={props.index}
           itemCreateShow={props.itemCreateShow}
+          itemList={props.itemList}
         />
       </SwiperSlide>
       <SwiperSlide>

@@ -1,10 +1,30 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { instance } from "../api/Api";
 // component
 import InventoryCarousel from "./InventoryCarousel";
 import InventoryItemAdd from "./InventoryItemAdd";
 
 const InventoryComponent = (props) => {
   const [itemCreateShow, setItemCreateShow] = useState(false);
+  const [itemList, setItemList] = useState([]);
+  const [itemReload, setItemReload] = useState(false);
+
+  const index = props.index;
+
+  useEffect(() => {
+    const onItemList = async () => {
+      console.log("onItemList 실행됌");
+      try {
+        const response = await instance.get(`/api/inventory/${index}`);
+        const data = response.data.body.inventoryItem;
+        setItemList(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    onItemList();
+  }, [itemReload]);
 
   // 냉장 보관 / 냉동 보관 / 실온 보관
 
@@ -16,6 +36,8 @@ const InventoryComponent = (props) => {
             index={props.index}
             itemCreateShow={itemCreateShow}
             setItemCreateShow={setItemCreateShow}
+            setItemReload={setItemReload}
+            itemReload={itemReload}
           />
         </div>
 
@@ -23,6 +45,7 @@ const InventoryComponent = (props) => {
           <InventoryCarousel
             index={props.index}
             itemCreateShow={itemCreateShow}
+            itemList={itemList}
           />
         </div>
       </div>

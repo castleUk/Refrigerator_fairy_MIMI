@@ -4,6 +4,7 @@ import NutrientModal from "./Modals/NutrientModal";
 
 const NutrientComponent = ({ show, onHide, itemInfo, setItemInfo }) => {
   return (
+
     <NutrientModal
       show={show}
       onHide={onHide}

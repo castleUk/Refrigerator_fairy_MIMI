@@ -10,9 +10,11 @@ export const instance = axios.create({
 
 instance.interceptors.response.use( 
   (response) => {
+    console.log("axios성공" +JSON.stringify(response))
     return response;
   },
   async (error) => {
+    console.log("axios에러" + JSON.stringify(error.response))
     try {
       const errorResponseStatus = error.response.data.code
       const errorResponseData = error.response.data;

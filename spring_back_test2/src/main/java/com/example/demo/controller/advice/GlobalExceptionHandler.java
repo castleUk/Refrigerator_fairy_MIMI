@@ -2,8 +2,7 @@ package com.example.demo.controller.advice;
 
 import java.util.HashMap;
 import java.util.Map;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindException;
@@ -12,17 +11,24 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import com.example.demo.dto.response.CMRespDto;
+
 @RestControllerAdvice
-@Log4j2
-@RequiredArgsConstructor
-public class CustomRestAdvice {
+public class GlobalExceptionHandler {
+
+  @ExceptionHandler(RuntimeException.class)
+  public ResponseEntity<?> apiException(RuntimeException e) {
+    return new ResponseEntity<>(
+      CMRespDto.builder().code(-1).msg(e.getMessage()).build(),
+      HttpStatus.BAD_REQUEST
+    );
+  }
 
   @ExceptionHandler(BindException.class)
   @ResponseStatus(HttpStatus.EXPECTATION_FAILED)
   public ResponseEntity<Map<String, String>> handleBindException(
     BindException e
   ) {
-    log.error(e);
 
     Map<String, String> errorMap = new HashMap<>();
 

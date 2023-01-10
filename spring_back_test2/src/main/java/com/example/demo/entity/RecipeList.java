@@ -8,6 +8,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+
+import com.example.demo.dto.response.RecipeContentRespDto;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -37,4 +40,9 @@ public class RecipeList extends BaseEntity {
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "recipe_id")
   private Recipe recipe;
+
+
+  public RecipeContentRespDto toDto(){
+    return RecipeContentRespDto.builder().id(id).imgUrl(imgUrl).recipeList(recipeList).build();
+  }
 }

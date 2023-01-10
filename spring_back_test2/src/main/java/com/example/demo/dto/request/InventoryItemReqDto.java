@@ -2,6 +2,9 @@ package com.example.demo.dto.request;
 
 import java.util.Date;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 import com.example.demo.entity.Inventory;
 import com.example.demo.entity.InventoryItem;
 import com.example.demo.entity.Item;
@@ -15,20 +18,23 @@ public class InventoryItemReqDto {
 
   private Long id;
 
-  private Item item;
-
-  private Inventory inventory;
-
+  @NotBlank
+  private String itemName;
+  
+  @NotNull
   private int count;
-
+  
+  @NotBlank
   private String storage;
-
+  
+  @NotNull
   private Date expDate;
-
+  
+  @NotNull
   private Date regDate;
 
 
-  public InventoryItem toEntity() {
+  public InventoryItem toEntity(Item item, Inventory inventory) {
     return InventoryItem.builder().id(id).item(item).inventory(inventory).regDate(regDate).storage(storage).expDate(expDate).count(count).build();
   }
 

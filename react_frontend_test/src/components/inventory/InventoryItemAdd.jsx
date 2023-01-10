@@ -14,6 +14,9 @@ const InventoryItemAdd = (props) => {
 
   const index = props.index;
 
+
+
+
   //냉장고에 아이템처리
   const onFreezerItemAdd = async (
     itemName,
@@ -31,10 +34,13 @@ const InventoryItemAdd = (props) => {
     };
 
     try {
-      await instance.post(
-        `/api/inventory/add?index=${index}`,
-        JSON.stringify(data)
+      const response = await instance.post(
+        `/api/inventory/add/${index}`,
+        data
       );
+      console.log("응답" + JSON.stringify(response))
+      props.setItemReload(!props.itemReload);
+
     } catch (error) {
       console.log(error);
     }

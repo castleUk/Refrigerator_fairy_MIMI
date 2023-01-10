@@ -11,13 +11,13 @@ const ItemSearchAddComponent = (props) => {
   const [itemList, setItemList] = useState([]);
   const [filterItemList, setFilterItemList] = useState([]);
 
-  ///////////// 이 부분 뭔가 손 봐야 할것 같은데....?
+  /////////// 이 부분 뭔가 손 봐야 할것 같은데....?
   useEffect(() => {
     const itemSearch = async () => {
       try {
         const response = await instance.get(`/api/item`);
-        const data = response.data;
-        console.log("데이터" + data);
+        const data = response.data.body.item;
+        console.log("데이터" + JSON.stringify(data));
         setItemList(data);
       } catch (error) {
         console.log(error);
@@ -32,7 +32,8 @@ const ItemSearchAddComponent = (props) => {
     if (search === null || search === "") {
       try {
         const response = instance.get(`/api/item`);
-        const data = response.data;
+        const data = response.data.body.item;
+        console.log("데이터2" + data);
         setItemList(data);
       } catch (error) {
         console.log(error);

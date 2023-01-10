@@ -7,8 +7,16 @@ import com.example.demo.dto.response.InventoryItemRespDto;
 import com.example.demo.service.InventoryService;
 import com.example.demo.service.MemberService;
 import lombok.RequiredArgsConstructor;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.validation.Valid;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,11 +35,24 @@ public class InventoryController {
   private final MemberService memberService;
 
   //추가
-  @PostMapping("/add")
+  @PostMapping("/add/{index}")
   public ResponseEntity<?> addInventoryItem(
-    @RequestBody InventoryItemReqDto inventoryItemReqDto,
-    int index
+    @RequestBody @Valid InventoryItemReqDto inventoryItemReqDto,
+    @PathVariable int index,  BindingResult bindingResult
   ) {
+    if (bindingResult.hasErrors()) {
+      Map<String, String> errorMap = new HashMap<>();
+      for (FieldError fe : bindingResult.getFieldErrors()) {
+        errorMap.put(fe.getField(), fe.getDefaultMessage());
+      }
+
+      System.out.println("==========================");
+      System.out.println(errorMap.toString());
+      System.out.println("==========================");
+
+      throw new RuntimeException(errorMap.toString());
+    }
+    
     String email = memberService.getMyInfoBySecurity().getUserEmail();
 
     InventoryItemRespDto inventoryItemRespDto = inventoryService.addInventory(

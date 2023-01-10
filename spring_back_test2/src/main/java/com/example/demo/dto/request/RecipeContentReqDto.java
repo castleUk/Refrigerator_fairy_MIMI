@@ -1,16 +1,20 @@
 package com.example.demo.dto.request;
 
+import com.example.demo.entity.Recipe;
 import com.example.demo.entity.RecipeList;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class RecipeContentReqDto {
+
+  private Long id;
+
+  @JsonIgnore
+  private Recipe recipe;
 
   private String recipeName;
 
@@ -18,12 +22,7 @@ public class RecipeContentReqDto {
 
   private String recipeList;
 
-  public static RecipeContentReqDto of(RecipeList recipeList) {
-    return RecipeContentReqDto
-      .builder()
-      .recipeName(recipeList.getRecipe().getName())
-      .recipeList(recipeList.getRecipeList())
-      .imgUrl(recipeList.getImgUrl())
-      .build();
-  }
+public RecipeList toEntity(){
+  return RecipeList.builder().id(id).recipeList(recipeList).recipe(recipe).imgUrl(imgUrl).build();
 }
+  }

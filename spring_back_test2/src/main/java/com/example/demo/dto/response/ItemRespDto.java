@@ -10,9 +10,12 @@ public class ItemRespDto {
 
   private String name;
 
+  private String img;
+
   @Builder
-  public ItemRespDto(Long id, String name) {
+  public ItemRespDto(Long id, String name, String img) {
     this.id = id;
     this.name = name;
+    this.img = img;
   }
 }

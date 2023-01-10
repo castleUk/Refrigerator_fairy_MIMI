@@ -3,9 +3,8 @@ package com.example.demo.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dto.request.InventoryItemReqDto;
@@ -27,7 +26,6 @@ import lombok.extern.log4j.Log4j2;
 
 @Service
 @RequiredArgsConstructor
-@Transactional
 @Log4j2
 public class InventoryService {
 
@@ -38,6 +36,7 @@ public class InventoryService {
   private final MemberRepository memberRepository;
 
   //인벤토리 추가 및 아이템 담기
+  @Transactional(rollbackFor = RuntimeException.class)
   public InventoryItemRespDto addInventory(
     InventoryItemReqDto inventoryItemReqDto,
     String userEmail,
@@ -45,7 +44,7 @@ public class InventoryService {
   ) {
     log.info("인벤토리 추가 실행");
     Item item = itemRepository.findByName(
-      inventoryItemReqDto.getItem().getName()
+      inventoryItemReqDto.getItemName()
     );
 
     Member member = memberRepository.findByUserEmail(userEmail).orElseThrow();
@@ -75,11 +74,8 @@ public class InventoryService {
         .build();
       return inventoryItemRespDto;
     } else {
-      inventoryItemReqDto.setInventory(inventory);
-      inventoryItemReqDto.toEntity();
-
       InventoryItem inventoryItem = inventoryItemRepository.save(
-        inventoryItemReqDto.toEntity()
+        inventoryItemReqDto.toEntity(item, inventory)
       );
       return inventoryItem.toDto();
     }

@@ -1,10 +1,7 @@
 package com.example.demo.entity;
 
-import com.example.demo.dto.request.InventoryItemReqDto;
-import com.example.demo.dto.request.InventoryReqDto;
-import com.example.demo.dto.response.InventoryItemRespDto;
-import com.example.demo.dto.response.InventoryRespDto;
 import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,6 +11,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import com.example.demo.dto.request.InventoryItemReqDto;
+import com.example.demo.dto.response.InventoryItemRespDto;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

@@ -5,63 +5,46 @@ import NutrientComponent from "../nutrient/NutrientComponent";
 
 const InventoryItem = (props) => {
   const location = useLocation();
-  const [itemList, setItemList] = useState([]);
+  const itemList = props.itemList;
   const [itemInfo, setItemInfo] = useState([]);
   const [showModal, setShowModal] = useState(false);
 
-    const index = location.state;
-
-    console.log("인덱스"  + index)
-
-  
+  console.log("아이템인포" + JSON.stringify(itemInfo));
 
 
-  useEffect(() => {
-   
-    const onItemList = async () => {
-      console.log("onItemList 실행됌");
-      try {
-        
-        const response = await instance.get(`/api/inventory/${index}`);
-        const data = response.data;
-        setItemList(data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    onItemList();
-  }, [props.itemCreateShow]);
 
   const closeModalHandler = () => {
     setShowModal(false);
   };
 
   const modalHandler = (itemName) => {
+    console.log("파인드" + itemList.find((e) => e.item.name));
+    setItemInfo(itemList.find((e) => e.item.name === itemName));
     setShowModal(true);
-    setItemInfo(itemList.find((e) => e.itemName === itemName));
   };
-  console.log("아이템리스트" + itemList)
+  console.log("아이템인포" + itemInfo);
   return (
     <>
       <div className="item col">
         {itemList.map((it) => (
-          <li key={it.inventoryItemId}>
+          <li key={it.id}>
             <img
               alt="itemImage"
               className="item-img"
-              src={it.itemImg}
-              onClick={() => modalHandler(it.itemName)}
+              src={it.item.img}
+              onClick={() => modalHandler(it.item.name)}
             />
           </li>
         ))}
 
-        <NutrientComponent
-          itemInfo={itemInfo}
-          show={showModal}
-          onHide={closeModalHandler}
-          setItemInfo={setItemInfo}
-        />
+        {showModal ? (
+          <NutrientComponent
+            itemInfo={itemInfo}
+            show={showModal}
+            onHide={closeModalHandler}
+            setItemInfo={setItemInfo}
+          />
+        ) : null}
       </div>
     </>
   );

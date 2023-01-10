@@ -71,6 +71,6 @@ public class Item extends BaseEntity {
   }
 
   public ItemRespDto toDto() {
-    return ItemRespDto.builder().id(id).name(name).build();
+    return ItemRespDto.builder().id(id).name(name).img(img).build();
   }
 }

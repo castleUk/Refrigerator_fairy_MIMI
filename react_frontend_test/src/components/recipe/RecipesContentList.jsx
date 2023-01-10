@@ -11,8 +11,8 @@ const RecipesContentList = (props) => {
       const response = await instance.get(
         `/api/recipeList/${props.recipeName}`
       );
-      console.log("응답" + JSON.stringify(response.data));
-      const data = response.data;
+      const data = response.data.body.recipeContentList;
+      console.log("응답" + JSON.stringify(data));
       setRecipeList(data);
     } catch (error) {
       console.log(error);
