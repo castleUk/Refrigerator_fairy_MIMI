@@ -23,7 +23,7 @@ const PwSearchForm = () => {
           headers: { "Content-Type": "application/json" },
         }
       );
-      if (response.data.check == true) {
+      if (response.data.check === true) {
         onSendEmail();
       }
     } catch (error) {

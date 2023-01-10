@@ -1,9 +1,9 @@
 import React from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 //component
 import FredgeClose from "../fredge/FredgeClose";
 //icon
-import { GiCardExchange, GiConsoleController } from "react-icons/gi";
+import { GiCardExchange } from "react-icons/gi";
 
 const FreezerChangeContainer = ({ freezer }) => {
   const navigate = useNavigate();
@@ -11,7 +11,7 @@ const FreezerChangeContainer = ({ freezer }) => {
   const FreezerChangeHandler = (index, e) => {
     console.log("인덱스2" + index);
 
-    if (index == "0" || index == "1" || index == "2") {
+    if (index === "0" || index === "1" || index === "2") {
       navigate(`/inventory/${index}`, { state: `${index}` });
     }
     window.location.reload();

@@ -1,62 +1,66 @@
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import { useState } from "react";
 import { instance } from "../../api/Api";
 
 const MyPageModal = (props) => {
   const [exUserPw, setExUserPw] = useState("");
-  const [userPw, setUserPw] = useState("");
-  const [userPwCk, setUserPwCk] = useState("");
 
-  const [isUserPwCk, setIsUserPwCk] = useState(false);
+  const [userNewPw, setUserNewPw] = useState("");
+  const [userNewPwCk, setUserNewPwCk] = useState("");
 
-  const [userPwCkMessage, setUserPwCkMessage] = useState("");
+  const [isUserNewPwCk, setIsUserNewPwCk] = useState(false);
+
+  const [userNewPwCkMessage, setUserNewPwCkMessage] = useState("");
+  const [userPwCkMessage, setUserPwCkMessage] = useState();
 
   const userPwCkHandler = useCallback(
     (e) => {
-      // const passwordCurrent = e.target.value;
-      // setExUserPw({ ...exUserPw, [e.target.name]: passwordCurrent });
-      // onUserPwCk(exUserPw);
+      const passwordCurrent = e.target.value;
+      setExUserPw(passwordCurrent);
     },
     [exUserPw]
   );
 
   const changeUserPwHandler = useCallback((e) => {
     const passwordCurrent = e.target.value;
-    setUserPw(passwordCurrent);
+    setUserNewPw(passwordCurrent);
   }, []);
 
   const changeUserPwCkHandler = useCallback(
     (e) => {
       const passwordConfirmCurrent = e.target.value;
-      setUserPwCk(passwordConfirmCurrent);
+      setUserNewPwCk(passwordConfirmCurrent);
 
-      if (userPw === passwordConfirmCurrent) {
-        setUserPwCkMessage("비밀번호를 똑같이 입력했어요 : )");
-        setIsUserPwCk(true);
+      if (userNewPw === passwordConfirmCurrent) {
+        setUserNewPwCkMessage("비밀번호를 똑같이 입력했어요 : )");
+        setIsUserNewPwCk(true);
       } else {
-        setUserPwCkMessage("비밀번호가 틀려요. 다시 확인해주세요 ㅜ ㅜ");
-        setIsUserPwCk(false);
+        setUserNewPwCkMessage("비밀번호가 틀려요. 다시 확인해주세요 ㅜ ㅜ");
+        setIsUserNewPwCk(false);
       }
     },
-    [userPw]
+    [userNewPw]
   );
 
   // 현재 비밀번호 체크
-  const onUserPwCk = async (password) => {
-    const userInfo = {
-      exUserPw: password,
+  useEffect(() => {
+    const onUserPwCk = async (password) => {
+      const userInfo = {
+        exUserPw: password,
+      };
+      try {
+        const response = await instance.post(`/api/member/userpwch`, userInfo);
+        setUserPwCkMessage(response.data);
+        console.log("이거임" + userPwCkMessage);
+      } catch (error) {
+        console.log(error);
+      }
     };
-    try {
-      const response = await instance.post(`/api/member/userpwch`, userInfo);
-      console.log(response);
-      // setRecipeNameList(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+    onUserPwCk(exUserPw);
+  }, [exUserPw, userPwCkMessage]);
 
   return (
     <>
@@ -82,7 +86,17 @@ const MyPageModal = (props) => {
                 value={exUserPw}
                 required
               />
+              <span
+                className={`message ${
+                  userPwCkMessage === true ? "success" : "error"
+                }`}
+              >
+                {userPwCkMessage === true
+                  ? "비밀번호가 일치합니다."
+                  : "비밀번호가 일치하지 않습니다."}
+              </span>
             </Form.Group>
+
             <Form.Group className="mb-3 form-group" controlId="newPassword">
               <Form.Control
                 type="password"
@@ -100,16 +114,18 @@ const MyPageModal = (props) => {
                 onChange={changeUserPwCkHandler}
                 required
               />
-              {userPwCk.length > 0 && (
-                <span className={`message ${isUserPwCk ? "success" : "error"}`}>
-                  {userPwCkMessage}
+              {userNewPwCk.length > 0 && (
+                <span
+                  className={`message ${isUserNewPwCk ? "success" : "error"}`}
+                >
+                  {userNewPwCkMessage}
                 </span>
               )}
             </Form.Group>
             <Button
               type="submit"
               className="btn-register"
-              disabled={!isUserPwCk}
+              disabled={!isUserNewPwCk}
             >
               비밀번호 변경
             </Button>

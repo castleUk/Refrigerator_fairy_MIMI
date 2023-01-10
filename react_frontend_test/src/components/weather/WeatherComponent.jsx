@@ -24,10 +24,6 @@ const WeatherComponent = () => {
     console.log("geo err! " + error);
   };
 
-  const requestCoords = () => {
-    navigator.geolocation.getCurrentPosition(handleGeoSucc, handleGeoErr);
-  };
-
   const getWeather = async (lat, lon) => {
     const key = "6cd557f1c9eb8846c03da7621aabc12e";
     try {
@@ -46,6 +42,9 @@ const WeatherComponent = () => {
   };
 
   useEffect(() => {
+    const requestCoords = () => {
+      navigator.geolocation.getCurrentPosition(handleGeoSucc, handleGeoErr);
+    };
     requestCoords();
   }, []);
 
