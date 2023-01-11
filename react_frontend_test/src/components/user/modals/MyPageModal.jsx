@@ -16,6 +16,42 @@ const MyPageModal = (props) => {
   const [userNewPwCkMessage, setUserNewPwCkMessage] = useState("");
   const [userPwCkMessage, setUserPwCkMessage] = useState();
 
+  // 현재 비밀번호 체크
+  useEffect(() => {
+    const onUserPwCk = async (password) => {
+      const userInfo = {
+        exUserPw: password,
+      };
+      try {
+        const response = await instance.post(`/api/member/userpwch`, userInfo);
+        setUserPwCkMessage(response.data);
+        console.log("이거임" + userPwCkMessage);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    onUserPwCk(exUserPw);
+  }, [exUserPw, userPwCkMessage]);
+
+
+
+    //비밀번호 변경
+    const onUserPwChange = async (exUserPw, userNewPw) => {
+      const userInfo = {
+        "exUserPw" : exUserPw,
+        "newUserPw" : userNewPw
+      }
+
+      try {
+        const response = await instance.post(`/api/member/userpw`, userInfo);
+        // setUserPwCkMessage(response.data);
+        console.log("이거임" + JSON.stringify(response));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  
+
   const userPwCkHandler = useCallback(
     (e) => {
       const passwordCurrent = e.target.value;
@@ -45,22 +81,17 @@ const MyPageModal = (props) => {
     [userNewPw]
   );
 
-  // 현재 비밀번호 체크
-  useEffect(() => {
-    const onUserPwCk = async (password) => {
-      const userInfo = {
-        exUserPw: password,
-      };
-      try {
-        const response = await instance.post(`/api/member/userpwch`, userInfo);
-        setUserPwCkMessage(response.data);
-        console.log("이거임" + userPwCkMessage);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    onUserPwCk(exUserPw);
-  }, [exUserPw, userPwCkMessage]);
+
+  const submitHandler = useCallback(
+    (e) => {
+      e.preventDefault();
+
+      onUserPwChange(exUserPw, userNewPw);
+    },
+    [exUserPw, userNewPw, onUserPwChange]
+  );
+
+  
 
   return (
     <>
@@ -76,7 +107,7 @@ const MyPageModal = (props) => {
           <div>{props.myInfo.userEmail}</div>
           <div>{props.myInfo.userName}</div>
 
-          <Form>
+          <Form onSubmit={submitHandler}>
             <Form.Group className="mb-3 form-group" controlId="exPassword">
               <Form.Control
                 type="password"
