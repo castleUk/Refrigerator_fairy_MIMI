@@ -1,10 +1,12 @@
 import React from "react";
+import BotComponent from "../components/bot/BotComponent";
 import FreezerMainComponent from "../components/Freezer/FreezerMainComponent";
 
 const FreezerPage = () => {
   return (
     <div className="page character-page">
       <FreezerMainComponent />
+      <BotComponent />
     </div>
   );
 };
