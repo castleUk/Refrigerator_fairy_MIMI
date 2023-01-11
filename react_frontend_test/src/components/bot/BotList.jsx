@@ -1,15 +1,16 @@
 import React from 'react';
-import dummy from '../../db/bot.json';
+import ListGroupItem from 'react-bootstrap/esm/ListGroupItem';
 
 // template
 import ListGroup from 'react-bootstrap/ListGroup';
 
-const BotList = () => {
+const BotList = ({botItems, onBotItemClick}) => {
+
   return(
     <ListGroup className='bot-select'>
-      {dummy.botQuestions.map((q) =>(
-        <ListGroup.Item key={q.id}>{q.question}</ListGroup.Item>
-        ))}
+      { botItems.map((b) => 
+        <ListGroupItem key={b.id} onClick={() => onBotItemClick(b.id)}>{b.question}</ListGroupItem>
+      )}
     </ListGroup>
   );
 }
