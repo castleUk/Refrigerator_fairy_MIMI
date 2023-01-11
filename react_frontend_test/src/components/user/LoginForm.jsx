@@ -55,7 +55,7 @@ const LoginForm = ({ onLogin, onError }) => {
             value={account.userPw}
           />
         </Form.Group>
-        <Form.Group>{onError}</Form.Group>
+        <Form.Group className="message error">{onError}</Form.Group>
 
         <Button variant="primary" type="submit" className="btn-login">
           로그인
