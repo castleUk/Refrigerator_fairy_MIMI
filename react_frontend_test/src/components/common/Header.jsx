@@ -6,7 +6,8 @@ import { BsFillBellFill } from "react-icons/bs";
 import { FaHome } from "react-icons/fa";
 import { CgSmartHomeRefrigerator } from "react-icons/cg";
 import { HiOutlineLogout } from "react-icons/hi";
-import { ImProfile } from "react-icons/im";
+import { RiBook2Fill } from "react-icons/ri";
+
 // template
 import Dropdown from "react-bootstrap/Dropdown";
 
