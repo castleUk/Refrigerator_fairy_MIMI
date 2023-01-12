@@ -6,6 +6,7 @@ import { BsFillBellFill } from "react-icons/bs";
 import { FaHome } from "react-icons/fa";
 import { CgSmartHomeRefrigerator } from "react-icons/cg";
 import { HiOutlineLogout } from "react-icons/hi";
+import { ImProfile } from "react-icons/im";
 // template
 import Dropdown from "react-bootstrap/Dropdown";
 
@@ -80,6 +81,11 @@ const Header = () => {
             <li className="sub-item">
               <Link to="/freezer" className="sub-link">
                 <FaHome className="icon" />
+              </Link>
+            </li>
+            <li className="sub-item">
+              <Link to="/recipe" className="sub-link">
+                <RiBook2Fill className="icon" />
               </Link>
             </li>
             <li className="sub-item">
