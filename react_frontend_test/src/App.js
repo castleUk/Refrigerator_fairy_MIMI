@@ -9,6 +9,9 @@ import { Route, Routes } from "react-router-dom";
 import FreezerLayout from "./components/Freezer/FreezerLayout";
 import LoginPage from "./page/LoginPage";
 import InventoryLayout from "./components/inventory/InventoryLayout";
+import RecipePage from "./page/RecipePage";
+import Recipe from "./components/recipe/List/Recipe";
+
 
 function App() {
   return (
@@ -16,6 +19,8 @@ function App() {
       <Routes>
         <Route path="/freezer" element={<FreezerLayout />}></Route>
         <Route path="/inventory/:index" element={<InventoryLayout />}></Route>
+        <Route path="/recipe" element={<RecipePage />}></Route>
+        <Route path="/recipe/detail" element={<Recipe />}></Route>
         <Route path="/" element={<LoginPage />}></Route>
       </Routes>
     </div>
