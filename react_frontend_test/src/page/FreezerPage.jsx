@@ -1,5 +1,6 @@
 import React from "react";
-import BotComponent from "../components/bot/BotComponent";
+// import BotComponent from "../components/bot/BotComponent";
+import BotComponent from "../components/botTest/BotComponent";
 import FreezerMainComponent from "../components/Freezer/FreezerMainComponent";
 
 const FreezerPage = () => {
