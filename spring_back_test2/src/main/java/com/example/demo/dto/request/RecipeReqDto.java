@@ -12,7 +12,9 @@ public class RecipeReqDto {
 
   private String name;
 
+  private String img;
+
   public Recipe toEntity() {
-    return Recipe.builder().id(id).name(name).build();
+    return Recipe.builder().id(id).name(name).img(img).build();
   }
 }

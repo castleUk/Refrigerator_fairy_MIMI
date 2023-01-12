@@ -16,15 +16,7 @@ public class RecipeItemReqDto {
 
   private Recipe recipe;
 
-  private int count;
-
   public RecipeItem toEntity() {
-    return RecipeItem
-      .builder()
-      .id(id)
-      .item(item)
-      .recipe(recipe)
-      .count(count)
-      .build();
+    return RecipeItem.builder().id(id).item(item).recipe(recipe).build();
   }
 }

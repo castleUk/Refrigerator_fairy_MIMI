@@ -10,12 +10,16 @@ public class RecipeItemRespDto {
 
   private String itemName;
 
-  private int itemCount;
+  private String recipeImg;
 
   @Builder
-  public RecipeItemRespDto(String recipeName, String itemName, int itemCount) {
+  public RecipeItemRespDto(
+    String recipeName,
+    String itemName,
+    String recipeImg
+  ) {
     this.recipeName = recipeName;
     this.itemName = itemName;
-    this.itemCount = itemCount;
+    this.recipeImg = recipeImg;
   }
 }

@@ -31,7 +31,6 @@ public class RecipeItemService {
       dto.getItem().getName()
     );
     if (savedRecipeItem != null) {
-      savedRecipeItem.addCount(dto.getCount());
       return savedRecipeItem.toDTO();
     } else {
       Recipe recipe = recipeRepository.findByName(dto.getRecipe().getName());
@@ -40,7 +39,6 @@ public class RecipeItemService {
         .builder()
         .item(item)
         .recipe(recipe)
-        .count(dto.getCount())
         .build();
 
       recipeItemRepository.save(recipeItem);

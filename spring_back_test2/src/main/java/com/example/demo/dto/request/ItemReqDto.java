@@ -3,6 +3,7 @@ package com.example.demo.dto.request;
 import com.example.demo.entity.Item;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.logging.log4j.util.StringBuilderFormattable;
 
 @Getter
 @Setter
@@ -14,7 +15,7 @@ public class ItemReqDto {
 
   private String img;
 
-  private int per;
+  private String per;
 
   private int kcal;
 

@@ -29,6 +29,9 @@ public class Recipe extends BaseEntity {
   @Column(nullable = false)
   private String name;
 
+  @Column(nullable = false)
+  private String img;
+
   public void change(RecipeReqDto recipeReqDto) {
     this.name = recipeReqDto.getName();
   }

@@ -34,7 +34,7 @@ public class Item extends BaseEntity {
   private String img;
 
   @Column(nullable = false)
-  private int per;
+  private String per;
 
   @Column(nullable = false)
   private int kcal;

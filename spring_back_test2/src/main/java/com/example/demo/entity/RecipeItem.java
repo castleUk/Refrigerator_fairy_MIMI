@@ -39,20 +39,12 @@ public class RecipeItem extends BaseEntity {
   @JoinColumn(name = "recipe_id")
   private Recipe recipe;
 
-  //레시피 만드는데 사용되는 재료 갯수
-  @Column
-  private int count;
-
-  public void addCount(int count) {
-    this.count += count;
-  }
-
   public RecipeItemRespDto toDTO() {
     return RecipeItemRespDto
       .builder()
-      .itemCount(count)
       .itemName(item.getName())
       .recipeName(recipe.getName())
+      .recipeImg(recipe.getImg())
       .build();
   }
 }
