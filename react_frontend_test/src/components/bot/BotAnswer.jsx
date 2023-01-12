@@ -1,26 +1,27 @@
-import React from 'react';
-import dummy from '../../db/bot.json';
-
+import React, { useState } from 'react';
+// icon
+import { AiFillRobot } from "react-icons/ai";
 // template
 import Card from 'react-bootstrap/Card';
 
-const BotAnswer = () => {
-  // const q = 1;
-  // const aList = dummy.botAnswers.filter(answer =>
-  //   answer.q === q
-  // );
+const BotAnswer = ({botAnswerItems}) => {
+  const answerItem = botAnswerItems[0];
 
   return(
-    <Card className="answer">
-      {dummy.botAnswers.map((answer)=>(
-        <Card.Body key={answer.id}>
-          <Card.Title>{answer.question}</Card.Title>
-          <Card.Text>
-            {answer.answer}
-          </Card.Text>
-        </Card.Body>
-      ))}
-    </Card>
+    <div className='bot left'>
+      <div className='bot-img'><AiFillRobot className='icon'></AiFillRobot></div>
+      <div className='bot-text'>
+        <div className='bot-name'>미미</div>
+        <Card className="answer">
+          <Card.Body>
+            <Card.Title>{answerItem.question}</Card.Title>
+              <Card.Text>
+                {answerItem.answer}
+              </Card.Text>
+          </Card.Body>
+        </Card>
+      </div>
+    </div>
   );
 }
 

@@ -1,11 +1,16 @@
-
 import React from 'react';
 
-const BotCheck = () => {
+const BotCheck = ({botCheckItems, onBotItemClick}) => {
+  const checkItem = botCheckItems[0].question;
+
+  // console.log(checkItem.key);
+  console.log(checkItem);
+
   return(
     <div className='bot right'>
       <div className='bot-check'>
-        Cras justo odio
+        테스트 : {checkItem}
+        
       </div>
     </div>
   );

@@ -4,9 +4,9 @@ import { AiFillRobot } from "react-icons/ai";
 // template
 import Button from 'react-bootstrap/esm/Button';
 
-const BotBtn = () => {
+const BotBtn = ({onClickChatBot}) => {
   return(
-    <Button className='btn-bot'>
+    <Button className='btn-bot' onClick={onClickChatBot}>
       <AiFillRobot className='icon'></AiFillRobot>
     </Button>
   );
