@@ -65,6 +65,13 @@ a{
 
 .disabled, :disabled{
   opacity: 0.5;
+  .btn{
+    cursor: default;
+    &:hover{
+      background-color: $default-color;
+      border-color: $default-color;
+    }
+  }
 }
 
 .btn-primary{
