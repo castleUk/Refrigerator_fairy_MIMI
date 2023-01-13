@@ -51,10 +51,9 @@ public class RecipeServiceTest {
     when(recipeRepository.findById(id)).thenReturn(recipeOP);
     System.out.println(recipeOP.get().getCount());
     //when
-    RecipeRespDto recip
-    eRespDto = recipeService.addCount(id);
+    RecipeRespDto recipeRespDto = recipeService.addCount(id);
     //then
-    // assertThat(recipeRespDto.getCount()).isEqualTo(1);
-    System.out.println("result" + recipeRespDto.getCount());
+    assertThat(recipeRespDto.getCount()).isEqualTo(1);
+    // System.out.println("result" + recipeRespDto.getCount());
   }
 }

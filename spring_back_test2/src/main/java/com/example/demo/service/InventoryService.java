@@ -14,6 +14,7 @@ import com.example.demo.repository.InventoryRepository;
 import com.example.demo.repository.ItemRepository;
 import com.example.demo.repository.MemberRepository;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -150,16 +151,9 @@ public class InventoryService {
   }
 
   // 삭제
-  public void deleteInventoryItem(String userEmail, int index, Long itemId) {
-    Member member = memberRepository.findByUserEmail(userEmail).orElseThrow();
-    List<Freezer> freezer = freezerRepository.findByMemberId(member.getId());
-    Inventory inventory = inventoryRepository.findByFreezerId(
-      freezer.get(index).getId()
-    );
-    InventoryItem inventoryItem = inventoryItemRepository.findByInventoryIdAndItemId(
-      inventory.getId(),
-      itemId
-    );
-    inventoryItemRepository.delete(inventoryItem);
+  @Transactional(rollbackFor = RuntimeException.class)
+  public void deleteInventoryItem(Long inventoryItemId) {
+      inventoryItemRepository.deleteById(inventoryItemId);
+    }
+    
   }
-}

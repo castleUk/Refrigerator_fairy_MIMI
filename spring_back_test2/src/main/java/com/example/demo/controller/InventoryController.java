@@ -135,14 +135,11 @@ public class InventoryController {
   }
 
   //삭제
-  @DeleteMapping("/{index}/{itemId}")
+  @DeleteMapping("/delete/{inventoryItemId}")
   public ResponseEntity<?> deleteInventoryItem(
-    @PathVariable("itemId") Long itemId,
-    @PathVariable("index") int index
+    @PathVariable("inventoryItemId") Long inventoryItemId
   ) {
-    String email = memberService.getMyInfoBySecurity().getUserEmail();
-    inventoryService.deleteInventoryItem(email, index, itemId);
-
+    inventoryService.deleteInventoryItem(inventoryItemId);
     return new ResponseEntity<>(
       CMRespDto
         .builder()

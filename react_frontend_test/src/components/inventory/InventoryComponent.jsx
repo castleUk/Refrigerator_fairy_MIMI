@@ -18,6 +18,7 @@ const InventoryComponent = (props) => {
         const response = await instance.get(`/api/inventory/${index}`);
         const data = response.data.body.inventoryItem;
         setItemList(data);
+        setItemReload(false);
       } catch (error) {
         console.log(error);
       }
@@ -43,6 +44,7 @@ const InventoryComponent = (props) => {
 
         <div className="content-body">
           <InventoryCarousel
+            setItemReload={setItemReload}
             index={props.index}
             itemCreateShow={itemCreateShow}
             itemList={itemList}

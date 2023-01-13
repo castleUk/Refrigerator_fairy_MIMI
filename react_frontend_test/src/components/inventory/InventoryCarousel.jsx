@@ -15,6 +15,7 @@ const InventoryCarousel = (props) => {
       <SwiperSlide>
         <h4 className="title">냉장보관</h4>
         <InventoryItemGroup
+          setItemReload={props.setItemReload}
           index={props.index}
           itemCreateShow={props.itemCreateShow}
           itemList={props.itemList}

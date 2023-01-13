@@ -5,6 +5,8 @@ const InventoryItem = (props) => {
   const itemList = props.itemList;
   const [itemInfo, setItemInfo] = useState([]);
   const [showModal, setShowModal] = useState(false);
+  
+  const index = props.index;
 
   console.log("아이템인포" + JSON.stringify(itemInfo));
 
@@ -34,6 +36,7 @@ const InventoryItem = (props) => {
 
         {showModal ? (
           <NutrientComponent
+            setItemReload={props.setItemReload}
             itemInfo={itemInfo}
             show={showModal}
             onHide={closeModalHandler}

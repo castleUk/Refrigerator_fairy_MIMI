@@ -48,6 +48,6 @@ public class Recipe extends BaseEntity {
   }
 
   public RecipeRespDto toDto() {
-    return RecipeRespDto.builder().id(id).name(name).build();
+    return RecipeRespDto.builder().id(id).name(name).count(count).build();
   }
 }

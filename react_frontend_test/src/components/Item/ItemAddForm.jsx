@@ -14,6 +14,10 @@ const ItemAddForm = ({ filterItemList, onFreezerItemAdd, hide }) => {
   const [expDate, setExpDate] = useState();
   const [regDate, setRegDate] = useState();
 
+  const [isStorage, setIsStorage] = useState(false);
+  const [isExpDate, setIsExpDate] = useState(false);
+  const [isRegDate, setIsRegDate] = useState(false);
+
   const itemName = filterItemList.map((it) => it.name);
 
   console.log("itemName" + itemName);
@@ -40,16 +44,19 @@ const ItemAddForm = ({ filterItemList, onFreezerItemAdd, hide }) => {
   const storageHandler = (e) => {
     e.preventDefault();
     setStorage(e.target.value);
+    setIsStorage(true)
   };
 
   const expDateHandler = (e) => {
     e.preventDefault();
     setExpDate(e.target.value);
+    setIsExpDate(true)
   };
   console.log("유통기한" + expDate);
   const regDateHandler = (e) => {
     e.preventDefault();
     setRegDate(e.target.value);
+    setIsRegDate(true);
   };
   console.log("등록일" + regDate);
 
@@ -79,7 +86,8 @@ const ItemAddForm = ({ filterItemList, onFreezerItemAdd, hide }) => {
             </Form.Group>
             <Form.Group className="mb-3 form-group" controlId="">
               <Form.Label>저장소</Form.Label>
-              <Form.Select name="" onChange={storageHandler} value={storage}>
+              <Form.Select name="" onChange={storageHandler} >
+                <option value="0">선택하세요</option>
                 <option value="냉장">냉장</option>
                 <option value="냉동">냉동</option>
                 <option value="실온">실온</option>
@@ -99,6 +107,11 @@ const ItemAddForm = ({ filterItemList, onFreezerItemAdd, hide }) => {
                 type="submit"
                 onClick={hide}
                 className="btn-create"
+                disabled={!(
+                  isExpDate &&
+                  isRegDate &&
+                  isStorage
+                )}
               >
                 등록
               </Button>

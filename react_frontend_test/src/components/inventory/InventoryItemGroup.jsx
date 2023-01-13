@@ -6,6 +6,7 @@ const InventoryItemGroup = (props) => {
     <div className="inventory-list">
       <ul className="ingr-group">
         <InventoryItem
+          setItemReload={props.setItemReload}
           index={props.index}
           itemCreateShow={props.itemCreateShow}
           itemList={props.itemList}
