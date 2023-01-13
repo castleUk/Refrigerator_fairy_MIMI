@@ -4,20 +4,33 @@ import BotName from './BotName';
 // template
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Button from 'react-bootstrap/esm/Button';
+import BotAnswerItem from './BotAnswerItem';
+import BotQuestion from './BotQuestion';
 
-const BotAnswer = ({botItems}) => {
+const BotAnswer = ({ botItems, itemId, itemValue,
+  onHideChatBot, onQListClick ,
+  isAnswer, isAItem, isBotList}) => {
+
   return(
-    <div className='a-bot'>
-      <BotName />
-      <div className='a-list'>
-        <h5>{botItems[0].question}</h5>
-        <p>{botItems[0].answer}</p>
+    <>
+    { isAnswer &&
+      <div className='a-bot'>
+        <BotName />
+        {
+          isAItem &&
+          <div className='a-list'>
+            <BotAnswerItem qItem={itemId} aItem={botItems[0].answer} />
+          </div>
+          
+        }
+
+        <ButtonGroup>
+          <Button variant='primary' onClick={onHideChatBot}>나가기</Button>
+          <Button variant='primary' onClick={onQListClick}>질문하기</Button>
+        </ButtonGroup>
       </div>
-      <ButtonGroup>
-        <Button variant='primary'>나가기</Button>
-        <Button variant='primary'>질문하기</Button>
-      </ButtonGroup>
-    </div>
+    }
+    </>
   );
 }
 

@@ -11,7 +11,9 @@ import Button from 'react-bootstrap/esm/Button';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 
-const BotChatting = ({botItems, onQItemClick, onHideChatBot, itemId}) => {
+const BotChatting = ({ botItems, itemId, itemValue,
+  onQItemClick, onHideChatBot, onQListClick,
+  isQuestionChoice, isAnswer, isAItem, isBotList }) => {
 
   return(
     <div className='bot-chatting'>
@@ -21,11 +23,22 @@ const BotChatting = ({botItems, onQItemClick, onHideChatBot, itemId}) => {
       </div>
       <div className='content-body'>
         <div className='bot'>
-          <BotQuestion botItems={botItems} onQItemClick={onQItemClick}/>
+          <BotQuestion 
+            botItems={botItems} 
+            isBotList={isBotList} 
+            onQItemClick={onQItemClick}
+          />
 
-          <BotQuestionChoice botItems={botItems} itemId={itemId} />
+          <BotQuestionChoice 
+            botItems={botItems} itemId={itemId} 
+            isQuestionChoice={isQuestionChoice}
+          />
 
-          <BotAnswer botItems={botItems} />
+          <BotAnswer 
+            botItems={botItems} itemId={itemId} itemValue={itemValue}
+            isAnswer={isAnswer} isAItem={isAItem} isBotList={isBotList}
+            onHideChatBot={onHideChatBot} onQListClick={onQListClick}
+           />
         </div>
       </div>
       <div className='content-footer'>

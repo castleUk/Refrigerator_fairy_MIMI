@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 
-const BotQuestionChoice = ({botItems, onQItemClick, itemId}) => {
+const BotQuestionChoice = ({itemId, isQuestionChoice}) => {
   return(
-    <div className='qs-bot' onChange={onQItemClick}>
-      {/* {
-        botItems.map(qs => <span className='q-selected' key={qs.id}>{qs.question}</span>)
-      } */}
-      <span className='q-selected'>{itemId}</span>
-    </div>
+    <>
+      {
+        isQuestionChoice &&
+        <div className="qs-bot">
+          <span className="q-selected">{itemId}</span>
+        </div>
+      }
+    </>
   );
 }
 
