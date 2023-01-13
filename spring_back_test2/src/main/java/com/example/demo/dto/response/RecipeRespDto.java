@@ -14,10 +14,13 @@ public class RecipeRespDto {
 
   private String img;
 
+  private Integer count;
+
   @Builder
-  public RecipeRespDto(Long id, String name, String img) {
+  public RecipeRespDto(Long id, String name, String img, Integer count) {
     this.id = id;
     this.name = name;
     this.img = img;
+    this.count = count;
   }
 }

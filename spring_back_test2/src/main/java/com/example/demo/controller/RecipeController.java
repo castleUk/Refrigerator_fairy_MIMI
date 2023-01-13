@@ -90,8 +90,9 @@ public class RecipeController {
   }
 
   @DeleteMapping("/{recipeId}")
-  public ResponseEntity<?> deleteRecipe(@PathVariable("itemId") Long recipeId)
-    throws Exception {
+  public ResponseEntity<?> deleteRecipe(
+    @PathVariable("recipeId") Long recipeId
+  ) throws Exception {
     recipeService.remove(recipeId);
     return new ResponseEntity<>(
       CMRespDto
@@ -100,6 +101,15 @@ public class RecipeController {
         .msg("레시피 한개 목록 받기 성공")
         .body(null)
         .build(),
+      HttpStatus.OK
+    );
+  }
+
+  @PutMapping("/count/{recipeId}")
+  public ResponseEntity<?> addCount(@PathVariable("recipeId") Long recipeId) {
+    RecipeRespDto dto = recipeService.addCount(recipeId);
+    return new ResponseEntity<>(
+      CMRespDto.builder().code(1).msg("카운트 업!").body(dto).build(),
       HttpStatus.OK
     );
   }

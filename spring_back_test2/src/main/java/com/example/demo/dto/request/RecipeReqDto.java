@@ -14,7 +14,9 @@ public class RecipeReqDto {
 
   private String img;
 
+  private Integer count;
+
   public Recipe toEntity() {
-    return Recipe.builder().id(id).name(name).img(img).build();
+    return Recipe.builder().id(id).name(name).img(img).count(count).build();
   }
 }

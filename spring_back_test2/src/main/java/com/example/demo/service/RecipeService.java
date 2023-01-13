@@ -6,6 +6,7 @@ import com.example.demo.dto.response.RecipeRespDto;
 import com.example.demo.entity.Recipe;
 import com.example.demo.repository.RecipeRepository;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -55,5 +56,17 @@ public class RecipeService {
       .build();
 
     return recipeListRespDto;
+  }
+
+  //레시피 카운트up
+  public RecipeRespDto addCount(Long id) {
+    Optional<Recipe> recipeOP = recipeRepository.findById(id);
+    if (recipeOP.isPresent()) {
+      Recipe result = recipeOP.get();
+      result.addCount();
+      recipeRepository.save(result);
+      return result.toDto();
+    }
+    return null;
   }
 }

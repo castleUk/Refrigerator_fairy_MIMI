@@ -12,6 +12,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
 
 @Entity
 @Builder
@@ -19,6 +21,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@DynamicInsert //Default 값을 적용 하기 위한 어노테이션
 public class Recipe extends BaseEntity {
 
   @Id
@@ -32,8 +35,16 @@ public class Recipe extends BaseEntity {
   @Column(nullable = false)
   private String img;
 
+  @Column(nullable = false)
+  @ColumnDefault("0") //@ColumnDefault사용
+  private Integer count;
+
   public void change(RecipeReqDto recipeReqDto) {
     this.name = recipeReqDto.getName();
+  }
+
+  public void addCount() {
+    this.count += 1;
   }
 
   public RecipeRespDto toDto() {
