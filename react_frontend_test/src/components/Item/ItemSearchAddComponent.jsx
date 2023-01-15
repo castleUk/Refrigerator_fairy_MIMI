@@ -7,9 +7,9 @@ import ItemSearchForm from "./ItemSearchForm";
 
 const ItemSearchAddComponent = (props) => {
   //재료검색..
-  const [search, setSearch] = useState("");
+
   const [itemList, setItemList] = useState([]);
-  const [filterItemList, setFilterItemList] = useState([]);
+  const [filtered, setFiltered] = useState([]);
 
   /////////// 이 부분 뭔가 손 봐야 할것 같은데....?
   useEffect(() => {
@@ -26,44 +26,22 @@ const ItemSearchAddComponent = (props) => {
     itemSearch();
   }, []);
 
-  const onSearch = (e) => {
-    e.preventDefault();
-    console.log("OnSearch 실행됨");
-    if (search === null || search === "") {
-      try {
-        const response = instance.get(`/api/item`);
-        const data = response.data.body.item;
-        console.log("데이터2" + data);
-        setItemList(data);
-      } catch (error) {
-        console.log(error);
-      }
-    } else {
-      const filterData = itemList.filter((data) => data.name.includes(search));
-      setFilterItemList(filterData);
-    }
-
-    setSearch("");
+  const itemNameHandler = (name) => {
+    console.log("진짜" + name);
+    const itemInfo = itemList.filter((item) => {
+      return item.name == name;
+    });
+    setFiltered(itemInfo);
   };
-
-  const onChangeSearch = (e) => {
-    e.preventDefault();
-    setSearch(e.target.value);
-  };
-  console.log(search);
-
+  console.log("필터된거" + filtered);
   return (
     <div className="ingr-component">
       <div className="ingr-content">
-        <ItemSearchForm
-          onSearch={onSearch}
-          search={search}
-          onChangeSearch={onChangeSearch}
-        />
+        <ItemSearchForm itemList={itemList} itemNameHandler={itemNameHandler} />
         <ItemAddForm
-          filterItemList={filterItemList}
           onFreezerItemAdd={props.onFreezerItemAdd}
           hide={props.hide}
+          filtered={filtered}
         />
       </div>
     </div>

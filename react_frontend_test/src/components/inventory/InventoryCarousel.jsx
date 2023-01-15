@@ -19,14 +19,28 @@ const InventoryCarousel = (props) => {
           index={props.index}
           itemCreateShow={props.itemCreateShow}
           itemList={props.itemList}
+          storage="냉장"
         />
       </SwiperSlide>
       <SwiperSlide>
         <h4 className="title">냉동보관</h4>
-        {/* <InventoryItemGroup
+        <InventoryItemGroup
+          setItemReload={props.setItemReload}
           index={props.index}
           itemCreateShow={props.itemCreateShow}
-        /> */}
+          itemList={props.itemList}
+          storage="냉동"
+        />
+      </SwiperSlide>
+      <SwiperSlide>
+        <h4 className="title">실온보관</h4>
+        <InventoryItemGroup
+          setItemReload={props.setItemReload}
+          index={props.index}
+          itemCreateShow={props.itemCreateShow}
+          itemList={props.itemList}
+          storage="실온"
+        />
       </SwiperSlide>
     </Swiper>
   );

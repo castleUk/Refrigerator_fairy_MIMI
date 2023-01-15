@@ -10,6 +10,7 @@ const InventoryItemGroup = (props) => {
           index={props.index}
           itemCreateShow={props.itemCreateShow}
           itemList={props.itemList}
+          storage={props.storage}
         />
       </ul>
     </div>

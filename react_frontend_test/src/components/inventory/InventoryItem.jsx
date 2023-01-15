@@ -5,7 +5,7 @@ const InventoryItem = (props) => {
   const itemList = props.itemList;
   const [itemInfo, setItemInfo] = useState([]);
   const [showModal, setShowModal] = useState(false);
-  
+
   const index = props.index;
 
   console.log("아이템인포" + JSON.stringify(itemInfo));
@@ -23,16 +23,21 @@ const InventoryItem = (props) => {
   return (
     <>
       <div className="item col">
-        {itemList.map((it) => (
-          <li key={it.id}>
-            <img
-              alt="itemImage"
-              className="item-img"
-              src={it.item.img}
-              onClick={() => modalHandler(it.item.name)}
-            />
-          </li>
-        ))}
+        {itemList
+          .filter((it) => {
+            return it.storage === props.storage;
+          })
+          .map((it) => (
+            <li key={it.id}>
+              <img
+                alt="itemImage"
+                className="item-img"
+                src={it.item.img}
+                onClick={() => modalHandler(it.item.name)}
+              />
+              <div>{it.item.name}</div>
+            </li>
+          ))}
 
         {showModal ? (
           <NutrientComponent
