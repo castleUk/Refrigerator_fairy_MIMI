@@ -46,6 +46,14 @@
     font-weight: 600;
     color: $default-color;
   }
+  .user-profil{
+    padding: 0px;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 40px;
+    color: #121212;
+    cursor: pointer;
+  }
 }
 
 #userDropdown{
@@ -698,8 +706,8 @@
     flex: 0 0 140px;
     padding: 20px;
     .img{
-      width: 60px;
-      height: 60px;
+      width: 100px;
+      height: 100px;
       border-radius: 60px;
       border: 1px solid #d1d1d1;
     }
@@ -708,6 +716,7 @@
     display: flex;
     flex-direction: row;
     flex: 0 0 calc(100% - 140px);
+    margin-left: auto;
     .ingr-title{
       font-weight: 500;
       flex: 0 0 200px;
@@ -768,13 +777,20 @@
 .search-result-content{
   background: $white;
   border: $border;
+  height: auto;
+  max-height: 186px;
+  overflow-y: auto;
 }
 
 .search-result{
   padding: 10px;
   display: flex;
   flex-direction: row;
+  font-size: 14px;
   cursor: pointer;
+  &:hover{
+    background-color: $default-card-color;
+  }
   &.nodata{
     cursor: default;
   }
@@ -892,6 +908,39 @@
   .modal-footer{
     border-top: none;
     margin: auto;
+  }
+}
+
+.user-detail-modal{
+  .modal-header{
+    border-bottom: none;
+    .title{
+      margin-bottom: 0px;
+    }
+    .btn-close{
+      margin-bottom: auto;
+    }
+  }
+  .modal-body{
+    .table{
+      td, th{
+        font-size: 14px;
+      }
+    }
+  }
+  form{
+    display: flex;
+    flex-direction: column;
+  }
+  .btn-change{
+    margin-left: auto;
+  }
+  .user-content{
+    display: flex;
+    flex-direction: row;
+    .user{
+      flex: 0 0 50%;
+    }
   }
 }
 
