@@ -27,7 +27,6 @@ const ItemSearchAddComponent = (props) => {
   }, []);
 
   const itemNameHandler = (name) => {
-    console.log("진짜" + name);
     const itemInfo = itemList.filter((item) => {
       return item.name == name;
     });

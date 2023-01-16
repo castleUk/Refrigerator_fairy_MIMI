@@ -12,7 +12,6 @@ import InventoryLayout from "./components/inventory/InventoryLayout";
 import RecipePage from "./page/RecipePage";
 import Recipe from "./components/recipe/List/Recipe";
 
-
 function App() {
   return (
     <div className="app">
@@ -20,7 +19,7 @@ function App() {
         <Route path="/freezer" element={<FreezerLayout />}></Route>
         <Route path="/inventory/:index" element={<InventoryLayout />}></Route>
         <Route path="/recipe" element={<RecipePage />}></Route>
-        <Route path="/recipe/detail" element={<Recipe />}></Route>
+        <Route path="/recipe/:recipeId" element={<Recipe />}></Route>
         <Route path="/" element={<LoginPage />}></Route>
       </Routes>
     </div>

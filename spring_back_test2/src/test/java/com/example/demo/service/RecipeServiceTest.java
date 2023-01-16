@@ -8,12 +8,15 @@ import com.example.demo.dto.request.RecipeReqDto;
 import com.example.demo.dto.response.RecipeRespDto;
 import com.example.demo.entity.Recipe;
 import com.example.demo.repository.RecipeRepository;
+import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 @ExtendWith(MockitoExtension.class)
 public class RecipeServiceTest {

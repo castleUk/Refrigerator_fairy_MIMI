@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -47,9 +47,9 @@ public class RecipeService {
   }
 
   // 전체 목록
-  public RecipeListRespDto readAll() {
+  public RecipeListRespDto readAll(Pageable pageable) {
     List<RecipeRespDto> resultList = recipeRepository
-      .findAll()
+      .findAll(pageable)
       .stream()
       .map(Recipe::toDto)
       .collect(Collectors.toList());
