@@ -1,8 +1,8 @@
 package com.example.demo.controller;
 
-import com.example.demo.dto.ChangePasswordRequestDto;
-import com.example.demo.dto.MemberRequestDto;
-import com.example.demo.dto.MemberResponseDto;
+import com.example.demo.dto.request.ChangePasswordRequestDto;
+import com.example.demo.dto.request.MemberReqDto;
+import com.example.demo.dto.response.MemberRespDto;
 import com.example.demo.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -20,16 +20,15 @@ public class MemberController {
   private final MemberService memberService;
 
   @GetMapping("/me")
-  public ResponseEntity<MemberResponseDto> getMyMemberInfo() {
-    MemberResponseDto myInfoBySecurity = memberService.getMyInfoBySecurity();
+  public ResponseEntity<MemberRespDto> getMyMemberInfo() {
+    MemberRespDto myInfoBySecurity = memberService.getMyInfoBySecurity();
     System.out.println(myInfoBySecurity.getUserName());
     return ResponseEntity.ok((myInfoBySecurity));
-    // return ResponseEntity.ok(memberService.getMyInfoBySecurity());
   }
 
   @PostMapping("/username")
-  public ResponseEntity<MemberResponseDto> setMemberNickname(
-    @RequestBody MemberRequestDto request
+  public ResponseEntity<MemberRespDto> setMemberNickname(
+    @RequestBody MemberReqDto request
   ) {
     return ResponseEntity.ok(
       memberService.changeMemberNickname(
@@ -40,15 +39,26 @@ public class MemberController {
   }
 
   @PostMapping("/userpw")
-  public ResponseEntity<MemberResponseDto> setMemberPassword(
-    @RequestBody ChangePasswordRequestDto request
+  public ResponseEntity<MemberRespDto> setMemberPassword(
+    @RequestBody ChangePasswordRequestDto dto
   ) {
+    String email = memberService.getMyInfoBySecurity().getUserEmail();
     return ResponseEntity.ok(
       memberService.changeMemberPassword(
-        request.getUserEmail(),
-        request.getExUserPw(),
-        request.getNewUserPw()
+        email,
+        dto.getExUserPw(),
+        dto.getNewUserPw()
       )
+    );
+  }
+
+  @PostMapping("/userpwch")
+  public ResponseEntity<?> memberPwCk(
+    @RequestBody ChangePasswordRequestDto dto
+  ) {
+    String email = memberService.getMyInfoBySecurity().getUserEmail();
+    return ResponseEntity.ok(
+      memberService.memberPwCk(email, dto.getExUserPw())
     );
   }
 }

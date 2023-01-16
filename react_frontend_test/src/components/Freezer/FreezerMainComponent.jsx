@@ -18,18 +18,17 @@ const FreezerMainComponent = () => {
     }
   };
 
-  //조회처리
-  const onListUp = async () => {
-    try {
-      const response = await instance.get("/api/freezer");
-      const data = response.data;
-      SetFreezer(data);
-    } catch (error) {
-      console.log("에러" + error);
-    }
-  };
-
   useEffect(() => {
+    //조회처리
+    const onListUp = async () => {
+      try {
+        const response = await instance.get("/api/freezer");
+        const data = response.data.body.freezers;
+        SetFreezer(data);
+      } catch (error) {
+        console.log("에러" + error);
+      }
+    };
     onListUp();
   }, [change]);
 

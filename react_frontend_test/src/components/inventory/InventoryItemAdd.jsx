@@ -6,7 +6,7 @@ import Button from "react-bootstrap/Button";
 // icon
 import { BsPlusCircleDotted } from "react-icons/bs";
 
-import InventoryItemAddModal from "./Modals/InventoryItemAddModal";
+import InventoryItemAddModal from "./modals/InventoryItemAddModal";
 
 const InventoryItemAdd = (props) => {
   const ItemModalClose = () => props.setItemCreateShow(false);
@@ -15,26 +15,18 @@ const InventoryItemAdd = (props) => {
   const index = props.index;
 
   //냉장고에 아이템처리
-  const onFreezerItemAdd = async (
-    itemName,
-    count,
-    storage,
-    expDate,
-    regDate
-  ) => {
+  const onFreezerItemAdd = async (itemName, storage, expDate, regDate) => {
     const data = {
-      itemName: itemName[0],
-      count: count,
+      itemName: itemName,
       storage: storage,
       expDate: expDate,
       regDate: regDate,
     };
-
+    console.log("데이터" + JSON.stringify(data));
     try {
-      await instance.post(
-        `/api/inventory/add?index=${index}`,
-        JSON.stringify(data)
-      );
+      const response = await instance.post(`/api/inventory/add/${index}`, data);
+      console.log("응답" + JSON.stringify(response));
+      props.setItemReload(!props.itemReload);
     } catch (error) {
       console.log(error);
     }

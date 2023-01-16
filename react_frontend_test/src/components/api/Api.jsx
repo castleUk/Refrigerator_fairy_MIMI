@@ -2,32 +2,30 @@ import axios from "axios";
 
 export const instance = axios.create({
   headers: {
-    'Content-Type': 'application/json',
-    Authorization: 'Bearer ' + localStorage.getItem('accessToken'),
-  }
+    "Content-Type": "application/json",
+    Authorization: "Bearer " + localStorage.getItem("accessToken"),
+  },
 });
 
-
-instance.interceptors.response.use( 
+instance.interceptors.response.use(
   (response) => {
+    console.log("axios성공" + JSON.stringify(response));
     return response;
   },
   async (error) => {
+    console.log("axios에러" + JSON.stringify(error.response));
     try {
-      const errorResponseStatus = error.response.data.code
-      const errorResponseData = error.response.data;
+      const errorResponseStatus = error.response.data.code;
       const prevRequest = error.config;
 
-      if (
-        errorResponseStatus === 1005 || errorResponseStatus === 1004
-      ) {
+      if (errorResponseStatus === 1005 || errorResponseStatus === 1004) {
         const preRefreshToken = localStorage.getItem("refreshToken");
         if (preRefreshToken) {
           const regenerateToken = async () => {
             try {
-              const response = await axios.post("/refresh", 
-               {"refreshToken" : preRefreshToken},
-              );
+              const response = await axios.post("/refresh", {
+                refreshToken: preRefreshToken,
+              });
 
               const accessToken = response.data.accessToken;
               localStorage.setItem("accessToken", accessToken);
@@ -41,7 +39,6 @@ instance.interceptors.response.use(
               localStorage.removeItem("refreshToken");
               return new Error(Error);
             }
-            
           };
           regenerateToken();
         } else {

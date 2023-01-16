@@ -1,9 +1,7 @@
 package com.example.demo.entity;
 
-import com.example.demo.dto.RecipeDto;
-
-import java.util.List;
-
+import com.example.demo.dto.request.RecipeReqDto;
+import com.example.demo.dto.response.RecipeRespDto;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,10 +9,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
 
 @Entity
 @Builder
@@ -22,6 +21,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@DynamicInsert //Default 값을 적용 하기 위한 어노테이션
 public class Recipe extends BaseEntity {
 
   @Id
@@ -32,9 +32,22 @@ public class Recipe extends BaseEntity {
   @Column(nullable = false)
   private String name;
 
- 
+  @Column(nullable = false)
+  private String img;
 
-  public void change(RecipeDto recipeDto) {
-    this.name = recipeDto.getName();
+  @Column(nullable = false)
+  @ColumnDefault("0") //@ColumnDefault사용
+  private Integer count;
+
+  public void change(RecipeReqDto recipeReqDto) {
+    this.name = recipeReqDto.getName();
+  }
+
+  public void addCount() {
+    this.count += 1;
+  }
+
+  public RecipeRespDto toDto() {
+    return RecipeRespDto.builder().id(id).name(name).count(count).build();
   }
 }

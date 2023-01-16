@@ -1,14 +1,15 @@
 import React from "react";
 // component
-import NutrientModal from "./Modals/NutrientModal";
+import NutrientModal from "./modals/NutrientModal";
 
-const NutrientComponent = ({ show, onHide, itemInfo, setItemInfo }) => {
+const NutrientComponent = (props) => {
   return (
     <NutrientModal
-      show={show}
-      onHide={onHide}
-      itemInfo={itemInfo}
-      setItemInfo={setItemInfo}
+      setItemReload={props.setItemReload}
+      show={props.show}
+      onHide={props.onHide}
+      itemInfo={props.itemInfo}
+      setItemInfo={props.setItemInfo}
     />
   );
 };

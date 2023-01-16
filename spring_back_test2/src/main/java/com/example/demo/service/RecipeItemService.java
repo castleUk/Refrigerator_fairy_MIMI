@@ -1,8 +1,8 @@
 package com.example.demo.service;
 
-import com.example.demo.dto.RecipeItemDto;
-import com.example.demo.dto.RecipeItemRequestDto;
-import com.example.demo.dto.RecipeItemResponseDto;
+import com.example.demo.dto.request.RecipeItemReqDto;
+import com.example.demo.dto.response.RecipeItemListRespDto;
+import com.example.demo.dto.response.RecipeItemRespDto;
 import com.example.demo.entity.Item;
 import com.example.demo.entity.Recipe;
 import com.example.demo.entity.RecipeItem;
@@ -25,56 +25,64 @@ public class RecipeItemService {
   private final ItemRepository itemRepository;
 
   //레시피아이템 등록
-  public RecipeItemDto addRecipeItem(RecipeItemRequestDto dto) {
+  public RecipeItemRespDto addRecipeItem(RecipeItemReqDto dto) {
     RecipeItem savedRecipeItem = recipeItemRepository.findByRecipeNameAndItemName(
-      dto.getRecipeName(),
-      dto.getItemName()
+      dto.getRecipe().getName(),
+      dto.getItem().getName()
     );
     if (savedRecipeItem != null) {
-      savedRecipeItem.addCount(dto.getItemCount());
-      return null;
+      return savedRecipeItem.toDTO();
     } else {
-      Recipe recipe = recipeRepository.findByName(dto.getRecipeName());
-      Item item = itemRepository.findByName(dto.getItemName());
+      Recipe recipe = recipeRepository.findByName(dto.getRecipe().getName());
+      Item item = itemRepository.findByName(dto.getItem().getName());
       RecipeItem recipeItem = RecipeItem
         .builder()
         .item(item)
         .recipe(recipe)
-        .count(dto.getItemCount())
         .build();
-      return RecipeItemDto.of(recipeItemRepository.save(recipeItem));
+
+      recipeItemRepository.save(recipeItem);
+      return recipeItem.toDTO();
     }
   }
 
-  //레시피 아이템 리스트
-  public List<RecipeItemResponseDto> recipeSearch(String name) {
-    List<RecipeItem> recipeItemList = recipeItemRepository.findByRecipeName(
-      name
-    );
-    List<RecipeItemResponseDto> recipeItemListDto = recipeItemList
+  //레시피로 검색시 재료 리스트
+  public RecipeItemListRespDto recipeSearch(String name) {
+    List<RecipeItemRespDto> recipeItemListDto = recipeItemRepository
+      .findByRecipeName(name)
       .stream()
-      .map(RecipeItemResponseDto::of)
+      .map(RecipeItem::toDTO)
       .collect(Collectors.toList());
 
-    return recipeItemListDto;
+    RecipeItemListRespDto recipeItemListRespDto = RecipeItemListRespDto
+      .builder()
+      .recipeItems(recipeItemListDto)
+      .build();
+
+    return recipeItemListRespDto;
   }
 
   //재료로 검색시 만들수 있는 레시피
-  public List<RecipeItemResponseDto> itemSearch(String name) {
-    List<RecipeItem> recipeItemList = recipeItemRepository.findByItemName(name);
-    List<RecipeItemResponseDto> recipeItemListDto = recipeItemList
+  public RecipeItemListRespDto itemSearch(String name) {
+    List<RecipeItemRespDto> recipeItemListDto = recipeItemRepository
+      .findByItemName(name)
       .stream()
-      .map(RecipeItemResponseDto::of)
+      .map(RecipeItem::toDTO)
       .collect(Collectors.toList());
 
-    return recipeItemListDto;
+    RecipeItemListRespDto recipeItemListRespDto = RecipeItemListRespDto
+      .builder()
+      .recipeItems(recipeItemListDto)
+      .build();
+
+    return recipeItemListRespDto;
   }
 
   //삭제
-  public void deleteRecipeItem(RecipeItemRequestDto dto) {
+  public void deleteRecipeItem(RecipeItemReqDto dto) {
     RecipeItem savedRecipeItem = recipeItemRepository.findByRecipeNameAndItemName(
-      dto.getRecipeName(),
-      dto.getItemName()
+      dto.getRecipe().getName(),
+      dto.getItem().getName()
     );
     recipeItemRepository.delete(savedRecipeItem);
   }

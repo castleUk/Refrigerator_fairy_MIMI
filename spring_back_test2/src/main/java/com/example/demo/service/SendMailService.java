@@ -1,7 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.dto.MailDto;
-import com.example.demo.dto.PwFinderRequestDto;
+import com.example.demo.dto.request.PwFinderRequestDto;
 import com.example.demo.entity.Member;
 import com.example.demo.repository.MemberRepository;
 import java.util.Optional;

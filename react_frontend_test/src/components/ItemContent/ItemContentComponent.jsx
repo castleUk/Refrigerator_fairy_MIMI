@@ -2,8 +2,6 @@ import React from "react";
 // template
 import Card from "react-bootstrap/Card";
 // component
-import NutrientComponent from "../nutrient/NutrientComponent";
-import RecipesComponent from "../recipe/RecipesContentList";
 import WeatherComponent from "../weather/WeatherComponent";
 import TimeComponent from "../time/TimeComponent";
 

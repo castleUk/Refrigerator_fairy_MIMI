@@ -5,7 +5,7 @@ import Card from "react-bootstrap/Card";
 
 import { BsPlusCircleDotted } from "react-icons/bs";
 import FredgeClose from "../fredge/FredgeClose";
-import FreezerCreateModal from "./Modals/FreezerCreateModal";
+import FreezerCreateModal from "./modals/FreezerCreateModal";
 
 const FreezerCreateForm = ({ onRegister }) => {
   //냉장고 이름

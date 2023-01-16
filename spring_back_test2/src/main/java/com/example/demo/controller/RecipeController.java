@@ -1,9 +1,12 @@
 package com.example.demo.controller;
 
-import com.example.demo.dto.RecipeDto;
+import com.example.demo.dto.request.RecipeReqDto;
+import com.example.demo.dto.response.CMRespDto;
+import com.example.demo.dto.response.RecipeListRespDto;
+import com.example.demo.dto.response.RecipeRespDto;
 import com.example.demo.service.RecipeService;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,35 +24,93 @@ public class RecipeController {
 
   private final RecipeService recipeService;
 
-  @PostMapping("/add") //상품추가
-  public ResponseEntity<Long> addRecipe(@RequestBody RecipeDto recipeDto)
+  @PostMapping("/add") //레시피 추가
+  public ResponseEntity<?> addRecipe(@RequestBody RecipeReqDto recipeReqDto)
     throws Exception {
-    return ResponseEntity.ok(recipeService.register(recipeDto));
+    RecipeRespDto recipeRespDto = recipeService.register(recipeReqDto);
+
+    return new ResponseEntity<>(
+      CMRespDto
+        .builder()
+        .code(1)
+        .msg("레시피 추가 성공")
+        .body(recipeRespDto)
+        .build(),
+      HttpStatus.CREATED
+    );
   }
 
   @PutMapping("/{recipeId}") //레시피 수정 망
-  public void modifyRecipe(
+  public ResponseEntity<?> modifyRecipe(
     @PathVariable("recipeId") Long recipeId,
-    @RequestBody RecipeDto recipeDto
+    @RequestBody RecipeReqDto recipeReqDto
   ) throws Exception {
-    recipeService.modify(recipeDto);
+    RecipeRespDto recipeRespDto = recipeService.modify(recipeReqDto);
+
+    return new ResponseEntity<>(
+      CMRespDto
+        .builder()
+        .code(1)
+        .msg("레시피 수정 성공")
+        .body(recipeRespDto)
+        .build(),
+      HttpStatus.OK
+    );
   }
 
   @GetMapping // 레시피 목록 받기
-  public ResponseEntity<List<RecipeDto>> readAllRecipe() throws Exception {
-    return ResponseEntity.ok(recipeService.readAll());
+  public ResponseEntity<?> readAllRecipe() throws Exception {
+    RecipeListRespDto recipeListRespDto = recipeService.readAll();
+    return new ResponseEntity<>(
+      CMRespDto
+        .builder()
+        .code(1)
+        .msg("레시피 전체 목록 받기 성공")
+        .body(recipeListRespDto)
+        .build(),
+      HttpStatus.OK
+    );
   }
 
   @GetMapping("/{recipeId}")
-  public ResponseEntity<RecipeDto> readOneRecipe(
+  public ResponseEntity<?> readOneRecipe(
     @PathVariable("recipeId") Long recipeId
   ) throws Exception {
-    return ResponseEntity.ok(recipeService.readOne(recipeId));
+    RecipeRespDto recipeRespDto = recipeService.readOne(recipeId);
+
+    return new ResponseEntity<>(
+      CMRespDto
+        .builder()
+        .code(1)
+        .msg("레시피 한개 목록 받기 성공")
+        .body(recipeRespDto)
+        .build(),
+      HttpStatus.OK
+    );
   }
 
   @DeleteMapping("/{recipeId}")
-  public void deleteRecipe(@PathVariable("itemId") Long recipeId)
-    throws Exception {
+  public ResponseEntity<?> deleteRecipe(
+    @PathVariable("recipeId") Long recipeId
+  ) throws Exception {
     recipeService.remove(recipeId);
+    return new ResponseEntity<>(
+      CMRespDto
+        .builder()
+        .code(1)
+        .msg("레시피 한개 목록 받기 성공")
+        .body(null)
+        .build(),
+      HttpStatus.OK
+    );
+  }
+
+  @PutMapping("/count/{recipeId}")
+  public ResponseEntity<?> addCount(@PathVariable("recipeId") Long recipeId) {
+    RecipeRespDto dto = recipeService.addCount(recipeId);
+    return new ResponseEntity<>(
+      CMRespDto.builder().code(1).msg("카운트 업!").body(dto).build(),
+      HttpStatus.OK
+    );
   }
 }

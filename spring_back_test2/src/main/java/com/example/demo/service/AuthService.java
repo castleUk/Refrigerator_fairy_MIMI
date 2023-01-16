@@ -1,8 +1,8 @@
 package com.example.demo.service;
 
-import com.example.demo.dto.MemberRequestDto;
-import com.example.demo.dto.MemberResponseDto;
 import com.example.demo.dto.TokenDto;
+import com.example.demo.dto.request.MemberReqDto;
+import com.example.demo.dto.response.MemberRespDto;
 import com.example.demo.entity.Member;
 import com.example.demo.jwt.TokenProvider;
 import com.example.demo.repository.MemberRepository;
@@ -28,17 +28,17 @@ public class AuthService {
   private final TokenProvider tokenProvider;
   private final JwtService jwtService;
 
-  public MemberResponseDto signup(MemberRequestDto requestDto) {
+  public MemberRespDto signup(MemberReqDto requestDto) {
     if (memberRepository.existsByUserEmail(requestDto.getUserEmail())) {
       throw new RuntimeException("이미 가입되어 있는 유저입니다");
     }
 
-    Member member = requestDto.toMember(passwordEncoder);
-    return MemberResponseDto.of(memberRepository.save(member));
+    Member member = memberRepository.save(requestDto.toEntity(passwordEncoder));
+    return member.toDto();
   }
 
   //로그인
-  public TokenDto login(MemberRequestDto requestDto) {
+  public TokenDto login(MemberReqDto requestDto) {
     UsernamePasswordAuthenticationToken authenticationToken = requestDto.toAuthentication();
 
     Authentication authentication = managerBuilder

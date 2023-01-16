@@ -1,10 +1,8 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import * as api from "../../lib/api";
 import RegisterForm from "./RegisterForm";
 
 const RegisterContainer = () => {
-  const navigate = useNavigate();
   //등록처리
   const onRegister = async (userEmail, userPw, userName) => {
     try {

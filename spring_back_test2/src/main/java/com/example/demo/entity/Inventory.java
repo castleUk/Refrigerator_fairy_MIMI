@@ -1,5 +1,7 @@
 package com.example.demo.entity;
 
+import com.example.demo.dto.response.InventoryRespDto;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -30,11 +33,23 @@ public class Inventory extends BaseEntity {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE )
+  @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
   @JoinColumn(name = "freezer_id")
   private Freezer freezer;
 
-  public static Inventory createInventory(Freezer freezer) {
-    return Inventory.builder().freezer(freezer).build();
+  @OneToMany(
+    mappedBy = "inventory",
+    fetch = FetchType.LAZY,
+    cascade = CascadeType.REMOVE
+  )
+  private List<InventoryItem> inventoryItem;
+
+  public InventoryRespDto toDto() {
+    return InventoryRespDto
+      .builder()
+      .freezer(freezer)
+      .inventoryItem(inventoryItem)
+      .id(id)
+      .build();
   }
 }

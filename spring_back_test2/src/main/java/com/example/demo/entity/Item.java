@@ -1,6 +1,7 @@
 package com.example.demo.entity;
 
-import com.example.demo.dto.ItemDto;
+import com.example.demo.dto.request.ItemReqDto;
+import com.example.demo.dto.response.ItemRespDto;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -33,7 +34,7 @@ public class Item extends BaseEntity {
   private String img;
 
   @Column(nullable = false)
-  private int per;
+  private String per;
 
   @Column(nullable = false)
   private int kcal;
@@ -56,16 +57,20 @@ public class Item extends BaseEntity {
   @Column(nullable = false)
   private int protein;
 
-  public void change(ItemDto itemDto) {
-    this.name = itemDto.getName();
-    this.img = itemDto.getImg();
-    this.per = itemDto.getPer();
-    this.kcal = itemDto.getKcal();
-    this.fat = itemDto.getFat();
-    this.chol = itemDto.getChol();
-    this.sodium = itemDto.getSodium();
-    this.potassium = itemDto.getPotassium();
-    this.carb = itemDto.getCarb();
-    this.protein = itemDto.getProtein();
+  public void change(ItemReqDto dto) {
+    this.name = dto.getName();
+    this.img = dto.getImg();
+    this.per = dto.getPer();
+    this.kcal = dto.getKcal();
+    this.fat = dto.getFat();
+    this.chol = dto.getChol();
+    this.sodium = dto.getSodium();
+    this.potassium = dto.getPotassium();
+    this.carb = dto.getCarb();
+    this.protein = dto.getProtein();
+  }
+
+  public ItemRespDto toDto() {
+    return ItemRespDto.builder().id(id).name(name).img(img).build();
   }
 }
