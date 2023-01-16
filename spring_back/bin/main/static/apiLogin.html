@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div>
+        <input type="text" placeholder="아이디를" id="mid" value="" >
+        <input type="password" placeholder="비밀번호를 입력해주세용" id="mpw" value="">
+        <button class="btn1">전송</button>
+    </div>
+    
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+
+
+
+
+    document.querySelector(".btn1").addEventListener("click",()=> {
+        const mid = document.getElementById("mid");
+        const mpw = document.getElementById("mpw");
+
+        const data = {"mid": mid.value, "mpw":mpw.value};
+
+        console.log(data);
+
+        axios.post("http://localhost:8080/generateToken", data).then(res => {
+            const accessToken = res.data.accessToken
+            const refreshToken = res.data.refreshToken
+
+            localStorage.setItem("accessToken", accessToken)
+            localStorage.setItem("refreshToken", refreshToken)
+
+        })
+
+    }, false)
+</script>
+
+</body>
+</html>
