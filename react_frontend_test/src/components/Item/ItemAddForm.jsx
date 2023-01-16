@@ -48,9 +48,9 @@ const ItemAddForm = ({ onFreezerItemAdd, hide, filtered }) => {
 
   return (
     <div className="ingr">
-      {filtered.map((item) => {
+      {filtered.map((item, index) => {
         return (
-          <div className="ingr-img">
+          <div className="ingr-img" key={index}>
             <img className="ingr-onion img" src={item.img} />
           </div>
         );

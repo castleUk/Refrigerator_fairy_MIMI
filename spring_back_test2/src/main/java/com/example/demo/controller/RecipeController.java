@@ -95,12 +95,7 @@ public class RecipeController {
   ) throws Exception {
     recipeService.remove(recipeId);
     return new ResponseEntity<>(
-      CMRespDto
-        .builder()
-        .code(1)
-        .msg("레시피 한개 목록 받기 성공")
-        .body(null)
-        .build(),
+      CMRespDto.builder().code(1).msg("레시피 삭제 성공").body(null).build(),
       HttpStatus.OK
     );
   }
