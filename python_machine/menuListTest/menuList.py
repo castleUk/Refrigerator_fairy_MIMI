@@ -3,7 +3,8 @@ import pandas as pd
 import json
 
 # 파일
-path = "./python_machine/menu/recipe.json"
+# path = "./python_machine/menuListTest/recipe.json"
+path = "./menuListTest/recipe.json"
 
 with open(path, "r", encoding="utf-8") as json_file:
   json_data = json.load(json_file)
@@ -195,27 +196,7 @@ for menu in menuList:
 print(menuDict)
 
 # 레시피 json 저장
-path2 = './python_machine/menu/menu.json'
-with open(path2, 'w', encoding="utf-8") as file:
-  json.dump(menuDict, file, indent="\t", ensure_ascii=False)
-  # file.write(',')
-
-
-# 제철 음식 참고 : https://iammeal.tistory.com/4
-'''
-[계절]
-봄 (3, 4, 5월)
-여름 (6, 7, 8월)
-가을 (9, 10, 11월)
-겨울 (12, 1, 2월)
-
--------------------------
-
-[시간]
-새벽 (0시 ~ 5시)
-아침 (6시 ~ 10시)
-점심 (11시 ~ 14시)
-낮 (11시 ~ 16시)
-저녁 (17시 ~ 20시)
-밤 (21시 ~ 24시)
-'''
+# path2 = './python_machine/menuListTest/menu.json'
+# with open(path2, 'w', encoding="utf-8") as file:
+#   json.dump(menuDict, file, indent="\t", ensure_ascii=False)
+#   # file.write(',')
