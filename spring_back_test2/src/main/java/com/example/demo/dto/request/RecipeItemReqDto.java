@@ -12,11 +12,19 @@ public class RecipeItemReqDto {
 
   private Long id;
 
+  private String count;
+
   private Item item;
 
   private Recipe recipe;
 
   public RecipeItem toEntity() {
-    return RecipeItem.builder().id(id).item(item).recipe(recipe).build();
+    return RecipeItem
+      .builder()
+      .id(id)
+      .item(item)
+      .count(count)
+      .recipe(recipe)
+      .build();
   }
 }

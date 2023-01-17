@@ -46,6 +46,7 @@ public class RecipeList extends BaseEntity {
     return RecipeContentRespDto
       .builder()
       .id(id)
+      .recipeListNo(recipeListNo)
       .imgUrl(imgUrl)
       .recipeList(recipeList)
       .build();

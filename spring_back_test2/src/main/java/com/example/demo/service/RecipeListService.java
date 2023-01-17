@@ -13,7 +13,6 @@ import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.stereotype.Service;
 
 @Service
@@ -43,18 +42,18 @@ public class RecipeListService {
   public RecipeContentListRespDto recipeListSearch(String name) {
     Recipe recipe = recipeRepository.findByName(name);
     List<RecipeList> recipeList = recipeListRepository.findByRecipe(recipe);
-    
-    log.info("recipe" + recipe);
+
+    log.info("fucking" + recipeList);
     List<RecipeContentRespDto> recipeItemListDto = recipeList
       .stream()
       .map(RecipeList::toDto)
       .collect(Collectors.toList());
-      log.info("recipe" + recipeItemListDto);
+    log.info("recipe" + recipeItemListDto);
     RecipeContentListRespDto recipeContentListRespDto = RecipeContentListRespDto
       .builder()
       .recipeContentList(recipeItemListDto)
       .build();
-      log.info("recipe" + recipeContentListRespDto);
+    log.info("recipe" + recipeContentListRespDto);
     return recipeContentListRespDto;
   }
   //   //재료로 검색시 만들수 있는 레시피

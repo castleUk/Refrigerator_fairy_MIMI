@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { Paging } from "../../common/Paging";
 import { useNavigate } from "react-router-dom";
 
-const RecipeListComponent = () => {
+const RecipeListComponent = (props) => {
   const [recipeList, setRecipeList] = useState([]);
   const [currentpage, setCurrentpage] = useState(1); //현재페이지
   const [postPerPage] = useState(10); //페이지당 아이템 개수
@@ -23,7 +23,7 @@ const RecipeListComponent = () => {
   }, [currentpage, indexOfFirstPost, indexOfLastPost, recipeList, postPerPage]);
 
   useEffect(() => {
-    //전체 레시피 받기
+    //전체 레시피 잘라서 받기
     const onRecipeList = async () => {
       try {
         const response = await instance.get(

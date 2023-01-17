@@ -29,6 +29,9 @@ public class RecipeItem extends BaseEntity {
   @Column(name = "recipeItem_id")
   private Long id;
 
+  @Column
+  private String count;
+
   //재료
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "item_id")
@@ -42,7 +45,9 @@ public class RecipeItem extends BaseEntity {
   public RecipeItemRespDto toDTO() {
     return RecipeItemRespDto
       .builder()
+      .id(id)
       .itemName(item.getName())
+      .itemCount(count)
       .recipeName(recipe.getName())
       .recipeImg(recipe.getImg())
       .build();

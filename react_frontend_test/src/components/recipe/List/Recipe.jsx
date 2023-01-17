@@ -1,7 +1,7 @@
 import React from "react";
 import RecipeData from "../../../db/recipe.json";
 import { Button } from "react-bootstrap";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { instance } from "../../api/Api";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -10,25 +10,66 @@ const Recipe = () => {
   const param = useParams();
 
   const [recipe, setRecipe] = useState([]);
+  const [recipeList, setRecipeList] = useState([]);
+  const [recipeItem, setRecipeItem] = useState([]);
 
   const recipeId = param.recipeId;
   const recipeItems = RecipeData[5];
-
-  console.log("레시피이름" + param.recipeName);
-
   useEffect(() => {
-    //전체 레시피 받기
+    //레시피 이름, 레시피 이미지
     const onRecipe = async () => {
       try {
         const response = await instance.get(`/api/recipe/${recipeId}`);
         console.log("레시피데이터" + JSON.stringify(response.data.body));
         setRecipe(response.data.body);
+        onRecipeContent(response.data.body.name);
+        onRecipeItem(response.data.body.name);
       } catch (error) {
         console.log(error);
       }
     };
     onRecipe();
   }, []);
+
+  //레시피 리스트
+  const onRecipeContent = async (name) => {
+    try {
+      const response = await instance.get(`/api/recipeList/${name}`);
+      console.log(
+        "레시피리스트 데이터" +
+          JSON.stringify(response.data.body.recipeContentList)
+      );
+      setRecipeList(response.data.body.recipeContentList);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const onRecipeItem = async (name) => {
+    try {
+      const response = await instance.get(`/api/recipeItem/${name}`);
+      console.log(
+        "레시피아이템" + JSON.stringify(response.data.body.recipeItems)
+      );
+      setRecipeItem(response.data.body.recipeItems);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const onRecipeCount = async () => {
+    try {
+      const response = await instance.put(`/api/recipe/count/${recipeId}`);
+      console.log("레시피아이템" + JSON.stringify(response));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const countUpHandler = (e) => {
+    e.preventDefault();
+    onRecipeCount();
+  };
 
   return (
     <div className="recipe">
@@ -44,29 +85,29 @@ const Recipe = () => {
             <span className="ingr-sub">{recipeItems.ingre_sub}</span>
           </div>
           <div className="ingr-content">
-            {recipeItems.ingrs.map((i) => (
-              <div className="ingr" key={recipeItems.id}>
-                <span className="ingr-name">{i.ingr_name}</span>
-                <span className="ingr-value">{i.ingr_value}</span>
+            {recipeItem.map((i) => (
+              <div className="ingr" key={i.id}>
+                <span className="ingr-name">{i.itemName}</span>
+                <span className="ingr-value">{i.itemCount}</span>
               </div>
             ))}
           </div>
         </div>
 
         <div className="recipe-desc">
-          {recipeItems.step.map((s) => (
-            <div className="step" key={recipeItems.id}>
+          {recipeList.map((r) => (
+            <div className="step" key={r.id}>
               <div className="step-desc">
-                <div className="step-num">{s.step_num}</div>
-                <span className="step-cont">{s.step_cont}</span>
+                <div className="step-num">{r.recipeListNo}</div>
+                <span className="step-cont">{r.recipeList}</span>
               </div>
-              <img className="step-img" src={s.step_img} alt={s.step_num} />
+              <img className="step-img" src={r.imgUrl} alt={r.recipeListNo} />
             </div>
           ))}
         </div>
       </div>
       <div className="content-footer">
-        <Button variant="primary" className="btn-make">
+        <Button variant="primary" className="btn-make" onClick={countUpHandler}>
           만들기
         </Button>
       </div>
