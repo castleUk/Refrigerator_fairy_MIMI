@@ -14,7 +14,7 @@ const RecipePage = () => {
   const [filterItem, setFilterItem] = useState([]);
 
   useEffect(() => {
-    //전체 레시피 잘라서 받기
+    //전체 레시피 받기
     const onRecipeList = async () => {
       try {
         const response = await instance.get(`/api/recipe`);
@@ -37,6 +37,7 @@ const RecipePage = () => {
         return item.name.includes(search);
       });
       setFilterItem(name);
+      console.log("필터된레시피" + name);
     }
   }, [search]);
 

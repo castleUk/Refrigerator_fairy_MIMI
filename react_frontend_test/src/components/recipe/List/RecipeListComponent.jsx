@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 const RecipeListComponent = (props) => {
   const [recipeList, setRecipeList] = useState([]);
+  const [likedList, setLikedList] = useState([]);
   const [currentpage, setCurrentpage] = useState(1); //현재페이지
   const [postPerPage] = useState(10); //페이지당 아이템 개수
 
@@ -42,9 +43,40 @@ const RecipeListComponent = (props) => {
   const setPage = (e) => {
     setCurrentpage(e);
   };
-
+  useEffect(() => {
+    const onLikedList = async () => {
+      try {
+        const response = await instance.get(`/api/liked/me`);
+        console.log("나의 좋아요 데이터" + JSON.stringify(response.data.body));
+        setLikedList(response.data.body.likedRecipeRespDto);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    onLikedList();
+  }, []);
   return (
     <>
+      <h5>
+        좋아요한 레시피 <span>(1050)</span>
+      </h5>
+      <div className="recipe-component">
+        <div className="recipe-content">
+          <div className="recipe-list">
+            {likedList.map((r) => (
+              <div className="recipe-item" key={r.id}>
+                <img
+                  className="list-img"
+                  src={r.recipe.img}
+                  alt={r.recipe.name}
+                  onClick={() => navigate(`/recipe/${r.recipe.id}`)}
+                />
+                <div className="list-title">{r.recipe.name}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
       <h5>
         레시피 <span>(1050)</span>
       </h5>

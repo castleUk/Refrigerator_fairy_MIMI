@@ -8,10 +8,12 @@ import { useState } from "react";
 
 const Recipe = () => {
   const param = useParams();
+  const navigate = useNavigate();
 
   const [recipe, setRecipe] = useState([]);
   const [recipeList, setRecipeList] = useState([]);
   const [recipeItem, setRecipeItem] = useState([]);
+  const [isLiked, setIsLiked] = useState(false);
 
   const recipeId = param.recipeId;
   const recipeItems = RecipeData[5];
@@ -29,6 +31,7 @@ const Recipe = () => {
       }
     };
     onRecipe();
+    onExistLikedRecipe();
   }, []);
 
   //레시피 리스트
@@ -66,9 +69,56 @@ const Recipe = () => {
     }
   };
 
+  const onAddLikedRecipe = async () => {
+    const data = param;
+    console.log("데이터" + JSON.stringify(data));
+    try {
+      const response = await instance.post(`/api/liked`, data);
+      console.log("좋아요한 아이템 추가" + JSON.stringify(response));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const onExistLikedRecipe = async () => {
+    const data = param.recipeId;
+    console.log("데이터" + JSON.stringify(data));
+    try {
+      const response = await instance.get(`/api/liked/${data}`);
+      console.log("한개 조회 완료" + response.data.body);
+      if (response.data.body == true) {
+        setIsLiked(true);
+      } else {
+        setIsLiked(false);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const onDeleteLikedRecipe = async () => {
+    const data = param.recipeId;
+
+    console.log("데이터" + JSON.stringify(data));
+    try {
+      const response = await instance.delete(`/api/liked/${data}`);
+      console.log("좋아요한 아이템 추가" + JSON.stringify(response));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const countUpHandler = (e) => {
     e.preventDefault();
     onRecipeCount();
+    setIsLiked(!isLiked);
+    onAddLikedRecipe();
+  };
+
+  const countDownHandler = (e) => {
+    e.preventDefault();
+    onRecipeCount();
+    setIsLiked(!isLiked);
+    onDeleteLikedRecipe();
   };
 
   return (
@@ -107,9 +157,32 @@ const Recipe = () => {
         </div>
       </div>
       <div className="content-footer">
-        <Button variant="primary" className="btn-make" onClick={countUpHandler}>
-          만들기
+        <Button
+          variant="primary"
+          className="btn-make"
+          onClick={() => {
+            navigate("/recipe");
+          }}
+        >
+          뒤로가기
         </Button>
+        {!isLiked ? (
+          <Button
+            variant="primary"
+            className="btn-make"
+            onClick={countUpHandler}
+          >
+            좋아요
+          </Button>
+        ) : (
+          <Button
+            variant="primary"
+            className="btn-make"
+            onClick={countDownHandler}
+          >
+            좋아요 취소
+          </Button>
+        )}
       </div>
     </div>
   );

@@ -1,6 +1,9 @@
 package com.example.demo.entity;
 
 import com.example.demo.dto.response.MemberRespDto;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -8,6 +11,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,6 +37,10 @@ public class Member extends BaseEntity {
 
   @Enumerated(EnumType.STRING)
   private Authority authority;
+
+  @JsonIgnore
+  @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+  private List<LikedRecipe> likedRecipe;
 
   @Builder
   public Member(
