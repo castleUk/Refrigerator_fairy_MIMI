@@ -17,7 +17,7 @@ const RecipePage = () => {
     //전체 레시피 받기
     const onRecipeList = async () => {
       try {
-        const response = await instance.get(`/api/recipe`);
+        const response = await instance.get(`/api/recipe/all`);
         setRecipeList(response.data.body.recipes);
         console.log("리스트" + JSON.stringify(recipeList));
       } catch (error) {
@@ -53,6 +53,7 @@ const RecipePage = () => {
               type="text"
               onChange={(e) => {
                 setSearch(e.target.value);
+                setIsSearch(true);
               }}
             />
             <Button variant="outline-primary" className="btn-find">
@@ -60,7 +61,11 @@ const RecipePage = () => {
             </Button>
           </InputGroup>
         </div>
-        <RecipeListComponent filterItem={filterItem} isSearch={isSearch} />
+        <RecipeListComponent
+          filterItem={filterItem}
+          recipeList={recipeList}
+          isSearch={isSearch}
+        />
       </div>
     </div>
   );

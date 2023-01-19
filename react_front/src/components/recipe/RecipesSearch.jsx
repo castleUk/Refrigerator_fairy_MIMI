@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { instance } from "../api/Api";
 import RecipeContentModal from "./modals/RecipeContentModal";
 // component
 
 const RecipesSearch = ({ itemName }) => {
+  const navigate = useNavigate();
   const [recipeNameList, setRecipeNameList] = useState([]);
   const [recipeShow, setRecipeShow] = useState(false);
   const [recipeName, setRecipeName] = useState();
@@ -32,13 +34,13 @@ const RecipesSearch = ({ itemName }) => {
 
   return (
     <>
-      {recipeNameList.map((recipeNameList) => (
+      {recipeNameList.slice(0, 5).map((recipeNameList) => (
         <div className="item col" key={recipeNameList.recipeName}>
           <img
             alt="재료 사진"
             className="item-img"
             src={recipeNameList.recipeImg}
-            onClick={() => itemHandleShow(recipeNameList.recipeName)}
+            onClick={() => navigate(`/recipe/${recipeNameList.recipeId}`)}
           />
           <div className="item-title">{recipeNameList.recipeName}</div>
         </div>
