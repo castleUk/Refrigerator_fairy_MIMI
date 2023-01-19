@@ -1,9 +1,7 @@
 // template
-import Button from "react-bootstrap/Button";
+import { useEffect, useState } from "react";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
-import { useState } from "react";
-import { useEffect } from "react";
 
 const ItemSearchForm = (props) => {
   const itemList = props.itemList;
@@ -25,7 +23,7 @@ const ItemSearchForm = (props) => {
       });
       setFilterItem(name);
     }
-  }, [search]);
+  }, [search, itemList]);
   console.log(filterItem);
   return (
     <div className="ingr-search search">
@@ -42,20 +40,22 @@ const ItemSearchForm = (props) => {
         </InputGroup>
       </Form>
       <div className="search-result-component">
-      {isSearch &&
-        filterItem.map((it) => {
-          return (
-            <div className="search-result-content">
-              <div class="search-result"
-                onClick={() => {
-                  props.itemNameHandler(it.name);
-                }}
-              >
-                {it.name}
+        {isSearch &&
+          filterItem.map((it) => {
+            return (
+              <div className="search-result-content">
+                <div
+                  class="search-result"
+                  onClick={() => {
+                    props.itemNameHandler(it.name);
+                    setIsSearch(false);
+                  }}
+                >
+                  {it.name}
+                </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
       </div>
     </div>
   );
