@@ -109,17 +109,13 @@ const Header = () => {
             {isLogin && (
               <li className="sub-item" onClick={logoutHandler}>
                 <Link to="/" className="sub-link">
-                  <HiOutlineLogout className="icon" />
-                  로그아웃
-                </Link>
+                  <HiOutlineLogout className="icon" /></Link>
               </li>
             )}
             <li className="sub-item">
-              <Dropdown className="user-dropdown">
-                <Dropdown.Toggle id="userDropdown" onClick={myPageHandler}>
-                  {myInfo.userName} 님
-                </Dropdown.Toggle>
-              </Dropdown>
+              <div className="user-profil" onClick={myPageHandler}>
+              {myInfo.userName} 님
+              </div>
             </li>
           </ul>
         </div>

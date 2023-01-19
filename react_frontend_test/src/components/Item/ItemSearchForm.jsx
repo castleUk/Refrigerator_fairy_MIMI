@@ -41,18 +41,22 @@ const ItemSearchForm = (props) => {
           />
         </InputGroup>
       </Form>
+      <div className="search-result-component">
       {isSearch &&
         filterItem.map((it) => {
           return (
-            <div
-              onClick={() => {
-                props.itemNameHandler(it.name);
-              }}
-            >
-              {it.name}
+            <div className="search-result-content">
+              <div class="search-result"
+                onClick={() => {
+                  props.itemNameHandler(it.name);
+                }}
+              >
+                {it.name}
+              </div>
             </div>
           );
         })}
+      </div>
     </div>
   );
 };

@@ -46,6 +46,14 @@
     font-weight: 600;
     color: $default-color;
   }
+  .user-profil{
+    padding: 0px;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 40px;
+    color: #121212;
+    cursor: pointer;
+  }
 }
 
 #userDropdown{
@@ -376,7 +384,6 @@
     width: 360px;
     background-color: $white;
     border: 2px solid $default-color;
-    border-radius: 10px;
     overflow: hidden;
     transition: 0.5s;
   }
@@ -408,12 +415,29 @@
       height: 100%;
     }
   }
+  .content-footer{
+    .btn-send{
+      .icon{
+        color: $white;
+      }
+    }
+    .form-control{
+      font-size: 14px;
+    }
+    .form-control, .btn{
+      border-radius: 0;
+    }
+  }
 }
 
 .bot{
+  font-size: 14px;
   display: flex;
-  flex-direction: row;
-  transition: 0.4s;
+  flex-direction: column;
+  .bot-cont{
+    display: flex;
+    flex-direction: row;
+  }
   .bot-img{
     display: flex;
     width: 60px;
@@ -433,48 +457,150 @@
     flex-grow: 1;
   }
   .bot-name{
-    font-size: 14px;
-    padding-top: 10px;
+    line-height: 60px;
+    padding-left: 10px;
   }
-  .bot-select{
-    font-size: 14px;
-    .list-group-item{
-      transition: 0.4s;
-      &:hover{
-        background-color: $default-card-color;
-        cursor: pointer;
-      }
-    }
-  }
-  &.right{
-    .bot-check{
-      margin-left: auto;
-    }
-  }
-  // 봇 선택
-  .bot-check{
-    padding: 10px;
-    margin: 10px 0;
-    background-color: $default-color;
-    color: $white;
-    border-radius: 10px;
-    font-size: 14px;
-  }
-  // 답변
-  .answer{
-    margin-bottom: 10px;
-    .card-title{
-      padding: 10px 0px;
-      font-size: 16px;
-    } 
-    .card-body{
-      padding: 10px;
-    }
-    .card-text{
-      font-size: 14px;
+  .list-group-item{
+    &:hover{
+      background-color: $default-card-color;
+      cursor: pointer;
     }
   }
 }
+
+.q-bot{
+  display: flex;
+  flex-direction: column;
+  .q-list{
+    margin-left: 60px;
+    padding: 10px 0;
+  }
+}
+
+.qs-bot{
+  display: flex;
+  flex-direction: column;
+  margin-left: auto;
+  .q-selected{
+    padding: 10px;
+    background-color: $default-color;
+    border-radius: 5px;
+    color: $white;
+    margin-bottom: 10px;
+  }
+}
+
+.a-bot{
+  .a-list{
+    margin: 10px 0px 10px 60px;
+    padding: 10px;
+    border: $border;
+    border-radius: 5px;
+  }
+  .btn-group{
+    margin: 0px 0px 10px 60px;
+  }
+  .btn{
+    font-size: 14px;
+  }
+  p{
+    margin: 0;
+  }
+}
+
+// .bot-chatting{
+//   .content-header{
+//     padding: 10px;
+//     background-color: $default-color;
+//     color: $white;
+//     .title{
+//       margin-bottom: 0px;
+//       font-size: 16px;
+//       line-height: 24px;
+//     }
+//     .icon{
+//       width: 24px;
+//       height: 24px;
+//       margin-left: auto;
+//       color: $white;
+//       cursor: pointer;
+//     }
+//   }
+//   .content-body{
+//     padding: 10px;
+//     height: 500px;
+//     overflow: auto;
+//     .bot-list{
+//       height: 100%;
+//     }
+//   }
+// }
+
+// .bot{
+//   display: flex;
+//   flex-direction: column;
+//   transition: 0.4s;
+//   .bot-img{
+//     display: flex;
+//     width: 60px;
+//     height: 60px;
+//     background-color: $default-color;
+//     border-radius: 20px;
+//     flex: 0 0 60px;
+//     .icon{
+//       width: 32px;
+//       height: 100%;
+//       color: #fff;
+//       margin: auto;
+//     }
+//   }
+//   .bot-text{
+//     padding-left: 20px;
+//     flex-grow: 1;
+//   }
+//   .bot-name{
+//     font-size: 14px;
+//     padding-top: 10px;
+//   }
+//   .bot-select{
+//     font-size: 14px;
+//     .list-group-item{
+//       transition: 0.4s;
+//       &:hover{
+//         background-color: $default-card-color;
+//         cursor: pointer;
+//       }
+//     }
+//   }
+//   &.right{
+//     .bot-check{
+//       margin-left: auto;
+//     }
+//   }
+//   // 봇 선택
+//   .bot-check{
+//     padding: 10px;
+//     margin: 10px 0;
+//     background-color: $default-color;
+//     color: $white;
+//     border-radius: 10px;
+//     font-size: 14px;
+//   }
+//   // 답변
+//   .answer{
+//     margin-bottom: 10px;
+//     .card-title{
+//       padding: 10px 0px;
+//       font-size: 16px;
+//     } 
+//     .card-body{
+//       padding: 10px;
+//     }
+//     .card-text{
+//       font-size: 14px;
+//     }
+//   }
+// }
 
 .btn-bot{
   width: 80px;
@@ -580,8 +706,8 @@
     flex: 0 0 140px;
     padding: 20px;
     .img{
-      width: 60px;
-      height: 60px;
+      width: 100px;
+      height: 100px;
       border-radius: 60px;
       border: 1px solid #d1d1d1;
     }
@@ -590,6 +716,7 @@
     display: flex;
     flex-direction: row;
     flex: 0 0 calc(100% - 140px);
+    margin-left: auto;
     .ingr-title{
       font-weight: 500;
       flex: 0 0 200px;
@@ -650,13 +777,20 @@
 .search-result-content{
   background: $white;
   border: $border;
+  height: auto;
+  max-height: 186px;
+  overflow-y: auto;
 }
 
 .search-result{
   padding: 10px;
   display: flex;
   flex-direction: row;
+  font-size: 14px;
   cursor: pointer;
+  &:hover{
+    background-color: $default-card-color;
+  }
   &.nodata{
     cursor: default;
   }
@@ -774,6 +908,39 @@
   .modal-footer{
     border-top: none;
     margin: auto;
+  }
+}
+
+.user-detail-modal{
+  .modal-header{
+    border-bottom: none;
+    .title{
+      margin-bottom: 0px;
+    }
+    .btn-close{
+      margin-bottom: auto;
+    }
+  }
+  .modal-body{
+    .table{
+      td, th{
+        font-size: 14px;
+      }
+    }
+  }
+  form{
+    display: flex;
+    flex-direction: column;
+  }
+  .btn-change{
+    margin-left: auto;
+  }
+  .user-content{
+    display: flex;
+    flex-direction: row;
+    .user{
+      flex: 0 0 50%;
+    }
   }
 }
 

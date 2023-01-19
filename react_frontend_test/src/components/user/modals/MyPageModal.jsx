@@ -99,13 +99,17 @@ const MyPageModal = (props) => {
         size="lg"
         show={props.show}
         onHide={props.onHide}
-        className="ingr-detail-modal"
+        className="user-detail-modal"
       >
-        <Modal.Header closeButton></Modal.Header>
+        <Modal.Header closeButton>
+          <h3 className="title">회원정보수정</h3>
+        </Modal.Header>
 
         <Modal.Body>
-          <div>{props.myInfo.userEmail}</div>
-          <div>{props.myInfo.userName}</div>
+          <div className="user-content mb-3 ">
+            <div className="user user-name">{props.myInfo.userName}</div>
+            <div className="user user-email">{props.myInfo.userEmail}</div>
+          </div>
 
           <Form onSubmit={submitHandler}>
             <Form.Group className="mb-3 form-group" controlId="exPassword">
@@ -155,14 +159,13 @@ const MyPageModal = (props) => {
             </Form.Group>
             <Button
               type="submit"
-              className="btn-register"
+              className="btn-change"
               disabled={!isUserNewPwCk}
             >
               비밀번호 변경
             </Button>
           </Form>
         </Modal.Body>
-        <Modal.Footer></Modal.Footer>
       </Modal>
     </>
   );
