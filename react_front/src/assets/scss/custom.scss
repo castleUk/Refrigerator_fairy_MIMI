@@ -219,6 +219,16 @@
   .login-content{
     height: 100%;
   }
+  .img{
+    width: 100%;
+  }
+  .fredge{
+    background-image: url('../images/bg/fredge.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 100%;
+  }
 }
 
 .login-content{
@@ -300,17 +310,21 @@
   }
   .character-content{
     height: 100%;
+    background-color: rgba(255,255,255, 0.8);
     .row{
       height: 100%;
       padding: 10px;
     }
     .col{
       padding: 10px;
+      display: flex;
     }
   }
 }
 
 .character{
+  display: flex;
+  margin: auto;
   .card{
     padding: 20px;
   }
@@ -325,6 +339,7 @@
   }
   .content-body{
     text-align: center;
+    cursor: pointer;
   }
   &.create{
     .img{
@@ -773,6 +788,8 @@
   top: 52px;
   width: calc(100% - 32px);
   z-index: 2;
+  max-height: 186px;
+  overflow-y: auto;
 }
 .search-result-content{
   background: $white;
@@ -780,6 +797,7 @@
   height: auto;
   max-height: 186px;
   overflow-y: auto;
+  margin-top: -1px;
 }
 
 .search-result{
@@ -1120,5 +1138,49 @@
   }
   &.success{
     color: $default-color;
+  }
+}
+
+/*마이페이지*/
+.mypage-component{
+  .mypage-content{
+    padding: 20px;
+  }
+}
+
+.my-inf{
+  .title{
+    font-weight: 600;
+    margin: 20px 0;
+  }
+  .user-content{
+    padding: 20px 0;
+    border-top: $border;
+    border-bottom: $border;
+    .col-4{
+      border: 1px solid $default-color;
+      background-color: $default-color;
+      padding: 10px;
+      font-size: 14px;
+      color: $white;
+    }
+    .col-8{
+      border: 1px solid $default-color;
+      padding: 10px;
+      font-size: 14px;
+    }
+  }
+  form{
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0;
+    margin-bottom: 20px;
+    border-bottom: $border;
+    label{
+      font-size: 14px;
+    }
+    .btn-change{
+      margin-left: auto;
+    }
   }
 }
