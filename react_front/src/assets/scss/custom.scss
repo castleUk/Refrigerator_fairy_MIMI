@@ -1004,6 +1004,10 @@
     height: calc(100% - 56px - 40px);
     min-height: 477px;
   }
+  .recipe-component2{
+    overflow-y: auto;
+    height: calc(100% - 56px - 40px);
+  }
   .search{
     margin-bottom: 20px;
   }

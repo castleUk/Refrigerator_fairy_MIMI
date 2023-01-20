@@ -57,9 +57,11 @@ const Recipe = () => {
     } else {
       get_local = JSON.parse(get_local);
     }
+    if (get_local.length === 5) {
+      get_local.shift();
+    }
     get_local.push(recipe);
-    get_local = new Set(get_local);
-    get_local = [...get_local];
+    get_local = [...new Set(get_local.map(JSON.stringify))].map(JSON.parse);
     localStorage.setItem("data", JSON.stringify(get_local));
   };
 
