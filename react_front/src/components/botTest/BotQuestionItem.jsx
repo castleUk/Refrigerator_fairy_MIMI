@@ -2,10 +2,13 @@ import React from 'react';
 // template
 import ListGroupItem from 'react-bootstrap/esm/ListGroupItem';
 
-const BotQuestionItem = ({botItems, onQItemClick}) => {
+const BotQuestionItem = ({botItems, onQItemClick, disabled}) => {
 
   return(
-    <ListGroupItem onClick={() => onQItemClick(botItems)}>{botItems}</ListGroupItem>
+    <ListGroupItem 
+      className={disabled ? "disabled" : ""}
+      onClick={() => onQItemClick(botItems)}>{botItems}
+    </ListGroupItem>
   );
 }
 

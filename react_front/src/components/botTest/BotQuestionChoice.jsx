@@ -1,15 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-const BotQuestionChoice = ({itemId, isQuestionChoice}) => {
+const BotQuestionChoice = ({itemId}) => {
   return(
-    <>
-      {
-        isQuestionChoice &&
-        <div className="qs-bot">
-          <span className="q-selected">{itemId}</span>
-        </div>
-      }
-    </>
+    <div className="qs-bot">
+      <span className="q-selected">{itemId}</span>
+    </div>
   );
 }
 
