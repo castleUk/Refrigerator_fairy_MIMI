@@ -986,10 +986,7 @@
   }
   .user-content{
     display: flex;
-    flex-direction: row;
-    .user{
-      flex: 0 0 50%;
-    }
+    flex-direction: column;
   }
 }
 
@@ -999,17 +996,14 @@
     height: calc(100% - 60px);
     padding: 40px;
   }
-  .recipe-component{
-    overflow-y: auto;
-    height: calc(100% - 56px - 40px);
-    min-height: 477px;
-  }
   .recipe-component2{
-    overflow-y: auto;
-    height: calc(100% - 56px - 40px);
+    height: 230px;
   }
   .search{
     margin-bottom: 20px;
+  }
+  .pagination{
+    padding-bottom: 20px;
   }
 }
 
@@ -1035,9 +1029,9 @@
 }
 
 .recipe{
-  padding: 20px;
   .content-header{
     flex-direction: column;
+    margin-top: 40px;
   }
   .content-footer{
     text-align: center;
@@ -1046,6 +1040,7 @@
       width: 160px;
       padding: 10px;
       font-size: 18px;
+      margin: 0 10px;
     }
   }
   .title, .sub-title{
@@ -1150,8 +1145,8 @@
   flex-wrap: wrap;
   .recipe-item{
     text-align: center;
-    margin: 20px;
-    flex: 0 0 160px;
+    margin: 20px 0;
+    flex: 0 0 248px;
   }
   .list-img{
     height : 160px;
@@ -1188,22 +1183,20 @@
     font-weight: 600;
     margin: 20px 0;
   }
+  label{
+    font-size: 14px;
+  }
   .user-content{
     padding: 20px 0;
     border-top: $border;
     border-bottom: $border;
-    .col-4{
-      border: 1px solid $default-color;
-      background-color: $default-color;
-      padding: 10px;
-      font-size: 14px;
-      color: $white;
-    }
-    .col-8{
-      border: 1px solid $default-color;
-      padding: 10px;
-      font-size: 14px;
-    }
+  }
+  .user{
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    background-color: #e9ecef;
+    padding: 0.375rem 0.75rem;
+    font-size: 14px;
   }
   form{
     display: flex;
@@ -1211,9 +1204,6 @@
     padding: 20px 0;
     margin-bottom: 20px;
     border-bottom: $border;
-    label{
-      font-size: 14px;
-    }
     .btn-change{
       margin-left: auto;
     }
