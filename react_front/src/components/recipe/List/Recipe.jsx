@@ -163,7 +163,7 @@ const Recipe = () => {
       </div>
       <div className="content-footer">
         <Button
-          variant="primary"
+          variant="outline-primary"
           className="btn-make"
           onClick={() => {
             navigate("/recipe");
