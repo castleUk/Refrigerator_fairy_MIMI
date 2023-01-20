@@ -1,11 +1,11 @@
 import React from 'react';
 
-const BotAnswerItem = ({qItem, aItem, botItems, itemId}) => {
+const BotAnswerItem = ({qItem, ans}) => {
 
   return(
     <>
     <h5>{qItem}</h5>
-    <p>{aItem}</p>
+    {ans}
     </>
   );
 }

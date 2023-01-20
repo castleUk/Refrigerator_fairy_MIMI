@@ -8,12 +8,13 @@ import BotChatting from './BotChatting';
 const BotComponent = () => {
   const botItems = BotData.botQnA; // 데이터
   const [chatBot, setChatBot] = useState(false); // 챗봇
-  const [isBotList, setIsBotList] = useState(false);
+  const [isBotList, setIsBotList] = useState(true);
+  const [isQuestion, setIsQuestion] = useState(true);
   const [isQuestionChoice, setIsQuestionChoice] = useState(false); // 질문선택
   const [isAnswer, setIsAnswer] = useState(false); // 답변
   const [isAItem, setIsAItem] = useState(false); // 답변 내용
-  const [count, setCount] = useState();
-  const [itemValue, setValue] = useState();
+  const [itemId, setItemId] = useState(); // 질문 아이디
+  const [disabled, setDisabled] = useState(false); // 질문선택시 disabled
   
   // 열기_닫기
   const showChatBot = () => setChatBot(true);
@@ -21,8 +22,7 @@ const BotComponent = () => {
   
   // 질문 선택
   const onQItemClick = (key) =>{
-    setCount((JSON.stringify(key))); // 질문
-    // setValue((JSON.stringify(obj))); // 답변
+    setItemId((JSON.stringify(key))); // 질문
 
     if(isQuestionChoice === false){
       setIsQuestionChoice(current => !current); // 질문 선택 시 선택된 항목 보임
@@ -33,26 +33,31 @@ const BotComponent = () => {
       setIsAItem(current => !current); // 답변 내용 보임
     }
 
+    if(disabled === false){ // 질문선택시 disabled
+      setDisabled(current => !current);
+    }
   }
   
-  const onQListClick = () =>{
-    setIsBotList(current => !current); // 질문 목록
+  // 질문하기 버튼
+  const onQListClick = () =>{ 
+    
   }
 
   return(
     <div className='bot-component'>
       <div className='bot-content'>
         { chatBot && <BotChatting 
-                        onHideChatBot={hideChatBot} 
                         botItems={botItems} 
+                        itemId={itemId}
+                        disabled={disabled}
+                        onHideChatBot={hideChatBot} 
                         onQItemClick={onQItemClick}
-                        itemId={count}
-                        itemValue={itemValue}
+                        onQListClick={onQListClick}
+                        isBotList={isBotList}
+                        isQuestion={isQuestion}
                         isQuestionChoice={isQuestionChoice}
                         isAnswer={isAnswer}
                         isAItem={isAItem}
-                        isBotList={isBotList}
-                        onQListClick={onQListClick}
                       />
         }
       </div>

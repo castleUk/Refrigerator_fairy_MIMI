@@ -45,7 +45,7 @@ const ItemSearchForm = (props) => {
             return (
               <div className="search-result-content">
                 <div
-                  class="search-result"
+                  className="search-result"
                   onClick={() => {
                     props.itemNameHandler(it.name);
                     setIsSearch(false);
