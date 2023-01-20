@@ -636,6 +636,9 @@
     .col{
       padding: 20px;
     }
+    .col-7{
+      height: 100%;
+    }
   }
   .left, .right{
     height: 100%;
@@ -997,7 +1000,7 @@
     padding: 40px;
   }
   .recipe-component2{
-    height: 230px;
+    min-height: 230px;
   }
   .search{
     margin-bottom: 20px;
