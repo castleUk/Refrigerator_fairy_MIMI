@@ -705,6 +705,11 @@
       border-bottom: 1px solid #f2f2f2;
       transition: 0.5s;
       margin: 20px;
+      & > div{
+        text-align: center;
+        padding: 5px;
+        font-size: 14px;
+      }
     }
   }
 }
@@ -898,13 +903,6 @@
 .ingr-detail-modal{
   .modal-header{
     border-bottom: none;
-    .title{
-      margin-bottom: 0px;
-      font-weight: 600;
-    }
-    .btn-close{
-      margin-bottom: auto;
-    }
   }
   .modal-body{
     .table{
@@ -913,12 +911,34 @@
       }
     }
   }
+  .content-header{
+    margin-bottom: 20px;
+    .title{
+      margin-bottom: 0px;
+      font-weight: 600;
+    }
+    .btn-close{
+      margin-bottom: auto;
+    }
+    .btn-danger{
+      margin: auto 0 auto auto;
+      padding: 5px 7px;
+      .icon{
+        color: $white;
+      }
+    }
+  }
   .detail-ingr{
     margin-left: 10px;
+    .title{
+      line-height: 100px;
+    }
   }
   .ingr-img{
-    width: 120px;
+    width: 100px;
     height: 100px;
+    border-radius: 60px;
+    border: $border;
   }
   .count-text{
     font-size: 14px;
@@ -926,6 +946,17 @@
   .modal-footer{
     border-top: none;
     margin: auto;
+  }
+}
+
+.item-group{
+  .item-title{
+    font-size: 14px;
+    text-align: center;
+    padding: 5px;
+  }
+  .item-img{
+    display: block;
   }
 }
 
