@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import Card from 'react-bootstrap/Card';
 import { useNavigate } from "react-router-dom";
 import { instance } from "../api/Api";
 // template
@@ -96,82 +97,100 @@ const MyPageComponent = (props) => {
     onLikedList();
   }, []);
   return (
-    <>
-      <h3 className="title">마이 페이지</h3>
-      <div className="user-content mb-3 ">
-        <div className="user user-name">{props.myInfo.userName}</div>
-        <div className="user user-email">{props.myInfo.userEmail}</div>
-      </div>
-      <Form onSubmit={submitHandler}>
-        <Form.Group className="mb-3 form-group" controlId="exPassword">
-          <Form.Control
-            type="password"
-            name="exPassword"
-            placeholder="현재비밀번호"
-            onChange={userPwCkHandler}
-            value={exUserPw}
-            required
-          />
-          <span
-            className={`message ${
-              userPwCkMessage === true ? "success" : "error"
-            }`}
-          >
-            {userPwCkMessage === true
-              ? "비밀번호가 일치합니다."
-              : "비밀번호가 일치하지 않습니다."}
-          </span>
-        </Form.Group>
-
-        <Form.Group className="mb-3 form-group" controlId="newPassword">
-          <Form.Control
-            type="password"
-            name="newPassword"
-            placeholder="새 비밀번호"
-            onChange={changeUserPwHandler}
-            required
-          />
-        </Form.Group>
-        <Form.Group className="mb-3 form-group" controlId="newPasswordCk">
-          <Form.Control
-            type="password"
-            name="newPasswordCk"
-            placeholder="새 비밀번호 확인"
-            onChange={changeUserPwCkHandler}
-            required
-          />
-          {userNewPwCk.length > 0 && (
-            <span className={`message ${isUserNewPwCk ? "success" : "error"}`}>
-              {userNewPwCkMessage}
-            </span>
-          )}
-        </Form.Group>
-        <Button type="submit" className="btn-change" disabled={!isUserNewPwCk}>
-          비밀번호 변경
-        </Button>
-      </Form>
-
-      <h5>
-        좋아요한 레시피 <span>({likedList.length})</span>
-      </h5>
-      <div className="recipe-component">
-        <div className="recipe-content">
-          <div className="recipe-list">
-            {likedList.map((r) => (
-              <div className="recipe-item" key={r.id}>
-                <img
-                  className="list-img"
-                  src={r.recipe.img}
-                  alt={r.recipe.name}
-                  onClick={() => navigate(`/recipe/${r.recipe.id}`)}
-                />
-                <div className="list-title">{r.recipe.name}</div>
+    <div className="mypage-component">
+      <div className="container">
+        <div className="mypage-content">
+          <div className="my-inf">
+            <h3 className="title">마이 페이지</h3>
+            <div className="user-content">
+            <h5>회원정보</h5>
+              <div className="row  mb-3 ">
+                <div className="col-4">이름</div>
+                <div className="col-8 user user-name">{props.myInfo.userName}</div>
               </div>
-            ))}
+              <div className="row  mb-3 ">
+                <div className="col-4">이메일</div>
+                <div className="col-8 user user-email">{props.myInfo.userEmail}</div>
+              </div>
+            </div>
+            
+            <Form onSubmit={submitHandler}>
+            <h5>비밀번호 변경</h5>
+              <Form.Group className="mb-3 form-group" controlId="exPassword">
+                <label>현재 비밀번호</label>
+                <Form.Control
+                  type="password"
+                  name="exPassword"
+                  placeholder="현재비밀번호"
+                  onChange={userPwCkHandler}
+                  value={exUserPw}
+                  required
+                />
+                <span
+                  className={`message ${
+                    userPwCkMessage === true ? "success" : "error"
+                  }`}
+                >
+                  {userPwCkMessage === true
+                    ? "비밀번호가 일치합니다."
+                    : "비밀번호가 일치하지 않습니다."}
+                </span>
+              </Form.Group>
+
+              <Form.Group className="mb-3 form-group" controlId="newPassword">
+              <label>새 비밀번호</label>
+                <Form.Control
+                  type="password"
+                  name="newPassword"
+                  placeholder="새 비밀번호"
+                  onChange={changeUserPwHandler}
+                  required
+                />
+              </Form.Group>
+              <Form.Group className="mb-3 form-group" controlId="newPasswordCk">
+                <label>새 비밀번호 확인</label>
+                <Form.Control
+                  type="password"
+                  name="newPasswordCk"
+                  placeholder="새 비밀번호 확인"
+                  onChange={changeUserPwCkHandler}
+                  required
+                />
+                {userNewPwCk.length > 0 && (
+                  <span className={`message ${isUserNewPwCk ? "success" : "error"}`}>
+                    {userNewPwCkMessage}
+                  </span>
+                )}
+              </Form.Group>
+              <Button type="submit" className="btn-change" disabled={!isUserNewPwCk}>
+                비밀번호 변경
+              </Button>
+            </Form>
+          </div>
+
+          <div className="recipe-component">
+          <h5>
+            좋아요한 레시피 <span>({likedList.length})</span>
+          </h5>
+            <div className="recipe-content">
+              <div className="recipe-list">
+                {likedList.map((r) => (
+                  <div className="recipe-item" key={r.id}>
+                    <img
+                      className="list-img"
+                      src={r.recipe.img}
+                      alt={r.recipe.name}
+                      onClick={() => navigate(`/recipe/${r.recipe.id}`)}
+                    />
+                    <div className="list-title">{r.recipe.name}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
