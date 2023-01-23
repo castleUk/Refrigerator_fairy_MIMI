@@ -13,20 +13,23 @@ import javax.persistence.Table;
 import com.example.demo.dto.request.ApiFdReqDto;
 import com.example.demo.dto.response.ApiFdRespDto;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Getter
 @Setter
-@Table(name = "Api_table")
+@NoArgsConstructor
+@AllArgsConstructor
 public class ApiRecomend {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(length=30, nullable = false)
-    private String api_standard;  ///봄,여름,가을,겨울,아침,점심,저녁.....  // 한 행을 가져온다.
+    private String standard;  ///봄,여름,가을,겨울,아침,점심,저녁.....  // 한 행을 가져온다.
     
 
     @ManyToOne //N:1
@@ -36,13 +39,6 @@ public class ApiRecomend {
     private Recipe recipe;
 
 
-
-    public ApiRecomend(Long id, String api_standard, Recipe recipe) {
-        this.id = id;
-        this.api_standard = api_standard;
-        this.recipe = recipe;
-    }
-   
 
      //dto -> entity
     public ApiFdRespDto toApiFdEntity(){

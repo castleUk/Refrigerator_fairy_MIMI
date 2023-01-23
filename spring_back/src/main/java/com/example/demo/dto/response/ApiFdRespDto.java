@@ -1,12 +1,5 @@
 package com.example.demo.dto.response;
 
-
-
-
-
-import com.example.demo.entity.ApiRecomend;
-import com.example.demo.entity.Recipe;
-
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

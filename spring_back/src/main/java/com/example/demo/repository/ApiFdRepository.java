@@ -16,6 +16,6 @@ public interface ApiFdRepository extends JpaRepository<ApiRecomend, Long> {
     // List<ApiRecomend> findByStandardAndRecipeName(String recipeName, String Api_standard);????
 
     //한 행씩 들고온다 ex 봄 recipe_id 30
-    List<ApiRecomend> findByApi_standard(String api_standard);
+    List<ApiRecomend> findByStandard(String standard);
     
  }

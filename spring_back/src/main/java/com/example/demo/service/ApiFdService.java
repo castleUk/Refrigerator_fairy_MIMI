@@ -26,9 +26,9 @@ public class ApiFdService {
     //사실상 timeMenuList에는 아침 점심 저녁 칼럼이 있는데 현재 시간에 따라 아침 점심 저녁 레시피를 보여준다. 
     //현재시간을 어떻게 아침,점심,메뉴 레시피에 매치 해 시켜줄 수 있을까?
     // @scheduled?
-    public List<ApiFdRespDto> StandardRecomend(String Api_standard) {
+    public List<ApiFdRespDto> StandardRecomend(String standard) {
            List<ApiRecomend> apiRecipeNameList = apiFdRepository
-           .findByApi_standard(Api_standard);
+           .findByStandard(standard);
           
           List<ApiFdRespDto> result = apiRecipeNameList.stream()
            .map(ApiRecomend::toApiFdEntity).collect(Collectors.toList());
