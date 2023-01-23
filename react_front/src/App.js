@@ -11,6 +11,7 @@ import LoginPage from "./page/LoginPage";
 import InventoryLayout from "./components/inventory/InventoryLayout";
 import RecipePage from "./page/RecipePage";
 import Recipe from "./components/recipe/List/Recipe";
+import MyPage from "./page/MyPage";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/recipe" element={<RecipePage />}></Route>
         <Route path="/recipe/:recipeId" element={<Recipe />}></Route>
         <Route path="/" element={<LoginPage />}></Route>
+        <Route path="/mypage" element={<MyPage />}></Route>
       </Routes>
     </div>
   );

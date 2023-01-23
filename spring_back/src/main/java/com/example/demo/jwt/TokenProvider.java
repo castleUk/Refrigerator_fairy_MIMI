@@ -1,11 +1,20 @@
 package com.example.demo.jwt;
 
+import com.example.demo.dto.TokenDto;
+import com.example.demo.entity.RefreshToken;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.security.Keys;
 import java.security.Key;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.stream.Collectors;
-
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -15,25 +24,13 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
-import com.example.demo.dto.TokenDto;
-import com.example.demo.entity.RefreshToken;
-
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.Jws;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.io.Decoders;
-import io.jsonwebtoken.security.Keys;
-import lombok.extern.log4j.Log4j2;
-
 @Component
 @Log4j2
 public class TokenProvider {
 
   private static final String AUTHORITIES_KEY = "auth";
   private static final String BEARER_TYPE = "bearer";
-  private static final long ACCESS_TOKEN_EXPIRE_TIME = 1000 * 60 * 30;
+  private static final long ACCESS_TOKEN_EXPIRE_TIME = 6000 * 60 * 30;
   private static final long REFRESH_TOKEN_EXPIRE_TIME = 1000 * 60 * 30 * 30;
 
   private final Key key;
@@ -47,7 +44,7 @@ public class TokenProvider {
 
   // 토큰 생성
   public TokenDto generateTokenDto(Authentication authentication) {
-log.info("Hear please" + authentication);
+    log.info("Hear please" + authentication);
 
     String authorities = authentication
       .getAuthorities()
@@ -106,14 +103,13 @@ log.info("Hear please" + authentication);
   }
 
   public boolean validateToken(String token) {
-    Jws<Claims> claimsJws = Jwts.parserBuilder()
-            .setSigningKey(key)
-            .build()
-            .parseClaimsJws(token);
+    Jws<Claims> claimsJws = Jwts
+      .parserBuilder()
+      .setSigningKey(key)
+      .build()
+      .parseClaimsJws(token);
     return !claimsJws.getBody().isEmpty();
-
   }
-
 
   private Claims parseClaims(String accessToken) {
     try {

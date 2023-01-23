@@ -5,8 +5,6 @@ import InventoryComponent from '../components/inventory/InventoryComponent';
 const InventoryPage = (props) => {
   return(
     <div className='page inventory-page'>
-      {/* <InventoryComponent /> */}
-
       <div className='row'>
         <div className='col col-7'>
         <div className='left'>

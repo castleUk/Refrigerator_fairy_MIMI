@@ -1,11 +1,10 @@
 import React from 'react';
 // template
 import ListGroup from 'react-bootstrap/ListGroup';
-import ListGroupItem from 'react-bootstrap/esm/ListGroupItem';
 import BotName from './BotName';
 import BotQuestionItem from './BotQuestionItem';
 
-const BotQuestion = ({botItems, onQItemClick, isBotList}) => {
+const BotQuestion = ({botItems, onQItemClick, disabled}) => {
 
   return(
     <div className='q-bot'>
@@ -14,7 +13,10 @@ const BotQuestion = ({botItems, onQItemClick, isBotList}) => {
         <ListGroup>
           {
             botItems.map(q => 
-            <BotQuestionItem  botItems={q.question} key={q.id} onQItemClick={onQItemClick}/>
+              <BotQuestionItem  
+                botItems={q.question} key={q.id} 
+                onQItemClick={onQItemClick} disabled={disabled}
+              />
             )
           }
         </ListGroup>

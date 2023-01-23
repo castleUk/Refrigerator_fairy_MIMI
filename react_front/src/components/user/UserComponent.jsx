@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 // template
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
-import { Link, Route } from 'react-router-dom';
 import LoginContainer from './LoginContainer';
 import RegisterContainer from './RegisterContainer';
 
@@ -13,7 +12,9 @@ const UserComponent = () => {
   return(
     <div className='login-component'>
       <div className="login-content">
-        <div className="left"></div>
+        <div className="left">
+          <div className="fredge" alt="로그인 배경 화면"></div>
+        </div>
         <div className="right">
           <h1 className="logo">미미</h1>
           <div>

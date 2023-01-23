@@ -11,9 +11,9 @@ import Button from 'react-bootstrap/esm/Button';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 
-const BotChatting = ({ botItems, itemId, itemValue,
+const BotChatting = ({ botItems, itemId, disabled,
   onQItemClick, onHideChatBot, onQListClick,
-  isQuestionChoice, isAnswer, isAItem, isBotList }) => {
+  isBotList, isQuestion, isQuestionChoice, isAnswer, isAItem }) => {
 
   return(
     <div className='bot-chatting'>
@@ -22,24 +22,31 @@ const BotChatting = ({ botItems, itemId, itemValue,
         <SlClose className="icon" onClick={onHideChatBot}></SlClose>
       </div>
       <div className='content-body'>
-        <div className='bot'>
-          <BotQuestion 
-            botItems={botItems} 
-            isBotList={isBotList} 
-            onQItemClick={onQItemClick}
-          />
+        { isBotList &&
+          <div className='bot'>
+            { isQuestion && 
+              <BotQuestion 
+                botItems={botItems} 
+                onQItemClick={onQItemClick}
+                disabled={disabled}
+              />
+            }
 
-          <BotQuestionChoice 
-            botItems={botItems} itemId={itemId} 
-            isQuestionChoice={isQuestionChoice}
-          />
+            { isQuestionChoice &&
+              <BotQuestionChoice 
+                botItems={botItems} itemId={itemId} 
+              />
+            }
 
-          <BotAnswer 
-            botItems={botItems} itemId={itemId} itemValue={itemValue}
-            isAnswer={isAnswer} isAItem={isAItem} isBotList={isBotList}
-            onHideChatBot={onHideChatBot} onQListClick={onQListClick}
-           />
-        </div>
+            { isAnswer &&
+              <BotAnswer 
+                botItems={botItems} itemId={itemId}
+                isAItem={isAItem} isBotList={isBotList}
+                onHideChatBot={onHideChatBot} onQListClick={onQListClick}
+              />
+            }
+          </div>
+        }
       </div>
       <div className='content-footer'>
         <InputGroup className='disabled'>

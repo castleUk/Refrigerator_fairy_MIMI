@@ -10,6 +10,8 @@ public class RecipeItemRespDto {
 
   private String recipeName;
 
+  private Long recipeId;
+
   private String itemName;
 
   private String itemCount;
@@ -22,7 +24,8 @@ public class RecipeItemRespDto {
     String recipeName,
     String itemName,
     String recipeImg,
-    String itemCount
+    String itemCount,
+    Long recipeId
   ) {
     this.id = id;
     this.recipeName = recipeName;
@@ -30,5 +33,6 @@ public class RecipeItemRespDto {
     this.recipeImg = recipeImg;
     this.recipeImg = recipeImg;
     this.itemCount = itemCount;
+    this.recipeId = recipeId;
   }
 }

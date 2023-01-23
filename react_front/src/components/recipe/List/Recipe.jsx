@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { instance } from "../../api/Api";
 import { useEffect } from "react";
 import { useState } from "react";
+import Header from "../../common/Header";
 
 const Recipe = () => {
   const param = useParams();
@@ -15,6 +16,8 @@ const Recipe = () => {
   const [recipeItem, setRecipeItem] = useState([]);
   const [isLiked, setIsLiked] = useState(false);
 
+  console.log("레시피" + JSON.stringify(recipe));
+
   const recipeId = param.recipeId;
   const recipeItems = RecipeData[5];
   useEffect(() => {
@@ -22,8 +25,8 @@ const Recipe = () => {
     const onRecipe = async () => {
       try {
         const response = await instance.get(`/api/recipe/${recipeId}`);
-        console.log("레시피데이터" + JSON.stringify(response.data.body));
         setRecipe(response.data.body);
+        watched(response.data.body);
         onRecipeContent(response.data.body.name);
         onRecipeItem(response.data.body.name);
       } catch (error) {
@@ -31,17 +34,41 @@ const Recipe = () => {
       }
     };
     onRecipe();
+
+    const onExistLikedRecipe = async () => {
+      try {
+        const response = await instance.get(`/api/liked/${recipeId}`);
+        if (response.data.body === true) {
+          setIsLiked(true);
+        } else {
+          setIsLiked(false);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
     onExistLikedRecipe();
-  }, []);
+  }, [recipeId]);
+
+  const watched = (recipe) => {
+    let get_local = localStorage.getItem("data");
+    if (get_local == null) {
+      get_local = [];
+    } else {
+      get_local = JSON.parse(get_local);
+    }
+    if (get_local.length === 5) {
+      get_local.shift();
+    }
+    get_local.push(recipe);
+    get_local = [...new Set(get_local.map(JSON.stringify))].map(JSON.parse);
+    localStorage.setItem("data", JSON.stringify(get_local));
+  };
 
   //레시피 리스트
   const onRecipeContent = async (name) => {
     try {
       const response = await instance.get(`/api/recipeList/${name}`);
-      console.log(
-        "레시피리스트 데이터" +
-          JSON.stringify(response.data.body.recipeContentList)
-      );
       setRecipeList(response.data.body.recipeContentList);
     } catch (error) {
       console.log(error);
@@ -51,9 +78,6 @@ const Recipe = () => {
   const onRecipeItem = async (name) => {
     try {
       const response = await instance.get(`/api/recipeItem/${name}`);
-      console.log(
-        "레시피아이템" + JSON.stringify(response.data.body.recipeItems)
-      );
       setRecipeItem(response.data.body.recipeItems);
     } catch (error) {
       console.log(error);
@@ -63,7 +87,6 @@ const Recipe = () => {
   const onRecipeCount = async () => {
     try {
       const response = await instance.put(`/api/recipe/count/${recipeId}`);
-      console.log("레시피아이템" + JSON.stringify(response));
     } catch (error) {
       console.log(error);
     }
@@ -71,25 +94,8 @@ const Recipe = () => {
 
   const onAddLikedRecipe = async () => {
     const data = param;
-    console.log("데이터" + JSON.stringify(data));
     try {
       const response = await instance.post(`/api/liked`, data);
-      console.log("좋아요한 아이템 추가" + JSON.stringify(response));
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  const onExistLikedRecipe = async () => {
-    const data = param.recipeId;
-    console.log("데이터" + JSON.stringify(data));
-    try {
-      const response = await instance.get(`/api/liked/${data}`);
-      console.log("한개 조회 완료" + response.data.body);
-      if (response.data.body == true) {
-        setIsLiked(true);
-      } else {
-        setIsLiked(false);
-      }
     } catch (error) {
       console.log(error);
     }
@@ -98,10 +104,8 @@ const Recipe = () => {
   const onDeleteLikedRecipe = async () => {
     const data = param.recipeId;
 
-    console.log("데이터" + JSON.stringify(data));
     try {
       const response = await instance.delete(`/api/liked/${data}`);
-      console.log("좋아요한 아이템 추가" + JSON.stringify(response));
     } catch (error) {
       console.log(error);
     }
@@ -123,6 +127,7 @@ const Recipe = () => {
 
   return (
     <div className="recipe">
+      <Header />
       <div className="content-header">
         <h5 className="sub-title">{recipeItems.menu_sub_title}</h5>
         <h2 className="title">{recipe.name}</h2>
@@ -158,7 +163,7 @@ const Recipe = () => {
       </div>
       <div className="content-footer">
         <Button
-          variant="primary"
+          variant="outline-primary"
           className="btn-make"
           onClick={() => {
             navigate("/recipe");

@@ -50,6 +50,7 @@ public class RecipeItem extends BaseEntity {
       .itemCount(count)
       .recipeName(recipe.getName())
       .recipeImg(recipe.getImg())
+      .recipeId(recipe.getId())
       .build();
   }
 }
