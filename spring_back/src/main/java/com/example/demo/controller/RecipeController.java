@@ -7,6 +7,7 @@ import com.example.demo.dto.response.RecipeRespDto;
 import com.example.demo.service.RecipeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -62,6 +63,20 @@ public class RecipeController {
   @GetMapping // 레시피 목록 받기
   public ResponseEntity<?> readAllRecipe(Pageable pageable) throws Exception {
     RecipeListRespDto recipeListRespDto = recipeService.readAll(pageable);
+    return new ResponseEntity<>(
+      CMRespDto
+        .builder()
+        .code(1)
+        .msg("레시피 전체 목록 받기 성공")
+        .body(recipeListRespDto)
+        .build(),
+      HttpStatus.OK
+    );
+  }
+
+  @GetMapping("/all") // 레시피 목록 받기
+  public ResponseEntity<?> read() throws Exception {
+    RecipeListRespDto recipeListRespDto = recipeService.readAllRecipe();
     return new ResponseEntity<>(
       CMRespDto
         .builder()

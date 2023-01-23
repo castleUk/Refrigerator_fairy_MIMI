@@ -103,14 +103,14 @@ const MyPageComponent = (props) => {
             <h3 className="title">마이 페이지</h3>
             <div className="user-content">
             <h5>회원정보</h5>
-              <div className="row  mb-3 ">
-                <div className="col-4">이름</div>
-                <div className="col-8 user user-name">{props.myInfo.userName}</div>
-              </div>
-              <div className="row  mb-3 ">
-                <div className="col-4">이메일</div>
-                <div className="col-8 user user-email">{props.myInfo.userEmail}</div>
-              </div>
+              <Form.Group className="mb-3 form-group">
+                <label>이름</label>
+                <div className=" user user-name">{props.myInfo.userName}</div>
+              </Form.Group>
+              <Form.Group className="form-group">
+                <label>이메일</label>
+                <div className="user user-email">{props.myInfo.userEmail}</div>
+              </Form.Group>
             </div>
             
             <Form onSubmit={submitHandler}>

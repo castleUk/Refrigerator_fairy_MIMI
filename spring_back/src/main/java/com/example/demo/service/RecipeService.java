@@ -46,10 +46,25 @@ public class RecipeService {
     recipeRepository.deleteById(id);
   }
 
-  // 전체 목록
+  // 전체 목록(페이징)
   public RecipeListRespDto readAll(Pageable pageable) {
     List<RecipeRespDto> resultList = recipeRepository
       .findAll(pageable)
+      .stream()
+      .map(Recipe::toDto)
+      .collect(Collectors.toList());
+    RecipeListRespDto recipeListRespDto = RecipeListRespDto
+      .builder()
+      .recipes(resultList)
+      .build();
+
+    return recipeListRespDto;
+  }
+
+  // 전체 목록
+  public RecipeListRespDto readAllRecipe() {
+    List<RecipeRespDto> resultList = recipeRepository
+      .findAll()
       .stream()
       .map(Recipe::toDto)
       .collect(Collectors.toList());
