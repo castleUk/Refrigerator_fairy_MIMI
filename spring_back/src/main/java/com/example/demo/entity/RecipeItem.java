@@ -30,7 +30,7 @@ public class RecipeItem extends BaseEntity {
   private Long id;
 
   @Column
-  private String count;
+  private String count; // 양파 2개 재료 갯수
 
   //재료
   @ManyToOne(fetch = FetchType.LAZY)
