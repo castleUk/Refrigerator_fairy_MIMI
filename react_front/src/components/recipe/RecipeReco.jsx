@@ -4,7 +4,7 @@ import { instance } from "../api/Api";
 import RecipeContentModal from "./modals/RecipeContentModal";
 // component
 
-const RecipesSearch = ({ itemName }) => {
+const RecipeReco = (props) => {
   const navigate = useNavigate();
   const [recipeNameList, setRecipeNameList] = useState([]);
   const [recipeShow, setRecipeShow] = useState(false);
@@ -15,38 +15,41 @@ const RecipesSearch = ({ itemName }) => {
     setRecipeName(name);
   };
 
+  console.log("이름" + props.standard)
+
   useEffect(() => {
-    // 재료 이름으로 레시피 제목 검색
-    const onSearchRecipeName = async () => {
+    const onRecoRecipe = async () => {
       try {
-        const response = await instance.get(
-          `/api/recipeItem/recipe/${itemName}`
-        );
-        const data = response.data.body.recipeItems;
-        console.log("레시피데이터" + JSON.stringify(data));
+        const response = await instance.get(`/api/recommend/${props.standard}`);
+        console.log("스탠다드" + props.standard);
+        const data = response.data.body.dtoList;
+        console.log("추천데이터" + JSON.stringify(data));
         setRecipeNameList(data);
       } catch (error) {
         console.log(error);
       }
     };
-    onSearchRecipeName();
-  }, [itemName]);
+    onRecoRecipe();
+  }, [props.standard]);
 
   return (
     <>
-      {recipeNameList.slice(0, 5).map((recipeNameList) => (
-        <div className="item col" key={recipeNameList.recipeName}>
+      <h5>{props.name}별 메뉴 추천</h5>
+      <div className="item col">
+      {recipeNameList.slice(0, 3).map((recipeNameList) => (
+        <li>
           <img
             alt="재료 사진"
             className="item-img"
             src={recipeNameList.recipeImg}
-            onClick={() => navigate(`/recipe/${recipeNameList.recipeId}`)}
+            onClick={() => navigate(`/recipe/${recipeNameList.Id}`)}
           />
           <div className="item-title">{recipeNameList.recipeName}</div>
-        </div>
+          </li>
       ))}
+      </div>
     </>
   );
 };
 
-export default RecipesSearch;
+export default RecipeReco;

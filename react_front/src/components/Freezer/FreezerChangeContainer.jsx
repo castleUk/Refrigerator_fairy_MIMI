@@ -11,7 +11,8 @@ const FreezerChangeContainer = ({ freezer }) => {
   const FreezerChangeHandler = (index, e) => {
     console.log("인덱스2" + index);
 
-    if (index === "0" || index === "1" || index === "2") {
+    if (index === 0 || index === 1 || index === 2) {
+      console.log("인덱스3" + index);
       navigate(`/inventory/${index}`, { state: `${index}` });
     }
     window.location.reload();

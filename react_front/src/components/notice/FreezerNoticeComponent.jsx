@@ -54,7 +54,7 @@ const FreezerNoticeComponent = (props) => {
                   (itemList) => itemList.expDate - Date.now() < "432000000"
                 )
                 .map((itemList) => (
-                  <div className="notice">
+                  <div className="notice" key={itemList.id}>
                     <img className="img" src={itemList.item.img} />
 
                     <div className="text">
