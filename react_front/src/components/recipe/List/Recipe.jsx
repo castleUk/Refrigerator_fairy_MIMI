@@ -6,6 +6,7 @@ import { instance } from "../../api/Api";
 import { useEffect } from "react";
 import { useState } from "react";
 import Header from "../../common/Header";
+import { BsSuitHeartFill, BsSuitHeart } from "react-icons/bs";
 
 const Recipe = () => {
   const param = useParams();
@@ -174,10 +175,11 @@ const Recipe = () => {
         {!isLiked ? (
           <Button
             variant="primary"
-            className="btn-make"
+            // className="btn-make"
+            className={"btn-make" + (!isLiked ? ' like' : 'delike')}
             onClick={countUpHandler}
           >
-            좋아요
+            <BsSuitHeart className="icon-like"/> 좋아요
           </Button>
         ) : (
           <Button
@@ -185,7 +187,7 @@ const Recipe = () => {
             className="btn-make"
             onClick={countDownHandler}
           >
-            좋아요 취소
+            <BsSuitHeartFill className="icon-delike"/> 좋아요 취소
           </Button>
         )}
       </div>

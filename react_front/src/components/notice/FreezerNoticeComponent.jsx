@@ -7,6 +7,8 @@ import { instance } from "../api/Api";
 const FreezerNoticeComponent = (props) => {
   const [itemList, setItemList] = useState([]);
 
+  console.log("유통기한" + JSON.stringify(itemList));
+
   useEffect(() => {
     const onItemList = async () => {
       console.log("onItemList 실행됌");
@@ -52,8 +54,9 @@ const FreezerNoticeComponent = (props) => {
                   (itemList) => itemList.expDate - Date.now() < "432000000"
                 )
                 .map((itemList) => (
-                  <div className="notice">
-                    <div className="img"> {itemList.item.name}</div>
+                  <div className="notice" key={itemList.id}>
+                    <img className="img" src={itemList.item.img} />
+
                     <div className="text">
                       <div className="title">유통기한 임박!</div>
                       <span className="date-text">

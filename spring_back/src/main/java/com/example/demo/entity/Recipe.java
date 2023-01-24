@@ -63,6 +63,7 @@ public class Recipe extends BaseEntity {
       .id(id)
       .name(name)
       .img(img)
+      
       .count(count)
       .build();
   }
