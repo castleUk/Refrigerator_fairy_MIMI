@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { instance } from "../api/Api";
+import Logo from "../../assets/images/logo.png";
 // icon
 import { BsFillBellFill } from "react-icons/bs";
 import { CgSmartHomeRefrigerator } from "react-icons/cg";
 import { FaHome } from "react-icons/fa";
 import { HiOutlineLogout } from "react-icons/hi";
 import { RiBook2Fill } from "react-icons/ri";
-
 // template
 
 // component
@@ -69,7 +69,7 @@ const Header = () => {
       <header className="header">
         <div className="left">
           <Link to="/freezer">
-            <h1 className="logo">미미</h1>
+            <h1 className="logo"><img src={Logo} alt="로고" /></h1>
           </Link>
         </div>
 

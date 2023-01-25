@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import Logo from "../../assets/images/logo.png";
 // template
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
@@ -16,7 +17,7 @@ const UserComponent = () => {
           <div className="fredge" alt="로그인 배경 화면"></div>
         </div>
         <div className="right">
-          <h1 className="logo">미미</h1>
+          <h1 className="logo"><img src={Logo} alt="로고" /></h1>
           <div>
             <ButtonGroup>
               <Button className={menu[0]? "active" : ""} 
