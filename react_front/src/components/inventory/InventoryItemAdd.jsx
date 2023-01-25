@@ -22,10 +22,9 @@ const InventoryItemAdd = (props) => {
       expDate: expDate,
       regDate: regDate,
     };
-    console.log("데이터" + JSON.stringify(data));
+
     try {
       const response = await instance.post(`/api/inventory/add/${index}`, data);
-      console.log("응답" + JSON.stringify(response));
       props.setItemReload(!props.itemReload);
     } catch (error) {
       console.log(error);

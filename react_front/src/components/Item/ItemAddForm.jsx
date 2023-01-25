@@ -38,13 +38,12 @@ const ItemAddForm = ({ onFreezerItemAdd, hide, filtered }) => {
     setExpDate(e.target.value);
     setIsExpDate(true);
   };
-  console.log("유통기한" + expDate);
+
   const regDateHandler = (e) => {
     e.preventDefault();
     setRegDate(e.target.value);
     setIsRegDate(true);
   };
-  console.log("등록일" + regDate);
 
   return (
     <div className="ingr">

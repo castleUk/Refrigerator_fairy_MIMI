@@ -25,15 +25,12 @@ const MyPageModal = (props) => {
       try {
         const response = await instance.post(`/api/member/userpwch`, userInfo);
         setUserPwCkMessage(response.data);
-        console.log("이거임" + userPwCkMessage);
       } catch (error) {
         console.log(error);
       }
     };
     onUserPwCk(exUserPw);
   }, [exUserPw, userPwCkMessage]);
-
-
 
     //비밀번호 변경
     const onUserPwChange = async (exUserPw, userNewPw) => {
@@ -44,8 +41,6 @@ const MyPageModal = (props) => {
 
       try {
         const response = await instance.post(`/api/member/userpw`, userInfo);
-        // setUserPwCkMessage(response.data);
-        console.log("이거임" + JSON.stringify(response));
       } catch (error) {
         console.log(error);
       }

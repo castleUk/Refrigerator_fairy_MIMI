@@ -109,10 +109,15 @@
     .content-header{
       padding: 10px;
     }
+    .content-body{
+      max-height: 300px;
+      overflow-y: auto;
+    }
     .card-body{
       padding: 10px;
     }
   }
+  
 }
 
 .notice{

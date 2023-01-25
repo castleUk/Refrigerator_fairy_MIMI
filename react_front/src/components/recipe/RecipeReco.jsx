@@ -7,15 +7,11 @@ const RecipeReco = (props) => {
   const navigate = useNavigate();
   const [recipeNameList, setRecipeNameList] = useState([]);
 
-  console.log("이름" + props.standard)
-
   useEffect(() => {
     const onRecoRecipe = async () => {
       try {
         const response = await instance.get(`/api/recommend/${props.standard}`);
-        console.log("스탠다드" + props.standard);
         const data = response.data.body.dtoList;
-        console.log("추천데이터" + JSON.stringify(data));
         setRecipeNameList(data);
       } catch (error) {
         console.log(error);

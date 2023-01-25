@@ -9,9 +9,6 @@ const ItemSearchForm = (props) => {
   const [filterItem, setFilterItem] = useState();
   const [isSearch, setIsSearch] = useState(false);
 
-  console.log(itemList);
-  console.log(search);
-
   useEffect(() => {
     if (search === "") {
       setIsSearch(false);
@@ -24,7 +21,7 @@ const ItemSearchForm = (props) => {
       setFilterItem(name);
     }
   }, [search, itemList]);
-  console.log(filterItem);
+
   return (
     <div className="ingr-search search">
       <Form>

@@ -4,14 +4,12 @@ import { instance } from "../api/Api";
 
 const RecipesContentList = (props) => {
   const [recipeList, setRecipeList] = useState([]);
-  console.log("이름" + props.recipeName);
   const recipeName = props.recipeName;
   useEffect(() => {
     const onSearchRecipeList = async () => {
       try {
         const response = await instance.get(`/api/recipeList/${recipeName}`);
         const data = response.data.body.recipeContentList;
-        console.log("응답" + JSON.stringify(data));
         setRecipeList(data);
       } catch (error) {
         console.log(error);

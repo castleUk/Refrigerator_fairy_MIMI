@@ -15,8 +15,6 @@ const Recipe = () => {
   const [recipeItem, setRecipeItem] = useState([]);
   const [isLiked, setIsLiked] = useState(false);
 
-  console.log("레시피" + JSON.stringify(recipe));
-
   const recipeId = param.recipeId;
   const recipeItems = RecipeData[5];
   useEffect(() => {
@@ -176,8 +174,7 @@ const Recipe = () => {
         </Button>
         {!isLiked ? (
           <Button
-            variant="primary"
-            // className="btn-make"
+            variant="outline-danger"
             className="btn-make like"
             onClick={countUpHandler}
           >
@@ -185,7 +182,7 @@ const Recipe = () => {
           </Button>
         ) : (
           <Button
-            variant="primary"
+            variant="danger"
             className="btn-make delike"
             onClick={countDownHandler}
           >

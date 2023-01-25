@@ -23,7 +23,6 @@ const RecipesSearch = ({ itemName }) => {
           `/api/recipeItem/recipe/${itemName}`
         );
         const data = response.data.body.recipeItems;
-        console.log("레시피데이터" + JSON.stringify(data));
         setRecipeNameList(data);
       } catch (error) {
         console.log(error);

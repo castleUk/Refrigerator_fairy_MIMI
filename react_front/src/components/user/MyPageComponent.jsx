@@ -29,7 +29,6 @@ const MyPageComponent = (props) => {
       try {
         const response = await instance.post(`/api/member/userpwch`, userInfo);
         setUserPwCkMessage(response.data);
-        console.log("이거임" + userPwCkMessage);
       } catch (error) {
         console.log(error);
       }
@@ -46,8 +45,6 @@ const MyPageComponent = (props) => {
 
     try {
       const response = await instance.post(`/api/member/userpw`, userInfo);
-      // setUserPwCkMessage(response.data);
-      console.log("이거임" + JSON.stringify(response));
     } catch (error) {
       console.log(error);
     }
@@ -87,7 +84,6 @@ const MyPageComponent = (props) => {
     const onLikedList = async () => {
       try {
         const response = await instance.get(`/api/liked/me`);
-        console.log("나의 좋아요 데이터" + JSON.stringify(response.data.body));
         setLikedList(response.data.body.likedRecipeRespDto);
       } catch (error) {
         console.log(error);

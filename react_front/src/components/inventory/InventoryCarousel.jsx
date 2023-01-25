@@ -5,7 +5,6 @@ import { Navigation } from "swiper";
 import InventoryItemGroup from "./InventoryItemGroup";
 
 const InventoryCarousel = (props) => {
-  console.log("InventoryCarousel" + props.index);
   return (
     <Swiper
       className="inventory-carousel"
