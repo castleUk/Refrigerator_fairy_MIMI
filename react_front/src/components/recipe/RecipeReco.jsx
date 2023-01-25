@@ -1,19 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { instance } from "../api/Api";
-import RecipeContentModal from "./modals/RecipeContentModal";
 // component
 
 const RecipeReco = (props) => {
   const navigate = useNavigate();
   const [recipeNameList, setRecipeNameList] = useState([]);
-  const [recipeShow, setRecipeShow] = useState(false);
-  const [recipeName, setRecipeName] = useState();
-  const handleClose = () => setRecipeShow(false);
-  const itemHandleShow = (name) => {
-    setRecipeShow(true);
-    setRecipeName(name);
-  };
 
   console.log("이름" + props.standard)
 
@@ -37,12 +29,12 @@ const RecipeReco = (props) => {
       <h5>{props.name}별 메뉴 추천</h5>
       <div className="item best">
       {recipeNameList.slice(0, 3).map((recipeNameList) => (
-        <li className="col">
+        <li className="col" key={recipeNameList.id}>
           <img
             alt="재료 사진"
             className="item-img"
             src={recipeNameList.recipeImg}
-            onClick={() => navigate(`/recipe/${recipeNameList.Id}`)}
+            onClick={() => navigate(`/recipe/${recipeNameList.recipeId}`)}
           />
           <div className="item-title">{recipeNameList.recipeName}</div>
           </li>
