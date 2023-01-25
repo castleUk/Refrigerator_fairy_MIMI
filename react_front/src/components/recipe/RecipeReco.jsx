@@ -33,11 +33,11 @@ const RecipeReco = (props) => {
   }, [props.standard]);
 
   return (
-    <>
+    <div className="items-content">
       <h5>{props.name}별 메뉴 추천</h5>
-      <div className="item col">
+      <div className="item best">
       {recipeNameList.slice(0, 3).map((recipeNameList) => (
-        <li>
+        <li className="col">
           <img
             alt="재료 사진"
             className="item-img"
@@ -48,7 +48,7 @@ const RecipeReco = (props) => {
           </li>
       ))}
       </div>
-    </>
+    </div>
   );
 };
 
