@@ -123,7 +123,19 @@
 .notice{
   background-color: $items-color;
   .text{
-    flex: 0 0 calc(100% - 50px);
+    flex: 0 0 calc(100% - 50px - 42px);
+  }
+  .btn-delete{
+    background-color: transparent;
+    color: $danger-color;
+    border: transparent;
+    font-size: 22px;
+    padding: 5px 10px;
+    transition: .3s;
+    &:hover{
+      background-color: $danger-color;
+      color: $white;
+    }
   }
 }
 
