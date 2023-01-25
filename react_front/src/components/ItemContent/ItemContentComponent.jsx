@@ -8,45 +8,11 @@ import WeatherComponent from "../weather/WeatherComponent";
 import TimeComponent from "../time/TimeComponent";
 import RecipeReco from "../recipe/RecipeReco";
 
-const ItemContentComponent = () => {
+const ItemContentComponent = (props) => {
   const [temp, setTemp] = useState();
   const [weather, setWeather] = useState();
   const [tempCheck, setTempCheck] = useState();
-  const [timeCheck, setTimeCheck] = useState();
-  const [seasonCheck, setSeasonCheck] = useState();
-
-  const dateChecking = () => {
-    const date = new Date();
-    setTimeout(3000);
-    const hours = date.getHours();
-    const months = date.getMonth() + 1;
-    if (5 <= date.getHours() <= 10) {
-      setTimeCheck("아침");
-    }
-    if (11 <= hours <= 15) {
-      setTimeCheck("점심");
-    }
-    if (16 <= hours <= 19) {
-      setTimeCheck("저녁");
-    }
-    if (20 <= hours <= 24) {
-      setTimeCheck("야식");
-    }
-
-    if (3 <= months <= 5) {
-      setSeasonCheck("봄");
-    }
-    if (6 <= months <= 8) {
-      setSeasonCheck("여름");
-    }
-    if (9 <= months <= 11) {
-      setSeasonCheck("가을");
-    }
-    if (12 <= months <= 2) {
-      setSeasonCheck("겨울");
-    }
-  };
-
+  
   const getWeather = async (lat, lon) => {
     const key = "6cd557f1c9eb8846c03da7621aabc12e";
     try {
@@ -80,6 +46,7 @@ const ItemContentComponent = () => {
         response.data.weather[response.data.weather.length - 1].main;
       setTemp(temp);
       setWeather(weather);
+
     } catch (error) {
       console.log(error);
     }
@@ -96,12 +63,11 @@ const ItemContentComponent = () => {
     const handleGeoErr = (error) => {
       console.log("geo err! " + error);
     };
+
     const requestCoords = () => {
       navigator.geolocation.getCurrentPosition(handleGeoSucc, handleGeoErr);
     };
     requestCoords();
-
-    dateChecking();
   }, []);
 
   return (
@@ -110,8 +76,8 @@ const ItemContentComponent = () => {
       <TimeComponent />
       <RecipeReco standard={tempCheck} name="기온" />
       <RecipeReco standard={weather} name="날씨" />
-      <RecipeReco standard={timeCheck} name="시간" />
-      <RecipeReco standard={seasonCheck} name="계절" />
+      <RecipeReco standard={props.timeCheck} name="시간" />
+      <RecipeReco standard={props.seasonCheck} name="계절" />
     </div>
   );
 };

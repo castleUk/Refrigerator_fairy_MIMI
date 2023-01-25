@@ -8,10 +8,13 @@ const RecipeReco = (props) => {
   const [recipeNameList, setRecipeNameList] = useState([]);
 
   useEffect(() => {
+    setTimeout(2000)
     const onRecoRecipe = async () => {
       try {
+        console.log("추천메뉴 받아오기 실행")
         const response = await instance.get(`/api/recommend/${props.standard}`);
         const data = response.data.body.dtoList;
+        console.log("추천메뉴" + data)
         setRecipeNameList(data);
       } catch (error) {
         console.log(error);
@@ -24,7 +27,7 @@ const RecipeReco = (props) => {
     <div className="items-content">
       <h5>{props.name}별 메뉴 추천</h5>
       <div className="item best">
-      {recipeNameList.slice(0, 3).map((recipeNameList) => (
+      {recipeNameList.sort(()=>Math.random()- 0.5).slice(0, 3).map((recipeNameList) => (
         <li className="col" key={recipeNameList.id}>
           <img
             alt="재료 사진"
