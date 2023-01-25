@@ -17,7 +17,6 @@ const RecipeListComponent = (props) => {
   const [currentPosts, setCurrentPosts] = useState([]);
 
   const navigate = useNavigate();
-  console.log("진짜" + props.filterItem);
 
   useEffect(() => {
     {
@@ -50,9 +49,7 @@ const RecipeListComponent = (props) => {
     const onRecipeList = async () => {
       try {
         const response = await instance.get(`/api/recipe/all`);
-        console.log("레시피데이터" + JSON.stringify(response));
         setRecipeList(response.data.body.recipes);
-        console.log("리스트" + JSON.stringify(recipeList));
       } catch (error) {
         console.log(error);
       }
@@ -65,7 +62,6 @@ const RecipeListComponent = (props) => {
   };
 
   const watched = JSON.parse(localStorage.getItem("data"));
-  console.log("watched" + watched);
   if (watched === null) {
     localStorage.setItem("data", JSON.stringify([]));
   }

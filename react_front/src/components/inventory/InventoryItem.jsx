@@ -8,18 +8,14 @@ const InventoryItem = (props) => {
 
   const index = props.index;
 
-  console.log("아이템인포" + JSON.stringify(itemInfo));
-
   const closeModalHandler = () => {
     setShowModal(false);
   };
 
   const modalHandler = (itemName) => {
-    console.log("파인드" + itemList.find((e) => e.item.name));
     setItemInfo(itemList.find((e) => e.item.name === itemName));
     setShowModal(true);
   };
-  console.log("아이템인포" + itemInfo);
   return (
     <>
       <div className="item col">

@@ -17,7 +17,7 @@ const ItemSearchAddComponent = (props) => {
       try {
         const response = await instance.get(`/api/item`);
         const data = response.data.body.item;
-        console.log("데이터" + JSON.stringify(data));
+
         setItemList(data);
       } catch (error) {
         console.log(error);
@@ -32,7 +32,7 @@ const ItemSearchAddComponent = (props) => {
     });
     setFiltered(itemInfo);
   };
-  console.log("필터된거" + filtered);
+
   return (
     <div className="ingr-component">
       <div className="ingr-content">

@@ -15,7 +15,6 @@ const PwSearchForm = () => {
       userName: account.userName,
     };
     try {
-      console.log("어카운트" + account);
       const response = await axios.post(
         `/auth/checkEmail/findPw`,
         JSON.stringify(userInfo),
@@ -36,7 +35,6 @@ const PwSearchForm = () => {
       userEmail: account.userEmail,
       userName: account.userName,
     };
-    console.log(userInfo);
     try {
       const response = await axios.post(
         `/auth/check/findPw/sendEmail`,

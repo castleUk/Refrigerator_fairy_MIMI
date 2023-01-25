@@ -9,17 +9,14 @@ const FreezerChangeContainer = ({ freezer }) => {
   const navigate = useNavigate();
 
   const FreezerChangeHandler = (index, e) => {
-    console.log("인덱스2" + index);
 
     if (index === 0 || index === 1 || index === 2) {
-      console.log("인덱스3" + index);
       navigate(`/inventory/${index}`, { state: `${index}` });
     }
     window.location.reload();
     e.preventDefault();
   };
 
-  console.log("프리저" + JSON.stringify(freezer));
   return (
     <>
       {freezer.map((it, index) => (

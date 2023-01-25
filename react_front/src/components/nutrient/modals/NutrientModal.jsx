@@ -12,16 +12,13 @@ const NutrientModal = ({
   setItemInfo,
   setItemReload
 }) => {
-  console.log("로그" + JSON.stringify(itemInfo));
   const InventoryItemId = itemInfo.id;
-  console.log(setItemReload)
 
   const onDeleteInventoryItem = async () => {
     try {
       const response = await instance.delete(
         `/api/inventory/delete/${InventoryItemId}`
       );
-      console.log("응답" + JSON.stringify(response));
       setItemReload(true);
     } catch (error) {
       console.log(error);

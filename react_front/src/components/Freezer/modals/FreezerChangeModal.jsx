@@ -23,7 +23,6 @@ const FreezerChangeModal = (props) => {
 
   //수정처리
   const onChangeName = async (freezerName) => {
-    console.log("수정처리 작동!");
     const data = {
       name: freezerName,
     };

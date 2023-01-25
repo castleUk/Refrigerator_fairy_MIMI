@@ -7,15 +7,11 @@ import { instance } from "../api/Api";
 const FreezerNoticeComponent = (props) => {
   const [itemList, setItemList] = useState([]);
 
-  console.log("유통기한" + JSON.stringify(itemList));
-
   useEffect(() => {
     const onItemList = async () => {
-      console.log("onItemList 실행됌");
       try {
         const response = await instance.get(`/api/inventory/all`);
         const data = response.data.body.inventoryItem;
-        console.log("바디값" + JSON.stringify(data));
         setItemList(data);
       } catch (error) {
         console.log(error);
@@ -24,8 +20,6 @@ const FreezerNoticeComponent = (props) => {
 
     onItemList();
   }, []);
-
-  console.log("날짜" + Date.now());
 
   const convertDate = (milliSecond) => {
     const days = ["일", "월", "화", "수", "목", "금", "토"];
