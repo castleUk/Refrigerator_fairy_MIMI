@@ -117,7 +117,7 @@ const Header = () => {
           </ul>
         </div>
       </header>
-      {noticeShow && <FreezerNoticeComponent onClick={noticeHandleClick} />}
+      {noticeShow && <FreezerNoticeComponent onClick={noticeHandleClick} setNoticeShow={setNoticeShow}/>}
       {changeShow && <FreezerChangeComponent onClick={changeHandleClick} />}
       {/* {myPageShow && (
         <MyPageModal

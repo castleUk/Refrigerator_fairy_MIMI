@@ -23,7 +23,6 @@ const LoginContainer = () => {
       const data = await response.data;
       localStorage.setItem("accessToken", data.accessToken);
       localStorage.setItem("refreshToken", data.refreshToken);
-      alert("로그인 성공!");
       navigate("/freezer", { replace: true });
     } catch (error) {
       if (error.response.status === 400) {

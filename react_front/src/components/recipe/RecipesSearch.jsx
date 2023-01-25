@@ -1,19 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { instance } from "../api/Api";
-import RecipeContentModal from "./modals/RecipeContentModal";
 // component
 
 const RecipesSearch = ({ itemName }) => {
   const navigate = useNavigate();
   const [recipeNameList, setRecipeNameList] = useState([]);
-  const [recipeShow, setRecipeShow] = useState(false);
-  const [recipeName, setRecipeName] = useState();
-  const handleClose = () => setRecipeShow(false);
-  const itemHandleShow = (name) => {
-    setRecipeShow(true);
-    setRecipeName(name);
-  };
+
 
   useEffect(() => {
     // 재료 이름으로 레시피 제목 검색

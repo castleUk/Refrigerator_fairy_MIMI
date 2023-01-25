@@ -37,7 +37,7 @@ const RecipePage = () => {
       });
       setFilterItem(name);
     }
-  }, [search]);
+  }, [search,recipeList]);
 
   return (
     <div className="page recipe-page">

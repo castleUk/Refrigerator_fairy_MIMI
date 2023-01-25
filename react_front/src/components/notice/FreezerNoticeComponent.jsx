@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import Card from "react-bootstrap/Card";
 import CloseButton from "react-bootstrap/CloseButton";
 import { instance } from "../api/Api";
+import Button from "react-bootstrap/Button";
 
 const FreezerNoticeComponent = (props) => {
   const [itemList, setItemList] = useState([]);
@@ -21,6 +22,24 @@ const FreezerNoticeComponent = (props) => {
     onItemList();
   }, []);
 
+
+  const onDeleteInventoryItem = async (id) => {
+    try {
+      await instance.delete(
+        `/api/inventory/delete/${id}`
+      );
+      props.setNoticeShow(false)
+      window.location.reload();
+      
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const deleteHandler = (id) => {
+    onDeleteInventoryItem(id)
+  }
+
   const convertDate = (milliSecond) => {
     const days = ["일", "월", "화", "수", "목", "금", "토"];
     const data = new Date(milliSecond); //Date객체 생성
@@ -33,6 +52,7 @@ const FreezerNoticeComponent = (props) => {
     return `${year}.${month}.${date}. (${day})`;
   };
 
+  console.log(itemList)
   return (
     <div className="notice-component">
       <div className="notice-content">
@@ -49,13 +69,14 @@ const FreezerNoticeComponent = (props) => {
                 )
                 .map((itemList) => (
                   <div className="notice" key={itemList.id}>
-                    <img className="img" src={itemList.item.img} />
+                    <img className="img" alt={itemList.id} src={itemList.item.img} />
 
                     <div className="text">
                       <div className="title">유통기한 임박!</div>
                       <span className="date-text">
                         {convertDate(itemList.expDate)}
                       </span>
+                      <Button onClick={() => deleteHandler(itemList.id)}>삭제</Button>
                     </div>
                   </div>
                 ))}

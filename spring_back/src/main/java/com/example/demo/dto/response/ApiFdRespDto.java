@@ -14,12 +14,14 @@ public class ApiFdRespDto {
     private Long id;
     private String recipeName;
     private String recipeImg;
+    private Long recipeId;
     
 
-    public ApiFdRespDto(Long id, String recipeName, String recipeImg) {
+    public ApiFdRespDto(Long id, String recipeName, String recipeImg, Long recipeId) {
         this.id = id;
         this.recipeName = recipeName;
         this.recipeImg = recipeImg;
+        this.recipeId = recipeId;
         
     }
 

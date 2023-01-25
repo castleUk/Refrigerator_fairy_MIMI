@@ -6,7 +6,6 @@ const InventoryItem = (props) => {
   const [itemInfo, setItemInfo] = useState([]);
   const [showModal, setShowModal] = useState(false);
 
-  const index = props.index;
 
   const closeModalHandler = () => {
     setShowModal(false);

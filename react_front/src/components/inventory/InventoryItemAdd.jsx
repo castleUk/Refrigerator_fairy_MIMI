@@ -24,7 +24,7 @@ const InventoryItemAdd = (props) => {
     };
 
     try {
-      const response = await instance.post(`/api/inventory/add/${index}`, data);
+       await instance.post(`/api/inventory/add/${index}`, data);
       props.setItemReload(!props.itemReload);
     } catch (error) {
       console.log(error);

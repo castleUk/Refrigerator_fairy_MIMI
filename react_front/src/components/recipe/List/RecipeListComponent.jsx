@@ -1,9 +1,7 @@
-import React, { useState } from "react";
-import { Link, Route } from "react-router-dom";
-import { instance } from "../../api/Api";
-import { useEffect } from "react";
-import { Paging } from "../../common/Paging";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { instance } from "../../api/Api";
+import { Paging } from "../../common/Paging";
 
 const RecipeListComponent = (props) => {
   const [recipeList, setRecipeList] = useState([]);
@@ -19,21 +17,17 @@ const RecipeListComponent = (props) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    {
-      !props.isSearch
-        ? setCount(recipeList.length)
-        : setCount(props.filterItem.length);
-    }
+    !props.isSearch
+      ? setCount(recipeList.length)
+      : setCount(props.filterItem.length);
     setIndexOfLastPost(currentpage * postPerPage);
     setIndexOfFirstPost(indexOfLastPost - postPerPage);
 
-    {
-      !props.isSearch
-        ? setCurrentPosts(recipeList.slice(indexOfFirstPost, indexOfLastPost))
-        : setCurrentPosts(
-            props.filterItem.slice(indexOfFirstPost, indexOfLastPost)
-          );
-    }
+    !props.isSearch
+      ? setCurrentPosts(recipeList.slice(indexOfFirstPost, indexOfLastPost))
+      : setCurrentPosts(
+          props.filterItem.slice(indexOfFirstPost, indexOfLastPost)
+        );
   }, [
     props.isSearch,
     props.filterItem,

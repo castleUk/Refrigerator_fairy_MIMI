@@ -44,7 +44,7 @@ const MyPageComponent = (props) => {
     };
 
     try {
-      const response = await instance.post(`/api/member/userpw`, userInfo);
+      await instance.post(`/api/member/userpw`, userInfo);
     } catch (error) {
       console.log(error);
     }

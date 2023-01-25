@@ -22,9 +22,13 @@ const ItemSearchForm = (props) => {
     }
   }, [search, itemList]);
 
+  const stopEvent = (e) => {
+    e.preventDefault();
+  }
+
   return (
     <div className="ingr-search search">
-      <Form>
+      <Form onSubmit={stopEvent}>
         <InputGroup className="mb-4">
           <Form.Control
             placeholder="재료를 입력하세요."
@@ -40,7 +44,7 @@ const ItemSearchForm = (props) => {
         {isSearch &&
           filterItem.map((it) => {
             return (
-              <div className="search-result-content">
+              <div className="search-result-content" key={it.id}>
                 <div
                   className="search-result"
                   onClick={() => {

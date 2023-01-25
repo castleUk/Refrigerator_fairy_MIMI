@@ -1,11 +1,8 @@
 import React, { useCallback, useState } from "react";
 // template
 import Button from "react-bootstrap/Button";
-import ButtonGroup from "react-bootstrap/ButtonGroup";
 import Form from "react-bootstrap/Form";
 // icon
-import { BiMinus } from "react-icons/bi";
-import { BsPlus } from "react-icons/bs";
 // component
 
 const ItemAddForm = ({ onFreezerItemAdd, hide, filtered }) => {
@@ -50,7 +47,7 @@ const ItemAddForm = ({ onFreezerItemAdd, hide, filtered }) => {
       {filtered.map((item, index) => {
         return (
           <div className="ingr-img" key={index}>
-            <img className="ingr-onion img" src={item.img} />
+            <img className="ingr-onion img" alt={item.name} src={item.img} />
           </div>
         );
       })}

@@ -16,7 +16,7 @@ const NutrientModal = ({
 
   const onDeleteInventoryItem = async () => {
     try {
-      const response = await instance.delete(
+      await instance.delete(
         `/api/inventory/delete/${InventoryItemId}`
       );
       setItemReload(true);
@@ -52,7 +52,6 @@ const NutrientModal = ({
 
             <div className="detail-ingr">
               <h5 className="title">{itemInfo.item.name}</h5>
-              {/* <span className="count-text">갯수 : {itemInfo.count}</span> */}
             </div>
             <Button
               variant="danger"

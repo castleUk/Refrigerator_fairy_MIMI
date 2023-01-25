@@ -28,7 +28,7 @@ const ItemSearchAddComponent = (props) => {
 
   const itemNameHandler = (name) => {
     const itemInfo = itemList.filter((item) => {
-      return item.name == name;
+      return item.name === name;
     });
     setFiltered(itemInfo);
   };

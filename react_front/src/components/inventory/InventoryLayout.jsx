@@ -1,9 +1,8 @@
 import React from "react";
 // component
-import { useLocation } from "react-router-dom";
-import InventoryContent from "./InventoryContent";
-import Header from "../common/Header";
 import { useParams } from "react-router-dom";
+import Header from "../common/Header";
+import InventoryContent from "./InventoryContent";
 
 const InventoryLayout = () => {
   const params = useParams();
