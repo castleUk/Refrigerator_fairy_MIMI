@@ -11,7 +11,7 @@
   // 인벤토리
   .inventory-page{
     .row{
-      .col{
+      > .col{
         flex: 0 0 100%;
         width: 100%;
       }
@@ -55,18 +55,3 @@
   }
 } // end
 
-.btn-make{
-  &.like{
-    animation: animateHeart .3s linear forwards;
-    .icon-like{
-      
-    }
-  }
-}
-
-/* 키프레임 이름 = 애니메이션 이름 */
-@-webkit-keyframes animateHeart {
-  0%{transform:scale(.2);}
-  40%{transform:scale(1.2);}
-  100%{transform:scale(1);}
-}
