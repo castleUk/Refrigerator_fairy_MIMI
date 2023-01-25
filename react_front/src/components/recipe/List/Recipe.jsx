@@ -176,20 +176,21 @@ const Recipe = () => {
           <Button
             variant="primary"
             // className="btn-make"
-            className={"btn-make" + (!isLiked ? ' like' : 'delike')}
+            className="btn-make like"
             onClick={countUpHandler}
           >
-            <BsSuitHeart className="icon-like"/> 좋아요
+            <BsSuitHeart className="icon-delike"/> 좋아요
           </Button>
         ) : (
           <Button
             variant="primary"
-            className="btn-make"
+            className="btn-make delike"
             onClick={countDownHandler}
           >
-            <BsSuitHeartFill className="icon-delike"/> 좋아요 취소
+            <BsSuitHeartFill className="icon-like"/> 좋아요 취소
           </Button>
         )}
+        
       </div>
     </div>
   );
