@@ -9,7 +9,6 @@ import TimeComponent from "../time/TimeComponent";
 import RecipeReco from "../recipe/RecipeReco";
 
 const ItemContentComponent = (props) => {
-  const [coords, saveCoords] = useState();
   const [temp, setTemp] = useState();
   const [weather, setWeather] = useState();
   const [tempCheck, setTempCheck] = useState();
@@ -63,25 +62,19 @@ const ItemContentComponent = (props) => {
         response.data.weather[response.data.weather.length - 1].main;
       setTemp(temp);
       setWeather(weather);
-      timeCheck(1000);
-      Checking();
 
     } catch (error) {
       console.log(error);
     }
   };
 
+  useEffect(() => {
     const handleGeoSucc = (position) => {
-      console.log(position);
-    const latitude = position.coords.latitude;  // 경도  
-    const longitude = position.coords.longitude;  // 위도
-    const coordsObj = {
-      latitude,
-      longitude
-    }
-    saveCoords(coordsObj);
-    getWeather(latitude, longitude);
-  }
+      const latitude = position.coords.latitude; // 경도
+      const longitude = position.coords.longitude; // 위도
+
+      getWeather(latitude, longitude);
+    };
 
     const handleGeoErr = (error) => {
       console.log("geo err! " + error);
@@ -90,20 +83,18 @@ const ItemContentComponent = (props) => {
     const requestCoords = () => {
       navigator.geolocation.getCurrentPosition(handleGeoSucc, handleGeoErr);
     };
-  
-
-  useEffect(() => {
     requestCoords();
+    Checking();
   }, []);
 
   return (
     <div className="ingr-content-component">
       <WeatherComponent temp={temp} weather={weather} />
       <TimeComponent />
-      <RecipeReco standard={tempCheck} name="기온" />
-      <RecipeReco standard={weather} name="날씨" />
+      {tempCheck && weather && timeCheck && seasonCheck &&  <RecipeReco tempCheck={tempCheck} weather={weather} timeCheck={timeCheck} seasonCheck={seasonCheck} />}
+      {/* <RecipeReco standard={weather} name="날씨" />
       <RecipeReco standard={timeCheck} name="시간" />
-      <RecipeReco standard={seasonCheck} name="계절" />
+      <RecipeReco standard={seasonCheck} name="계절" /> */}
     </div>
   );
 };
