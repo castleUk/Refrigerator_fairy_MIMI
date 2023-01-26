@@ -1,19 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { instance } from "../api/Api";
-import RecipeContentModal from "./modals/RecipeContentModal";
 // component
 
 const RecipesSearch = ({ itemName }) => {
   const navigate = useNavigate();
   const [recipeNameList, setRecipeNameList] = useState([]);
-  const [recipeShow, setRecipeShow] = useState(false);
-  const [recipeName, setRecipeName] = useState();
-  const handleClose = () => setRecipeShow(false);
-  const itemHandleShow = (name) => {
-    setRecipeShow(true);
-    setRecipeName(name);
-  };
+
 
   useEffect(() => {
     // 재료 이름으로 레시피 제목 검색
@@ -23,7 +16,6 @@ const RecipesSearch = ({ itemName }) => {
           `/api/recipeItem/recipe/${itemName}`
         );
         const data = response.data.body.recipeItems;
-        console.log("레시피데이터" + JSON.stringify(data));
         setRecipeNameList(data);
       } catch (error) {
         console.log(error);
@@ -32,9 +24,12 @@ const RecipesSearch = ({ itemName }) => {
     onSearchRecipeName();
   }, [itemName]);
 
+  console.log("레시피네임" + JSON.stringify(recipeNameList))
   return (
     <>
-      {recipeNameList.slice(0, 5).map((recipeNameList) => (
+      {recipeNameList.sort(function (a, b) {
+              return b.count - a.count;
+            }).slice(0, 5).map((recipeNameList) => (
         <div className="item col" key={recipeNameList.recipeName}>
           <img
             alt="재료 사진"

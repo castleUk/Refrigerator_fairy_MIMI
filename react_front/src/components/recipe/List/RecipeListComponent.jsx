@@ -1,9 +1,7 @@
-import React, { useState } from "react";
-import { Link, Route } from "react-router-dom";
-import { instance } from "../../api/Api";
-import { useEffect } from "react";
-import { Paging } from "../../common/Paging";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { instance } from "../../api/Api";
+import { Paging } from "../../common/Paging";
 
 const RecipeListComponent = (props) => {
   const [recipeList, setRecipeList] = useState([]);
@@ -17,24 +15,19 @@ const RecipeListComponent = (props) => {
   const [currentPosts, setCurrentPosts] = useState([]);
 
   const navigate = useNavigate();
-  console.log("진짜" + props.filterItem);
 
   useEffect(() => {
-    {
-      !props.isSearch
-        ? setCount(recipeList.length)
-        : setCount(props.filterItem.length);
-    }
+    !props.isSearch
+      ? setCount(recipeList.length)
+      : setCount(props.filterItem.length);
     setIndexOfLastPost(currentpage * postPerPage);
     setIndexOfFirstPost(indexOfLastPost - postPerPage);
 
-    {
-      !props.isSearch
-        ? setCurrentPosts(recipeList.slice(indexOfFirstPost, indexOfLastPost))
-        : setCurrentPosts(
-            props.filterItem.slice(indexOfFirstPost, indexOfLastPost)
-          );
-    }
+    !props.isSearch
+      ? setCurrentPosts(recipeList.slice(indexOfFirstPost, indexOfLastPost))
+      : setCurrentPosts(
+          props.filterItem.slice(indexOfFirstPost, indexOfLastPost)
+        );
   }, [
     props.isSearch,
     props.filterItem,
@@ -50,9 +43,7 @@ const RecipeListComponent = (props) => {
     const onRecipeList = async () => {
       try {
         const response = await instance.get(`/api/recipe/all`);
-        console.log("레시피데이터" + JSON.stringify(response));
         setRecipeList(response.data.body.recipes);
-        console.log("리스트" + JSON.stringify(recipeList));
       } catch (error) {
         console.log(error);
       }
@@ -65,7 +56,6 @@ const RecipeListComponent = (props) => {
   };
 
   const watched = JSON.parse(localStorage.getItem("data"));
-  console.log("watched" + watched);
   if (watched === null) {
     localStorage.setItem("data", JSON.stringify([]));
   }

@@ -15,7 +15,6 @@ const FreezerChangeComponent = (props) => {
     try {
       const response = await instance.get("/api/freezer");
       const data = response.data.body.freezers;
-      console.log(data)
       SetFreezer(data);
     } catch (error) {
       console.log("에러" + error);

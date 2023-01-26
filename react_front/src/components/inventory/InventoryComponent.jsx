@@ -8,12 +8,12 @@ const InventoryComponent = (props) => {
   const [itemCreateShow, setItemCreateShow] = useState(false);
   const [itemList, setItemList] = useState([]);
   const [itemReload, setItemReload] = useState(false);
+  const [forItem, setForItem] = useState([]);
 
   const index = props.index;
 
   useEffect(() => {
     const onItemList = async () => {
-      console.log("onItemList 실행됌");
       try {
         const response = await instance.get(`/api/inventory/${index}`);
         const data = response.data.body.inventoryItem;
@@ -26,6 +26,9 @@ const InventoryComponent = (props) => {
 
     onItemList();
   }, [itemReload, index]);
+
+
+
 
   // 냉장 보관 / 냉동 보관 / 실온 보관
 

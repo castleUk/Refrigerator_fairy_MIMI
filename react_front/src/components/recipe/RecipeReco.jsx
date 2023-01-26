@@ -1,29 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { instance } from "../api/Api";
-import RecipeContentModal from "./modals/RecipeContentModal";
 // component
 
 const RecipeReco = (props) => {
   const navigate = useNavigate();
   const [recipeNameList, setRecipeNameList] = useState([]);
-  const [recipeShow, setRecipeShow] = useState(false);
-  const [recipeName, setRecipeName] = useState();
-  const handleClose = () => setRecipeShow(false);
-  const itemHandleShow = (name) => {
-    setRecipeShow(true);
-    setRecipeName(name);
-  };
-
-  console.log("이름" + props.standard)
 
   useEffect(() => {
+    setTimeout(2000)
     const onRecoRecipe = async () => {
       try {
+        console.log("추천메뉴 받아오기 실행")
         const response = await instance.get(`/api/recommend/${props.standard}`);
-        console.log("스탠다드" + props.standard);
         const data = response.data.body.dtoList;
-        console.log("추천데이터" + JSON.stringify(data));
+        console.log("추천메뉴" + data)
         setRecipeNameList(data);
       } catch (error) {
         console.log(error);
@@ -33,22 +24,22 @@ const RecipeReco = (props) => {
   }, [props.standard]);
 
   return (
-    <>
+    <div className="items-content">
       <h5>{props.name}별 메뉴 추천</h5>
-      <div className="item col">
-      {recipeNameList.slice(0, 3).map((recipeNameList) => (
-        <li>
+      <div className="item best">
+      {recipeNameList.sort(()=>Math.random()- 0.5).slice(0, 3).map((recipeNameList) => (
+        <li className="col" key={recipeNameList.id}>
           <img
             alt="재료 사진"
             className="item-img"
             src={recipeNameList.recipeImg}
-            onClick={() => navigate(`/recipe/${recipeNameList.Id}`)}
+            onClick={() => navigate(`/recipe/${recipeNameList.recipeId}`)}
           />
           <div className="item-title">{recipeNameList.recipeName}</div>
           </li>
       ))}
       </div>
-    </>
+    </div>
   );
 };
 

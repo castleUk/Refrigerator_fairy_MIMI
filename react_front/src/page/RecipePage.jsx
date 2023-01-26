@@ -19,7 +19,6 @@ const RecipePage = () => {
       try {
         const response = await instance.get(`/api/recipe/all`);
         setRecipeList(response.data.body.recipes);
-        console.log("리스트" + JSON.stringify(recipeList));
       } catch (error) {
         console.log(error);
       }
@@ -37,11 +36,9 @@ const RecipePage = () => {
         return item.name.includes(search);
       });
       setFilterItem(name);
-      console.log("필터된레시피" + name);
     }
-  }, [search]);
+  }, [search,recipeList]);
 
-  console.log("필터" + JSON.stringify(filterItem));
   return (
     <div className="page recipe-page">
       <Header />

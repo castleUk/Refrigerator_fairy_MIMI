@@ -9,6 +9,8 @@ import Form from "react-bootstrap/Form";
 const PwSearchForm = () => {
   const [account, setAccount] = useState([]);
   //이메일 보내서 있는지 확인하기
+  
+  
   const onPwSearch = async () => {
     const userInfo = {
       userEmail: account.userEmail,
@@ -38,7 +40,7 @@ const PwSearchForm = () => {
     };
     console.log(userInfo);
     try {
-      const response = await axios.post(
+      await axios.post(
         `/auth/check/findPw/sendEmail`,
         JSON.stringify(userInfo),
         {
@@ -60,10 +62,9 @@ const PwSearchForm = () => {
     [account]
   );
 
-  const submitHandler = useCallback(
+  const submitHandler = (
     (e) => {
       e.preventDefault(); //랜더링시 실행안함
-
       if (!account.userEmail) {
         return alert("이메일을 입력하세요.");
       } else if (!account.userName) {
@@ -71,9 +72,7 @@ const PwSearchForm = () => {
       } else {
         onPwSearch();
       }
-    },
-    [onPwSearch]
-  );
+    })
 
   return (
     <div className="pwSearch">

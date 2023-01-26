@@ -1,18 +1,27 @@
 import React from "react";
-import * as api from "../../lib/api";
 import RegisterForm from "./RegisterForm";
+import axios from "axios";
 
 const RegisterContainer = () => {
   //등록처리
   const onRegister = async (userEmail, userPw, userName) => {
+    const data = {
+      userEmail: userEmail,
+      userPw: userPw,
+      userName: userName,
+    };
     try {
-      await api.adminSetup(userEmail, userPw, userName);
-
+      const response = await axios.post("/auth/signup", JSON.stringify(data), {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      console.log(response);
       alert(" 등록이 완료되었습니다");
 
       window.location.replace("/");
-    } catch (e) {
-      alert(e.response.data);
+    } catch (error) {
+      console.log(error);
     }
   };
 

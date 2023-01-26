@@ -1,10 +1,9 @@
-import React from "react";
-import RecipeData from "../../../db/recipe.json";
+import React, { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
+import { BsSuitHeart, BsSuitHeartFill } from "react-icons/bs";
 import { useNavigate, useParams } from "react-router-dom";
+import RecipeData from "../../../db/recipe.json";
 import { instance } from "../../api/Api";
-import { useEffect } from "react";
-import { useState } from "react";
 import Header from "../../common/Header";
 
 const Recipe = () => {
@@ -15,8 +14,6 @@ const Recipe = () => {
   const [recipeList, setRecipeList] = useState([]);
   const [recipeItem, setRecipeItem] = useState([]);
   const [isLiked, setIsLiked] = useState(false);
-
-  console.log("레시피" + JSON.stringify(recipe));
 
   const recipeId = param.recipeId;
   const recipeItems = RecipeData[5];
@@ -86,7 +83,7 @@ const Recipe = () => {
 
   const onRecipeCount = async () => {
     try {
-      const response = await instance.put(`/api/recipe/count/${recipeId}`);
+      await instance.put(`/api/recipe/count/${recipeId}`);
     } catch (error) {
       console.log(error);
     }
@@ -95,7 +92,7 @@ const Recipe = () => {
   const onAddLikedRecipe = async () => {
     const data = param;
     try {
-      const response = await instance.post(`/api/liked`, data);
+      await instance.post(`/api/liked`, data);
     } catch (error) {
       console.log(error);
     }
@@ -105,7 +102,7 @@ const Recipe = () => {
     const data = param.recipeId;
 
     try {
-      const response = await instance.delete(`/api/liked/${data}`);
+      await instance.delete(`/api/liked/${data}`);
     } catch (error) {
       console.log(error);
     }
@@ -150,15 +147,19 @@ const Recipe = () => {
         </div>
 
         <div className="recipe-desc">
-          {recipeList.map((r) => (
-            <div className="step" key={r.id}>
-              <div className="step-desc">
-                <div className="step-num">{r.recipeListNo}</div>
-                <span className="step-cont">{r.recipeList}</span>
+          {recipeList
+            .sort(function (a, b) {
+              return a.recipeListNo - b.recipeListNo;
+            })
+            .map((r) => (
+              <div className="step" key={r.id}>
+                <div className="step-desc">
+                  <div className="step-num">{r.recipeListNo}</div>
+                  <span className="step-cont">{r.recipeList}</span>
+                </div>
+                <img className="step-img" src={r.imgUrl} alt={r.recipeListNo} />
               </div>
-              <img className="step-img" src={r.imgUrl} alt={r.recipeListNo} />
-            </div>
-          ))}
+            ))}
         </div>
       </div>
       <div className="content-footer">
@@ -173,19 +174,19 @@ const Recipe = () => {
         </Button>
         {!isLiked ? (
           <Button
-            variant="primary"
-            className="btn-make"
+            variant="outline-danger"
+            className="btn-make like"
             onClick={countUpHandler}
           >
-            좋아요
+            <BsSuitHeart className="icon-delike" /> 좋아요
           </Button>
         ) : (
           <Button
-            variant="primary"
-            className="btn-make"
+            variant="danger"
+            className="btn-make delike"
             onClick={countDownHandler}
           >
-            좋아요 취소
+            <BsSuitHeartFill className="icon-like" /> 좋아요 취소
           </Button>
         )}
       </div>

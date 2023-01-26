@@ -1,11 +1,8 @@
 import React, { useCallback, useState } from "react";
 // template
 import Button from "react-bootstrap/Button";
-import ButtonGroup from "react-bootstrap/ButtonGroup";
 import Form from "react-bootstrap/Form";
 // icon
-import { BiMinus } from "react-icons/bi";
-import { BsPlus } from "react-icons/bs";
 // component
 
 const ItemAddForm = ({ onFreezerItemAdd, hide, filtered }) => {
@@ -38,20 +35,19 @@ const ItemAddForm = ({ onFreezerItemAdd, hide, filtered }) => {
     setExpDate(e.target.value);
     setIsExpDate(true);
   };
-  console.log("유통기한" + expDate);
+
   const regDateHandler = (e) => {
     e.preventDefault();
     setRegDate(e.target.value);
     setIsRegDate(true);
   };
-  console.log("등록일" + regDate);
 
   return (
     <div className="ingr">
       {filtered.map((item, index) => {
         return (
           <div className="ingr-img" key={index}>
-            <img className="ingr-onion img" src={item.img} />
+            <img className="ingr-onion img" alt={item.name} src={item.img} />
           </div>
         );
       })}

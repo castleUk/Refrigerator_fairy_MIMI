@@ -12,16 +12,13 @@ const NutrientModal = ({
   setItemInfo,
   setItemReload
 }) => {
-  console.log("로그" + JSON.stringify(itemInfo));
   const InventoryItemId = itemInfo.id;
-  console.log(setItemReload)
 
   const onDeleteInventoryItem = async () => {
     try {
-      const response = await instance.delete(
+      await instance.delete(
         `/api/inventory/delete/${InventoryItemId}`
       );
-      console.log("응답" + JSON.stringify(response));
       setItemReload(true);
     } catch (error) {
       console.log(error);
@@ -55,7 +52,6 @@ const NutrientModal = ({
 
             <div className="detail-ingr">
               <h5 className="title">{itemInfo.item.name}</h5>
-              {/* <span className="count-text">갯수 : {itemInfo.count}</span> */}
             </div>
             <Button
               variant="danger"

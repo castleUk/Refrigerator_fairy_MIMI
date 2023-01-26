@@ -40,6 +40,7 @@ public class ApiRecommend {
       .id(id)
       .recipeName(recipe.getName())
       .recipeImg(recipe.getImg())
+      .recipeId(recipe.getId())
       .build();
   }
 
