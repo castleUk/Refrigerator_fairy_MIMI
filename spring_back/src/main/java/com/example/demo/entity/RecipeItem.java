@@ -51,6 +51,7 @@ public class RecipeItem extends BaseEntity {
       .recipeName(recipe.getName())
       .recipeImg(recipe.getImg())
       .recipeId(recipe.getId())
+      .count(recipe.getCount())
       .build();
   }
 }

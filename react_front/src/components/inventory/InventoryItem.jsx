@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import NutrientComponent from "../nutrient/NutrientComponent";
 
 const InventoryItem = (props) => {
@@ -15,6 +15,8 @@ const InventoryItem = (props) => {
     setItemInfo(itemList.find((e) => e.item.name === itemName));
     setShowModal(true);
   };
+
+
   return (
     <>
       <div className="item col">

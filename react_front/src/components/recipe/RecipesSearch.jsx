@@ -24,9 +24,12 @@ const RecipesSearch = ({ itemName }) => {
     onSearchRecipeName();
   }, [itemName]);
 
+  console.log("레시피네임" + JSON.stringify(recipeNameList))
   return (
     <>
-      {recipeNameList.slice(0, 5).map((recipeNameList) => (
+      {recipeNameList.sort(function (a, b) {
+              return b.count - a.count;
+            }).slice(0, 5).map((recipeNameList) => (
         <div className="item col" key={recipeNameList.recipeName}>
           <img
             alt="재료 사진"
