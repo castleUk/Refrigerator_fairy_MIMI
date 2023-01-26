@@ -9,6 +9,7 @@ import TimeComponent from "../time/TimeComponent";
 import RecipeReco from "../recipe/RecipeReco";
 
 const ItemContentComponent = (props) => {
+  const [coords, saveCoords] = useState();
   const [temp, setTemp] = useState();
   const [weather, setWeather] = useState();
   const [tempCheck, setTempCheck] = useState();
@@ -62,19 +63,25 @@ const ItemContentComponent = (props) => {
         response.data.weather[response.data.weather.length - 1].main;
       setTemp(temp);
       setWeather(weather);
+      timeCheck(1000);
+      Checking();
 
     } catch (error) {
       console.log(error);
     }
   };
 
-  useEffect(() => {
     const handleGeoSucc = (position) => {
-      const latitude = position.coords.latitude; // 경도
-      const longitude = position.coords.longitude; // 위도
-
-      getWeather(latitude, longitude);
-    };
+      console.log(position);
+    const latitude = position.coords.latitude;  // 경도  
+    const longitude = position.coords.longitude;  // 위도
+    const coordsObj = {
+      latitude,
+      longitude
+    }
+    saveCoords(coordsObj);
+    getWeather(latitude, longitude);
+  }
 
     const handleGeoErr = (error) => {
       console.log("geo err! " + error);
@@ -83,8 +90,10 @@ const ItemContentComponent = (props) => {
     const requestCoords = () => {
       navigator.geolocation.getCurrentPosition(handleGeoSucc, handleGeoErr);
     };
+  
+
+  useEffect(() => {
     requestCoords();
-    Checking();
   }, []);
 
   return (
