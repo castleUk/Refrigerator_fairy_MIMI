@@ -8,7 +8,6 @@ const InventoryComponent = (props) => {
   const [itemCreateShow, setItemCreateShow] = useState(false);
   const [itemList, setItemList] = useState([]);
   const [itemReload, setItemReload] = useState(false);
-  const [forItem, setForItem] = useState([]);
 
   const index = props.index;
 

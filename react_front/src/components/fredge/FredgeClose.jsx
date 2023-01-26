@@ -5,7 +5,7 @@ import FredgeCloseImg from '../../assets/images/bg/fredge_close.png';
 const FredgeClose = () => {
   return(
     <>
-      <img src={FredgeCloseImg} className="fredge-close img"/>
+      <img src={FredgeCloseImg} alt="사진" className="fredge-close img"/>
     </>
   );
 }
