@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React from "react";
 import { useMediaQuery } from 'react-responsive';
+import { Link } from "react-router-dom";
 // icon
 import { BsFillBellFill } from "react-icons/bs";
 import { CgSmartHomeRefrigerator } from "react-icons/cg";

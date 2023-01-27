@@ -11,10 +11,9 @@ const BotChatting = ({onHideChatBot}) => {
   return(
     <div className='bot-chatting'>
       <div className='content-header'>
-        <h4 className='title'>봇 채팅</h4>
-        <SlClose className="icon" onClick={onHideChatBot}></SlClose>
+        <h4 className='title'>오늘 뭐 먹지?</h4>
       </div>
-      <BotBody botItems={BotItems}/>
+      <BotBody/>
     </div>
   );
 }

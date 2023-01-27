@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 // icon
 import { AiOutlineMenu } from "react-icons/ai";
 import Menu from "./Menu";

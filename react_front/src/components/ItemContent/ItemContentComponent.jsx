@@ -16,16 +16,7 @@ const ItemContentComponent = (props) => {
   const [seasonCheck, setSeasonCheck] = useState();
 
 
-  const Checking = () => {
-    if (5 <= props.time <= 10) {setTimeCheck("아침")}
-    if (11 <= props.time <= 15) {setTimeCheck("점심")}
-    if (16 <= props.time <= 20) {setTimeCheck("저녁")}
-    if (21 <= props.time <= 24) {setTimeCheck("야식")}
-    if (3 <= props.season <= 5) {setSeasonCheck("봄")}
-    if (6 <= props.season <= 8) { setSeasonCheck("여름")}
-    if (9 <= props.season <= 11) {setSeasonCheck("가을")}
-    if (12 <= props.season <= 2) {setSeasonCheck("겨울")}
-  }
+
 
 
   
@@ -83,9 +74,21 @@ const ItemContentComponent = (props) => {
     const requestCoords = () => {
       navigator.geolocation.getCurrentPosition(handleGeoSucc, handleGeoErr);
     };
+
+    const Checking = () => {
+      if (5 <= props.time <= 10) {setTimeCheck("아침")}
+      if (11 <= props.time <= 15) {setTimeCheck("점심")}
+      if (16 <= props.time <= 20) {setTimeCheck("저녁")}
+      if (21 <= props.time <= 24) {setTimeCheck("야식")}
+      if (3 <= props.season <= 5) {setSeasonCheck("봄")}
+      if (6 <= props.season <= 8) { setSeasonCheck("여름")}
+      if (9 <= props.season <= 11) {setSeasonCheck("가을")}
+      if (12 <= props.season <= 2) {setSeasonCheck("겨울")}
+    }
+
     requestCoords();
     Checking();
-  }, []);
+  }, [props.time,props.season]);
 
   return (
     <div className="ingr-content-component">

@@ -56,7 +56,7 @@ const RecipeReco = (props) => {
 
     };
     onRecoRecipe();
-  }, [props.standard]);
+  }, [props.tempCheck,props.weather,props.timeCheck,props.seasonCheck]);
 
   return (
     <>
