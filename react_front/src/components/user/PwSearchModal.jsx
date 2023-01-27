@@ -21,7 +21,7 @@ const PwSearchModal = () => {
           <Modal.Title>비밀번호 찾기</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <PwSearchForm />
+          <PwSearchForm onHide={handleClose}/>
         </Modal.Body>
         <Modal.Footer>
           <Button

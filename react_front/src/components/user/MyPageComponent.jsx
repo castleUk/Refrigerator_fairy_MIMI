@@ -75,8 +75,10 @@ const MyPageComponent = (props) => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-
     onUserPwChange(exUserPw, userNewPw);
+    alert("비밀번호 변경 완료")
+    localStorage.removeItem("accessToken");
+    navigate("/");
   };
 
   //좋아요한 레시피 조회
