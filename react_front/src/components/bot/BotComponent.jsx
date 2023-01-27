@@ -7,13 +7,12 @@ import BotChatting from './BotChatting';
 const BotComponent = () => {
   const [chatBot, setChatBot] = useState(false);
 
-  const showChatBot = () => setChatBot(true);
-  const hideChatBot = () => setChatBot(false);
+  const showChatBot = () => setChatBot((current) => !current);
 
   return(
     <div className='bot-component'>
       <div className='bot-content'>
-        { chatBot && <BotChatting onHideChatBot={hideChatBot} /> }
+        { chatBot && <BotChatting /> }
       </div>
       <BotBtn onClickChatBot={showChatBot}/>
     </div>

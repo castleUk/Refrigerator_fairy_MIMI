@@ -18,6 +18,8 @@ public class RecipeItemRespDto {
 
   private String recipeImg;
 
+  private Integer count;
+
   @Builder
   public RecipeItemRespDto(
     Long id,
@@ -25,7 +27,8 @@ public class RecipeItemRespDto {
     String itemName,
     String recipeImg,
     String itemCount,
-    Long recipeId
+    Long recipeId,
+    Integer count
   ) {
     this.id = id;
     this.recipeName = recipeName;
@@ -34,5 +37,6 @@ public class RecipeItemRespDto {
     this.recipeImg = recipeImg;
     this.itemCount = itemCount;
     this.recipeId = recipeId;
+    this.count = count;
   }
 }

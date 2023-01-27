@@ -15,6 +15,8 @@ const InventoryItem = (props) => {
     setItemInfo(itemList.find((e) => e.item.name === itemName));
     setShowModal(true);
   };
+
+
   return (
     <>
       <div className="item col">

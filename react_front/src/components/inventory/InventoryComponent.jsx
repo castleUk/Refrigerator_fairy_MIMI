@@ -26,6 +26,9 @@ const InventoryComponent = (props) => {
     onItemList();
   }, [itemReload, index]);
 
+
+
+
   // 냉장 보관 / 냉동 보관 / 실온 보관
 
   return (
