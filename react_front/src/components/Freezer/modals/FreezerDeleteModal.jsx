@@ -39,18 +39,21 @@ const FreezerDeleteModal = (props) => {
     <div>
       <Modal show={props.onShow} onHide={props.onHide} centered>
         <Modal.Header closeButton>
-          <Modal.Title>주의! 삭제 됩니다용</Modal.Title>
+          <Modal.Title>주의! 삭제 됩니다.</Modal.Title>
         </Modal.Header>
         <Form onSubmit={deleteSubmitHandler}>
           <Modal.Body>
-            <Button type="submit" variant="primary">
+            <p>냉장고 속 모든 내용을 삭제됩니다.</p>
+            <p>삭제하시겠습니까?</p>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button type="submit" variant="danger">
               삭제
             </Button>
-            <Button variant="primary" onClick={props.onHide}>
+            <Button variant="outline-secondary" onClick={props.onHide}>
               취소
             </Button>
-          </Modal.Body>
-          <Modal.Footer></Modal.Footer>
+          </Modal.Footer>
         </Form>
       </Modal>
     </div>
