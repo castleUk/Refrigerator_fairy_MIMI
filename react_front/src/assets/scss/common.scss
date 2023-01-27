@@ -242,9 +242,17 @@ a{
 // modal
 .modal{
   z-index: 9999;
+  padding: 20px;
   button{
     padding: 5px 20px;
   }
+  .modal-dialog{
+    margin: 40px auto;
+  }
+}
+
+.modal-dialog-centered{
+  min-height: calc(100% - 40px * 2);
 }
 
 // icon

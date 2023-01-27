@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
+import { instance } from "../api/Api";
+import { AiFillDelete } from "react-icons/ai";
 import Card from "react-bootstrap/Card";
 import CloseButton from "react-bootstrap/CloseButton";
-import { instance } from "../api/Api";
 import Button from "react-bootstrap/Button";
 
 const FreezerNoticeComponent = (props) => {
@@ -76,8 +77,8 @@ const FreezerNoticeComponent = (props) => {
                       <span className="date-text">
                         {convertDate(itemList.expDate)}
                       </span>
-                      <Button onClick={() => deleteHandler(itemList.id)}>삭제</Button>
                     </div>
+                      <Button variant="danger" className="btn-delete" onClick={() => deleteHandler(itemList.id)}><AiFillDelete /></Button>
                   </div>
                 ))}
             </Card.Body>

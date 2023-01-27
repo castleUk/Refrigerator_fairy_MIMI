@@ -9,7 +9,6 @@ import TimeComponent from "../time/TimeComponent";
 import RecipeReco from "../recipe/RecipeReco";
 
 const ItemContentComponent = (props) => {
-  const [coords, saveCoords] = useState();
   const [temp, setTemp] = useState();
   const [weather, setWeather] = useState();
   const [tempCheck, setTempCheck] = useState();
@@ -17,16 +16,7 @@ const ItemContentComponent = (props) => {
   const [seasonCheck, setSeasonCheck] = useState();
 
 
-  const Checking = () => {
-    if (5 <= props.time <= 10) {setTimeCheck("아침")}
-    if (11 <= props.time <= 15) {setTimeCheck("점심")}
-    if (16 <= props.time <= 20) {setTimeCheck("저녁")}
-    if (21 <= props.time <= 24) {setTimeCheck("야식")}
-    if (3 <= props.season <= 5) {setSeasonCheck("봄")}
-    if (6 <= props.season <= 8) { setSeasonCheck("여름")}
-    if (9 <= props.season <= 11) {setSeasonCheck("가을")}
-    if (12 <= props.season <= 2) {setSeasonCheck("겨울")}
-  }
+
 
 
   
@@ -63,25 +53,19 @@ const ItemContentComponent = (props) => {
         response.data.weather[response.data.weather.length - 1].main;
       setTemp(temp);
       setWeather(weather);
-      timeCheck(1000);
-      Checking();
 
     } catch (error) {
       console.log(error);
     }
   };
 
+  useEffect(() => {
     const handleGeoSucc = (position) => {
-      console.log(position);
-    const latitude = position.coords.latitude;  // 경도  
-    const longitude = position.coords.longitude;  // 위도
-    const coordsObj = {
-      latitude,
-      longitude
-    }
-    saveCoords(coordsObj);
-    getWeather(latitude, longitude);
-  }
+      const latitude = position.coords.latitude; // 경도
+      const longitude = position.coords.longitude; // 위도
+
+      getWeather(latitude, longitude);
+    };
 
     const handleGeoErr = (error) => {
       console.log("geo err! " + error);
@@ -90,20 +74,30 @@ const ItemContentComponent = (props) => {
     const requestCoords = () => {
       navigator.geolocation.getCurrentPosition(handleGeoSucc, handleGeoErr);
     };
-  
 
-  useEffect(() => {
+    const Checking = () => {
+      if (5 <= props.time <= 10) {setTimeCheck("아침")}
+      if (11 <= props.time <= 15) {setTimeCheck("점심")}
+      if (16 <= props.time <= 20) {setTimeCheck("저녁")}
+      if (21 <= props.time <= 24) {setTimeCheck("야식")}
+      if (3 <= props.season <= 5) {setSeasonCheck("봄")}
+      if (6 <= props.season <= 8) { setSeasonCheck("여름")}
+      if (9 <= props.season <= 11) {setSeasonCheck("가을")}
+      if (12 <= props.season <= 2) {setSeasonCheck("겨울")}
+    }
+
     requestCoords();
-  }, []);
+    Checking();
+  }, [props.time,props.season]);
 
   return (
     <div className="ingr-content-component">
       <WeatherComponent temp={temp} weather={weather} />
       <TimeComponent />
-      <RecipeReco standard={tempCheck} name="기온" />
-      <RecipeReco standard={weather} name="날씨" />
+      {tempCheck && weather && timeCheck && seasonCheck &&  <RecipeReco tempCheck={tempCheck} weather={weather} timeCheck={timeCheck} seasonCheck={seasonCheck} />}
+      {/* <RecipeReco standard={weather} name="날씨" />
       <RecipeReco standard={timeCheck} name="시간" />
-      <RecipeReco standard={seasonCheck} name="계절" />
+      <RecipeReco standard={seasonCheck} name="계절" /> */}
     </div>
   );
 };

@@ -17,8 +17,11 @@
     "react-icons": "^4.7.1",
     "react-js-pagination": "^3.0.3",
     "react-live-clock": "^6.1.1",
+    "react-responsive": "^9.0.2",
+    "react-roulette-pro": "^3.0.6",
     "react-router-dom": "^6.4.5",
     "react-scripts": "5.0.1",
+    "react-spinners": "^0.13.8",
     "sass": "^1.56.1",
     "swiper": "^8.4.5",
     "web-vitals": "^2.1.4"
@@ -47,5 +50,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:8080"
+  "proxy": "http://43.200.108.106:8080"
 }

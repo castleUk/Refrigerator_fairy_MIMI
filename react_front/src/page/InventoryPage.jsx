@@ -1,8 +1,6 @@
-import React from 'react';
-import ItemContentComponent from '../components/ItemContent/ItemContentComponent';
+import React, { useEffect, useState } from 'react';
 import InventoryComponent from '../components/inventory/InventoryComponent';
-import { useEffect } from 'react';
-import { useState } from 'react';
+import ItemContentComponent from '../components/ItemContent/ItemContentComponent';
 const InventoryPage = (props) => {
 
   const [time, setTime] = useState();
