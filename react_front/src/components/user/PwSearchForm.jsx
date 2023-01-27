@@ -6,7 +6,7 @@ import { useCallback } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
-const PwSearchForm = () => {
+const PwSearchForm = (props) => {
   const [account, setAccount] = useState([]);
   //이메일 보내서 있는지 확인하기
   
@@ -72,6 +72,8 @@ const PwSearchForm = () => {
       } else {
         onPwSearch();
       }
+      alert("작성하신 Email로 임시 비밀번호가 발송 되었습니다.")
+      props.onHide();
     })
 
   return (
