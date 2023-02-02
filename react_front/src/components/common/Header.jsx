@@ -43,6 +43,7 @@ const Header = () => {
     e.preventDefault();
     setIsLogin(false);
     localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
     navigate("/");
   };
 
